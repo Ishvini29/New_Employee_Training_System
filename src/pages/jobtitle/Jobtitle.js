@@ -23,7 +23,7 @@ const Jobtitle = () => {
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .post("http://localhost:1337/jobtitles/deleteJobtitle", {
+          .post(process.env.REACT_APP_API_BASE+"/jobtitles/deleteJobtitle", {
             id: id,
           })
           .then((res) => {
@@ -51,7 +51,7 @@ const Jobtitle = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:1337/jobtitles/showAllJobtitles")
+      .get(process.env.REACT_APP_API_BASE+"/jobtitles/showAllJobtitles")
       .then(function (response) {
         setDepartments(response.data);
         setLoading(false);

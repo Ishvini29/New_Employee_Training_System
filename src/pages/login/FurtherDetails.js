@@ -49,7 +49,7 @@ const FurtherDetails = (props) => {
     // here use effect to used to fetch department and user availability data in first render
     useEffect(() => {
         axios
-            .get("http://localhost:1337/departments/showAllDepartments")
+            .get(process.env.REACT_APP_API_BASE+"/departments/showAllDepartments")
             .then(function (response) {
                 setAvailableDepartments(response.data);
                 console.log(response.data);
@@ -60,7 +60,7 @@ const FurtherDetails = (props) => {
                 }
             });
         axios
-            .get("http://localhost:1337/users/isUserCollectionEmpty")
+            .get(process.env.REACT_APP_API_BASE+"/users/isUserCollectionEmpty")
             .then(function (response) {
                 setNoUser(response.data.status);
                 setLoading(false);
@@ -82,7 +82,7 @@ const FurtherDetails = (props) => {
             userImage: userImage,
             employeeID: data.employeeID
         }
-        axios.post('http://localhost:1337/authentication/addFurtherDetails', postData)
+        axios.post(process.env.REACT_APP_API_BASE+'/authentication/addFurtherDetails', postData)
             .then((res) => {
                 // if further data saved successfully
                 if (res.data.status === "success") {

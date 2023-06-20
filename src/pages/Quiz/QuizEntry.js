@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import QuizComponent from "./QuizComponent";
 import NavBar from "../../components/NavBar";
 import EditQuizEntry from "./EditQuizEntry";
 import QuizPopup from "./QuizPopup";
+import jwt_decode from "jwt-decode";
 
 const QuizEntry = (props) => {
   const { id } = useParams();
+  const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
+  const userId = jwt_decode(JSON?.parse(localStorage?.getItem("user"))?.token)
+    ?.userData?._id;
 
   const [updatedTodo, setUpdatedTodo] = useState({
     quizName: "",
@@ -16,7 +21,7 @@ const QuizEntry = (props) => {
   });
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((response) => {
         const { quizName, quizDesc } = response.data.quiz;
         setUpdatedTodo({ quizName, quizDesc });
@@ -24,8 +29,14 @@ const QuizEntry = (props) => {
       .catch((err) => {
         console.log(err);
       });
+    axios
+      .get("http://localhost:1337/checkSubmitted/" + id + "/" + userId)
+      .then((res) => setSubmitted(res.data))
+      .catch((err) => console.log(err));
   }, [id]);
-
+  const routeToResult = () => {
+    navigate("/result", { state: { unitId: id } });
+  };
   return (
     <React.Fragment>
       <div style={{ backgroundColor: "#ffffff" }}>
@@ -92,6 +103,14 @@ const QuizEntry = (props) => {
                 </Link>
                 <QuizPopup id={id}></QuizPopup>
                 {/* <QuizComponent id={id} /> */}
+                {submitted && (
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => routeToResult()}
+                  >
+                    View Result
+                  </button>
+                )}
               </div>
 
               <br></br>

@@ -29,7 +29,7 @@ const Edit = ({ unit }) => {
       .validate(updatedunit, { abortEarly: false })
       .then(() => {
         axios
-          .post(`http://localhost:1337/units/update/${unit._id}`, updatedunit)
+          .post(process.env.REACT_APP_API_BASE+`/units/update/${unit._id}`, updatedunit)
           .then(() => {
             setModal(null);
             swal({
@@ -59,7 +59,7 @@ const Edit = ({ unit }) => {
         };
 
         axios
-          .post("http://localhost:1337/editunits/add", editData)
+          .post(process.env.REACT_APP_API_BASE+"/editunits/add", editData)
           .then(() => {
             console.log("Edit history data saved successfully");
           })

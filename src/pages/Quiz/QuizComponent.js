@@ -13,7 +13,7 @@ const QuizComponent = ({ id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/submissions/find/${id}/${userid}`)
+      .get(process.env.REACT_APP_API_BASE+`/submissions/find/${id}/${userid}`)
       .then((response) => {
         const existingSubmission = response.data;
         if (existingSubmission) {
@@ -28,7 +28,7 @@ const QuizComponent = ({ id }) => {
 
   const handleAttemptQuiz = useCallback(() => {
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((response) => {
         const quiz = response.data.quiz;
         const questionCount = quiz.questions.length;

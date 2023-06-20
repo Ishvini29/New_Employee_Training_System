@@ -21,7 +21,7 @@ const Chapter = () => {
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .post("http://localhost:1337/chapters/deleteChapter", {
+          .post(process.env.REACT_APP_API_BASE+"/chapters/deleteChapter", {
             id: id,
 
           })
@@ -50,7 +50,7 @@ const Chapter = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get("http://localhost:1337/chapters/showAllChapters")
+    axios.get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
       .then(function (response) {
         const filteredChapters = response.data.filter(chapter => chapter.depID !== null);
         setChapter(filteredChapters);
@@ -179,7 +179,7 @@ export default Chapter;
 //     }).then((willDelete) => {
 //       if (willDelete) {
 //         axios
-//           .post("http://localhost:1337/chapters/deleteChapter", {
+//           .post(process.env.REACT_APP_API_BASE+"/chapters/deleteChapter", {
 //             id: id,
 
 //           })
@@ -207,7 +207,7 @@ export default Chapter;
 
 
 //   useEffect(() => {
-//     axios.get("http://localhost:1337/chapters/showAllChapters")
+//     axios.get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
 //       .then(function (response) {
 //         const filteredChapters = response.data.filter(chapter => chapter.depID !== null);
 //         setChapter(filteredChapters);

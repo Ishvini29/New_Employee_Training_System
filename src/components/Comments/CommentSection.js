@@ -15,7 +15,7 @@ const CommentSection = (props) => {
     console.log("comment id " + props.ID);
     if (props.type === "KT") {
       axios
-        .get(`http://localhost:1337/get-kt-comments-by-kt-id/${props.ID}`)
+        .get(process.env.REACT_APP_API_BASE+`/get-kt-comments-by-kt-id/${props.ID}`)
         .then((response) => {
           setComments(response.data);
           console.log(response.data.comment);
@@ -26,7 +26,7 @@ const CommentSection = (props) => {
     } else {
       axios
         .get(
-          `http://localhost:1337/get-article-comments-by-article-id/${props.ID}`
+          process.env.REACT_APP_API_BASE+`/get-article-comments-by-article-id/${props.ID}`
         )
         .then((response) => {
           setComments(response.data);

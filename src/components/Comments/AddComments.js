@@ -27,7 +27,7 @@ const AddComments = (props) => {
       };
       if (props.source === "KT") {
         axios
-          .post(`http://localhost:1337/add-kt-comment/${props.ID}`, data)
+          .post(process.env.REACT_APP_API_BASE + `/add-kt-comment/${props.ID}`, data)
           .then((res) => {
             console.log(res.data);
             swal({
@@ -50,7 +50,7 @@ const AddComments = (props) => {
           });
       } else {
         axios
-          .post(`http://localhost:1337/add-article-comment/${props.ID}`, data)
+          .post(process.env.REACT_APP_API_BASE + `/add-article-comment/${props.ID}`, data)
           .then((res) => {
             console.log(res.data);
             swal({
@@ -81,7 +81,7 @@ const AddComments = (props) => {
       if (props.source === "KT") {
         axios
           .post(
-            `http://localhost:1337/add-kt-comment-replies/${props.ID}/${props.selectedComment}`,
+            process.env.REACT_APP_API_BASE + `/add-kt-comment-replies/${props.ID}/${props.selectedComment}`,
             data
           )
           .then((res) => {
@@ -107,7 +107,7 @@ const AddComments = (props) => {
       } else {
         axios
           .post(
-            `http://localhost:1337/add-article-comment-replies/${props.ID}/${props.selectedComment}`,
+            process.env.REACT_APP_API_BASE + `/add-article-comment-replies/${props.ID}/${props.selectedComment}`,
             data
           )
           .then((res) => {

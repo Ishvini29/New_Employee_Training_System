@@ -13,7 +13,7 @@ const Delete = ({ KTsession }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/units/${KTsession.belongsToUnit}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${KTsession.belongsToUnit}`)
       .then((response) => {
         setunits(response.data);
       })
@@ -29,7 +29,7 @@ const Delete = ({ KTsession }) => {
       .then(() => {
         // Once the video file is deleted, delete the KT session from the backend
         axios
-          .delete(`http://localhost:1337/kts/delete/${KTsession._id}`)
+          .delete(process.env.REACT_APP_API_BASE+`/kts/delete/${KTsession._id}`)
           .then((res) => {
             console.log(res.data);
             swal({
@@ -67,7 +67,7 @@ const Delete = ({ KTsession }) => {
     };
 
     axios
-      .post("http://localhost:1337/deletekts/add", deleteData)
+      .post(process.env.REACT_APP_API_BASE+"/deletekts/add", deleteData)
       .then(() => {
         console.log("Delete history data saved successfully");
       })

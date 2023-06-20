@@ -19,7 +19,7 @@ const UnitHistory = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/editkts/")
+      .get(process.env.REACT_APP_API_BASE+"/editkts/")
       .then((response) => {
         seteditkts(response.data);
       })

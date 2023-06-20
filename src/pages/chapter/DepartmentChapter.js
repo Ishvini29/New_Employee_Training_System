@@ -32,7 +32,7 @@ const DepartmentChapter = () => {
             if (deletionConfirmed !== null && deletionConfirmed !== "") {
                 setDeletionReason(deletionConfirmed);
                 axios
-                    .put(`http://localhost:1337/chapters/${id}`, {
+                    .put(process.env.REACT_APP_API_BASE+`/chapters/${id}`, {
                         status: "notactive",
                         deleteReason: deletionConfirmed,
                     })
@@ -60,8 +60,7 @@ const DepartmentChapter = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios
-            .get("http://localhost:1337/chapters/showAllChapters")
+        axios.get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
             .then(function (response) {
                 const filteredChapters = response.data.filter(
                     (chapter) =>

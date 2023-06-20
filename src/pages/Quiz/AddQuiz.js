@@ -16,7 +16,7 @@ const AddQuestion = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((res) => setQuestionCount(res.data.quiz.questions.length))
       .catch((err) => console.log(err));
   }, [id]);
@@ -46,7 +46,7 @@ const AddQuestion = () => {
     };
 
     axios
-      .post(`http://localhost:1337/units/${id}/quiz/${userid}`, newQuestion)
+      .post(process.env.REACT_APP_API_BASE+`/units/${id}/quiz/${userid}`, newQuestion)
       .then((res) => {
         console.log(res.data);
         Swal.fire({

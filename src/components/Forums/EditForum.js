@@ -9,6 +9,8 @@ import axios from "axios";
 
 const EditForum = () => {
   const navigate = useNavigate();
+  const userid = "648050d3b39dcbdf90027b5a";
+  const chapterName = "diagrams";
 
   const formSchema = Yup.object().shape({
     topic: Yup.string().required("* topic is required"),
@@ -28,7 +30,7 @@ const EditForum = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/get-forum-details-by-forum-id/${params.forumId}`
+        process.env.REACT_APP_API_BASE+`/get-forum-details-by-forum-id/${params.forumId}`
       )
       .then((response) => {
         setForum(response.data);
@@ -41,7 +43,7 @@ const EditForum = () => {
 
   const onFormSubmit = (formData) => {
     axios
-      .put(`http://localhost:1337/edit-forum/${params.forumId}`, formData)
+      .put(process.env.REACT_APP_API_BASE+`/edit-forum/${params.forumId}`, formData)
       .then((res) => {
         console.log(res.data);
         swal({
@@ -62,6 +64,30 @@ const EditForum = () => {
         });
       });
     console.log("Submitted form data:", formData);
+
+    const editData = {
+      chapterName: chapterName,
+      updatedby: userid,
+      forumTopic: formData.topic,
+      forumDesc: formData.description,
+      attachmentStatus: formData.attachmentAllowed,
+      old_data: {
+        topic: forum[0].topic,
+        description: forum[0].description,
+        attachmentAllowed: forum[0].attachmentAllowed,
+      },
+    };
+    console.log(editData);
+
+    axios
+      .post("http://localhost:1337/editForums/add", editData)
+      .then(() => {
+        console.log("Edit history data saved successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     return false;
   };
 

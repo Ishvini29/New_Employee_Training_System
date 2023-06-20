@@ -12,14 +12,14 @@ const ConCreChaps = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:1337/chapters/departmentChapters/${depid}`)
+        axios.get(process.env.REACT_APP_API_BASE+`/chapters/departmentChapters/${depid}`)
             .then(response => {
                 setChapters(response.data)
             })
             .catch(function (error) {
                 console.log(error);
             });
-        axios.get(`http://localhost:1337/commonchapters/showAllChapters`)
+        axios.get(process.env.REACT_APP_API_BASE+`/commonchapters/showAllChapters`)
             .then(response => {
                 setCommonChapters(response.data)
                 setLoading(false);

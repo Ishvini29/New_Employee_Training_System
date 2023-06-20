@@ -6,7 +6,6 @@ import Search from "../../components/search";
 import swal from "sweetalert";
 
 const QuizReportFront = () => {
-  const API_BASE = "http://localhost:1337";
   const [quizReport, setQuizReport] = useState([]);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState();
@@ -26,7 +25,7 @@ const QuizReportFront = () => {
 
   useEffect(() => {
     axios
-      .get(API_BASE + "/quizFront")
+      .get(process.env.REACT_APP_API_BASE+"/quizFront")
       .then((res) => setQuizReport(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {

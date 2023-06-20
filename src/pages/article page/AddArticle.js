@@ -68,7 +68,7 @@ function AddArticle(props) {
         getDownloadURL(article.ref).then((url) => {
           console.log(url);
           newArticle = { ...newArticle, articleUrl: url };
-          axios.post('http://localhost:1337/arts/add', newArticle).then((res) => {
+          axios.post(process.env.REACT_APP_API_BASE+'/arts/add', newArticle).then((res) => {
             console.log(res.data);
             setArticleUploadStatus(false);
             swal({

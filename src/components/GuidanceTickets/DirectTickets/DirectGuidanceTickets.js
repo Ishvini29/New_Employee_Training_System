@@ -11,10 +11,7 @@ const DirectGuidanceTickets = () => {
   const [ticketId, setTicketId] = useState(0);
   const userDocument = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData;
   useEffect(() => {
-    axios
-      .get(
-        `http://localhost:1337/get-tickets-by-directed-department-id/${userDocument?.department}`
-      )
+    axios.get(process.env.REACT_APP_API_BASE + `/get-tickets-by-directed-department-id/${userDocument?.department}`)
       .then((response) => {
         setTickets(response.data);
       })
@@ -33,7 +30,7 @@ const DirectGuidanceTickets = () => {
     console.log("id", ticketId);
 
     axios
-      .put(`http://localhost:1337/assign-ticket-by-ticket-id/${ticketId}`, data)
+      .put(`process.env.REACT_APP_API_BASE/assign-ticket-by-ticket-id/${ticketId}`, data)
       .then((res) => {
         console.log(res.data);
         swal({

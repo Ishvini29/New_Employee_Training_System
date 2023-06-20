@@ -8,7 +8,6 @@ import swal from "sweetalert";
 import jwt_decode from "jwt-decode";
 
 const Result = () => {
-  const API_BASE = "http://localhost:1337";
   const currentUser = jwt_decode(
     JSON?.parse(localStorage?.getItem("user"))?.token
   )?.userData?._id;
@@ -25,7 +24,7 @@ const Result = () => {
   useEffect(() => {
     // Fetch result
     axios
-      .get(API_BASE + "/result/" + currentUser + "/" + unitId)
+      .get(process.env.REACT_APP_API_BASE+"/result/" + currentUser + "/" + unitId)
       .then((res) => setResult(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -48,7 +47,7 @@ const Result = () => {
       });
     // store badge for the current user if he will be below rank 4
     axios
-      .post(API_BASE + "/storeBadge", { currentUser, unitId, department })
+      .post(process.env.REACT_APP_API_BASE+"/storeBadge", { currentUser, unitId, department })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   }, []);

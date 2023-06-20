@@ -10,7 +10,7 @@ const Ratings = (props) => {
   useEffect(() => {
     if (props.source === "KT") {
       axios
-        .get(`http://localhost:1337/get-kt-ratings/${props.ID}`)
+        .get(process.env.REACT_APP_API_BASE+`/get-kt-ratings/${props.ID}`)
         .then((response) => {
           setRatings(response.data);
         })
@@ -19,7 +19,7 @@ const Ratings = (props) => {
         });
     } else {
       axios
-        .get(`http://localhost:1337/get-article-ratings/${props.ID}`)
+        .get(process.env.REACT_APP_API_BASE+`/get-article-ratings/${props.ID}`)
         .then((response) => {
           setRatings(response.data);
         })

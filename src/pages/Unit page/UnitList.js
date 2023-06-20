@@ -9,7 +9,7 @@ const UnitList = (props) => {
   // id={id} chapterName={chapterName} chapterID={chapterID} unitName={unitName}
 
   // useEffect(() => {
-  //   axios.get('http://localhost:1337/kts/')
+  //   axios.get(process.env.REACT_APP_API_BASE+'/kts/')
   //     .then(response => {
   //       setKTsessions(response.data);
   //     })
@@ -19,7 +19,7 @@ const UnitList = (props) => {
   // }, []);
 
   useEffect(() => {
-    axios.get(`http://localhost:1337/kts?unitId=${id}`)
+    axios.get(process.env.REACT_APP_API_BASE+`/kts?unitId=${id}`)
       .then(response => {
         setKTsessions(response.data);
       })

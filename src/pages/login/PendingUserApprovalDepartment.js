@@ -11,7 +11,7 @@ const PendingUserApprovalDepartment = () => {
     const [currentActiveButton, setCurrentActiveButton] = useState();
     const depID = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.department;
     useEffect(() => {
-        axios.get(`http://localhost:1337/users/getAllUnverifiedUsersDepartment/${depID}`)
+        axios.get(process.env.REACT_APP_API_BASE+`/users/getAllUnverifiedUsersDepartment/${depID}`)
             .then(response => {
                 setUnverifiedUsers(response.data);
             })
@@ -44,7 +44,7 @@ const PendingUserApprovalDepartment = () => {
         }).then((willDelete) => {
             if (willDelete) {
                 setLoading(true);
-                axios.post('http://localhost:1337/users/verifyuser', bodyData)
+                axios.post(process.env.REACT_APP_API_BASE+'/users/verifyuser', bodyData)
                     .then((res) => {
                         setLoading(false);
                         console.log(res.data);

@@ -16,7 +16,7 @@ const EditEntry = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((response) => {
         const { quizName, quizDesc, timeLimit } = response.data.quiz;
         setUpdatedTodo({ quizName, quizDesc, timeLimit });
@@ -36,7 +36,7 @@ const EditEntry = (props) => {
   const onUpdate = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:1337/units/quizentry/update/${id}`, updatedTodo)
+      .post(process.env.REACT_APP_API_BASE+`/units/quizentry/update/${id}`, updatedTodo)
       .then(() => {
         setModal(null);
         swal({

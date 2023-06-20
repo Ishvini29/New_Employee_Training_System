@@ -12,7 +12,7 @@ const NotificationCard = ({ data, handleRefresh, refreshCount }) => {
             notificationID: notificationID
         }
 
-        axios.post('http://localhost:1337/notification/seen', postBody)
+        axios.post(process.env.REACT_APP_API_BASE + '/notification/seen', postBody)
             .then((res) => {
                 console.log(res);
                 handleRefresh(refreshCount + 1)

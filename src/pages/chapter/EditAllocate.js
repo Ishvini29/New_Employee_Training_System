@@ -26,7 +26,7 @@ const EditAllocate = () => {
   function submitEdit(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:1337/jobtitles/allocatechapter", {
+      .post(process.env.REACT_APP_API_BASE+"/jobtitles/allocatechapter", {
         chaptersAllocated: selectedChapters,
         editedId: id,
       })
@@ -52,7 +52,7 @@ const EditAllocate = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:1337/chapters/showAllChapters")
+      .get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
       .then(function (response) {
         const filteredChapters = response.data.filter(chapter => chapter.depID._id === department && chapter.status === "active");
         // const filteredChapters = response.data.filter(chapter => chapter.depID !== null);
@@ -152,7 +152,7 @@ export default EditAllocate;
 
 //   useEffect(() => {
 //     axios
-//       .get("http://localhost:1337/chapters/showAllChapters")
+//       .get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
 //       .then(function (response) {
 //         const filteredChapters = response.data.filter(
 //           (chapter) =>
@@ -169,7 +169,7 @@ export default EditAllocate;
 //   function submitEdit(e) {
 //     e.preventDefault();
 //     axios
-//       .post("http://localhost:1337/jobtitles/allocatechapter", {
+//       .post(process.env.REACT_APP_API_BASE+"/jobtitles/allocatechapter", {
 //         chaptersAllocated: selectedChapters,
 //         editedId: id,
 //       })

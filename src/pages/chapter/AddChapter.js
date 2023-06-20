@@ -43,7 +43,7 @@ const AddChapter = () => {
     }
 
     axios
-      .post("http://localhost:1337/commonchapters/addChapter", {
+      .post(process.env.REACT_APP_API_BASE+"/commonchapters/addChapter", {
         chapterName: chaptername,
         chapId: chapId,
         userID: jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData._id
@@ -149,7 +149,7 @@ export default AddChapter;
 //   const [selectedDepartment, setSelectedDepartment] = useState();
 //   useEffect(() => {
 //     axios
-//       .get("http://localhost:1337/departments/showAllDepartments")
+//       .get(process.env.REACT_APP_API_BASE+"/departments/showAllDepartments")
 //       .then(function (response) {
 //         setDepartment(response.data);
 //       });
@@ -169,7 +169,7 @@ export default AddChapter;
 //     }
 
 //     axios
-//       .post("http://localhost:1337/chapters/addChapter", {
+//       .post(process.env.REACT_APP_API_BASE+"/chapters/addChapter", {
 //         chapterName: chaptername,
 //         depID: selectedDepartment,
 //         userID: jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData._id

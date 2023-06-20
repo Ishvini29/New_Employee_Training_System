@@ -7,8 +7,6 @@ import Search from "../../components/search";
 import jwt_decode from "jwt-decode";
 
 const Submission = () => {
-  //  Base URL of the API
-  const API_BASE = "http://localhost:1337";
   // States
   const [downloadIcon, setDownloadIcon] = useState("");
   const [submissionData, setSubmissionData] = useState([]);
@@ -23,7 +21,7 @@ const Submission = () => {
   // Fetch data on mount
   useEffect(() => {
     axios
-      .get(API_BASE + "/getSubmissionTable/" + supervisorId)
+      .get(process.env.REACT_APP_API_BASE+"/getSubmissionTable/" + supervisorId)
       .then((res) => setSubmissionData(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -39,7 +37,7 @@ const Submission = () => {
   // Download zip file of the submitted project
   const handleGetZipFile = (empId) => {
     axios
-      .get(API_BASE + "/getZipFile/" + empId)
+      .get(process.env.REACT_APP_API_BASE+"/getZipFile/" + empId)
       .then((res) => downloadFile(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {

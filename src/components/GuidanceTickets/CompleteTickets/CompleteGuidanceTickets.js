@@ -13,7 +13,7 @@ const CompleteGuidanceTickets = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/get-tickets-by-assigned-user-id/${userDocument?._id}`
+        process.env.REACT_APP_API_BASE+`/get-tickets-by-assigned-user-id/${userDocument?._id}`
       )
       .then((response) => {
         setTickets(response.data);
@@ -30,7 +30,7 @@ const CompleteGuidanceTickets = () => {
 
     axios
       .put(
-        `http://localhost:1337/complete-ticket-by-ticket-id/${ticketId}`,
+        process.env.REACT_APP_API_BASE+`/complete-ticket-by-ticket-id/${ticketId}`,
         data
       )
       .then((res) => {

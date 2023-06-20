@@ -31,7 +31,7 @@ const QuizPopup = ({ id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((response) => {
         setQuizData(response.data.quiz);
         setTimeLeft(response.data.quiz.timeLimit * 60); // Convert minutes to seconds
@@ -45,7 +45,7 @@ const QuizPopup = ({ id }) => {
   // user can access the quiz only once
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/submissions/find/${id}/${userid}`)
+      .get(process.env.REACT_APP_API_BASE+`/submissions/find/${id}/${userid}`)
       .then((response) => {
         const existingSubmission = response.data;
         if (existingSubmission) {
@@ -61,7 +61,7 @@ const QuizPopup = ({ id }) => {
 
   const handleAttemptQuiz = useCallback(() => {
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((response) => {
         const quiz = response.data.quiz;
 
@@ -113,7 +113,7 @@ const QuizPopup = ({ id }) => {
     const submittedTime = moment().format("YYYY-MM-DD HH:mm:ss");
 
     axios
-      .post(`http://localhost:1337/submissions/${id}/${userid}/${chapterId}/${depid}`, {
+      .post(process.env.REACT_APP_API_BASE+`/submissions/${id}/${userid}/${chapterId}/${depid}`, {
         questions,
         submittedTime,
         attemptedTime,

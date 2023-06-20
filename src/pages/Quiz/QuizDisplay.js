@@ -20,7 +20,7 @@ const QuizDisplay = () => {
   useEffect(() => {
     // Retrieve quiz data using the id
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((response) => {
         const quizData = response.data.quiz;
         setQuizData(quizData);
@@ -116,7 +116,7 @@ const QuizDisplay = () => {
 
     axios
       .post(
-        `http://localhost:1337/submissions/${id}/${userid}/${chapterId}/${depid}`,
+        process.env.REACT_APP_API_BASE+`/submissions/${id}/${userid}/${chapterId}/${depid}`,
         {
           questions,
           submittedTime,

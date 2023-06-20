@@ -10,7 +10,7 @@ function ProfileOverview(props) {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:1337/users/getLoggedinUserData/${userID}`)
+    axios.get(process.env.REACT_APP_API_BASE+`/users/getLoggedinUserData/${userID}`)
       .then(response => {
         console.log(response.data);
         setData(response.data[0]);

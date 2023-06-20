@@ -12,12 +12,14 @@ import jwt_decode from "jwt-decode";
 const RequestGuidanceTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [attachment, setAttachment] = useState(null);
-  const userDocument = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData;
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
 
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/get-tickets-by-requested-user-id/${userDocument._id}`
+        process.env.REACT_APP_API_BASE+`/get-tickets-by-requested-user-id/${userDocument._id}`
       )
       .then((response) => {
         setTickets(response.data);
@@ -37,7 +39,7 @@ const RequestGuidanceTickets = () => {
 
       if (attachment === null) {
         axios
-          .post("http://localhost:1337/save-ticket", data)
+          .post(process.env.REACT_APP_API_BASE+"/save-ticket", data)
           .then((res) => {
             console.log(res.data);
             swal({
@@ -71,7 +73,7 @@ const RequestGuidanceTickets = () => {
           console.log(url);
           data = { ...data, attachment: url };
           axios
-            .post("http://localhost:1337/save-ticket", data)
+            .post(process.env.REACT_APP_API_BASE+"/save-ticket", data)
             .then((res) => {
               console.log(res.data);
               swal({
@@ -148,7 +150,14 @@ const RequestGuidanceTickets = () => {
             <div className="card-body">
               <div className="row">
                 <p className="col-sm-6">Request No. {t._id}</p>
-                <p className="col-sm-6"> Request Type : {t.requestType}</p>
+                <p className="col-sm-6">
+                  {" "}
+                  Directed Department : {t.directedDepartmentID.depName}
+                </p>
+              </div>
+              <div className="row">
+                <p className="col-sm-6">Request Type : {t.requestType}</p>
+                <p className="col-sm-6"> Request Title : {t.requestTitle}</p>
               </div>
               <div className="row">
                 <p className="col-sm-6">
@@ -181,15 +190,15 @@ const RequestGuidanceTickets = () => {
                           t.status === "requested"
                             ? "20%"
                             : t.status === "directed"
-                              ? "60%"
-                              : "100%",
+                            ? "60%"
+                            : "100%",
                       }}
                       aria-valuenow={
                         t.status === "requested"
                           ? "20"
                           : t.status === "directed"
-                            ? "60"
-                            : "100"
+                          ? "60"
+                          : "100"
                       }
                       aria-valuemin="0"
                       aria-valuemax="100"
@@ -197,8 +206,8 @@ const RequestGuidanceTickets = () => {
                       {t.status === "requested"
                         ? "Requested"
                         : t.status === "directed"
-                          ? "Directed"
-                          : "Completed"}
+                        ? "Directed"
+                        : "Completed"}
                     </div>
                   </div>
                 </div>

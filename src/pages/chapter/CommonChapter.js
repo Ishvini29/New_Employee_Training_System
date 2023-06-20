@@ -17,7 +17,7 @@ const Chapter = () => {
         }).then((willDelete) => {
             if (willDelete) {
                 axios
-                    .post("http://localhost:1337/commonchapters/deleteChapter", {
+                    .post(process.env.REACT_APP_API_BASE+"/commonchapters/deleteChapter", {
                         id: id,
 
                     })
@@ -45,7 +45,7 @@ const Chapter = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get("http://localhost:1337/commonchapters/showAllChapters")
+        axios.get(process.env.REACT_APP_API_BASE+"/commonchapters/showAllChapters")
             .then(function (response) {
                 setChapter(response.data);
                 setLoading(false);

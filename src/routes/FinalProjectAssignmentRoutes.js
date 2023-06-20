@@ -45,7 +45,7 @@ export const final_project_assignment_routes = [
   {
     path: "/scoreEditLog",
     ele: <Editlog />,
-    availability: [ur.systemAdmin],
+    availability: [ur.superAdmin],
   },
   {
     path: "/submitanswer",

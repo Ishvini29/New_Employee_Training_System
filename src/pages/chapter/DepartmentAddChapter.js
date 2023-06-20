@@ -16,7 +16,7 @@ const DepartmentAddChapter = () => {
 
 
     useEffect(() => {
-        axios.get("http://localhost:1337/departments/showAllDepartments")
+        axios.get(process.env.REACT_APP_API_BASE+"/departments/showAllDepartments")
             .then((response) => {
                 setDepartments(response.data);
             })
@@ -51,7 +51,7 @@ const DepartmentAddChapter = () => {
         }
 
         axios
-            .post("http://localhost:1337/chapters/addChapter", {
+            .post(process.env.REACT_APP_API_BASE+"/chapters/addChapter", {
                 chapterName: chaptername,
                 chapId: chapId,
                 depID: selectedDepartment,

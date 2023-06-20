@@ -9,7 +9,7 @@ const ArticleList = (props) => {
   const [articles, setarticles] = useState([]);
 
   // useEffect(() => {
-  //   axios.get('http://localhost:1337/arts/')
+  //   axios.get(process.env.REACT_APP_API_BASE+'/arts/')
   //     .then(response => {
   //       setarticles(response.data);
   //     })
@@ -19,7 +19,7 @@ const ArticleList = (props) => {
   // }, []); 
 
   useEffect(() => {
-    axios.get(`http://localhost:1337/arts?chapterId=${chapterId}`)
+    axios.get(process.env.REACT_APP_API_BASE+`/arts?chapterId=${chapterId}`)
       .then(response => {
         setarticles(response.data);
       })

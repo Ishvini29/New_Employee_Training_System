@@ -5,7 +5,6 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 const RatingsReport = () => {
-  const API_BASE = "http://localhost:1337";
   const localhostEmpId = jwt_decode(
     JSON?.parse(localStorage?.getItem("user"))?.token
   )?.userData?.empId;
@@ -19,7 +18,7 @@ const RatingsReport = () => {
   useEffect(() => {
     let empId = propsData?.empId || localhostEmpId;
     axios
-      .get(API_BASE + "/ktsessionRatingsReport/" + empId)
+      .get(process.env.REACT_APP_API_BASE+"/ktsessionRatingsReport/" + empId)
       .then((res) => setKtSessionRating(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -49,7 +48,7 @@ const RatingsReport = () => {
         }
       });
     axios
-      .get(API_BASE + "/articleRatingsReport/" + empId)
+      .get(process.env.REACT_APP_API_BASE+"/articleRatingsReport/" + empId)
       .then((res) => setArticleRating(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {

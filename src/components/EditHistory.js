@@ -26,6 +26,11 @@ const EditHistory = () => {
                 Article History
               </button>
             </Link>
+            <Link to={"/editforums"}>
+              <button type="button" class="btn btn-secondary form-control">
+                Discussion Forum History
+              </button>
+            </Link>
             <Link to={"/editquestions"}>
               <button type="button" class="btn btn-secondary form-control">
                 Quiz Questions History

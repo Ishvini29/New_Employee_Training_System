@@ -12,7 +12,7 @@ const Forums = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/get-forums-by-chapter/${chapterID}`
+        process.env.REACT_APP_API_BASE+`/get-forums-by-chapter/${chapterID}`
       )
       .then((response) => {
         setForumTopics(response.data);
@@ -24,7 +24,7 @@ const Forums = () => {
 
   const LockForum = (id) => {
     axios
-      .put(`http://localhost:1337/edit-forum/${id}`, { status: "Locked" })
+      .put(process.env.REACT_APP_API_BASE+`/edit-forum/${id}`, { status: "Locked" })
       .then((res) => {
         console.log(res.data);
         swal({

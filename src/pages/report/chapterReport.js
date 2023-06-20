@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 const ChapterReport = () => {
-  const API_BASE = "http://localhost:1337";
   const localhostEmpId = jwt_decode(
     JSON.parse(localStorage.getItem("user")).token
   )?.userData?.empId;
@@ -31,7 +30,7 @@ const ChapterReport = () => {
   useEffect(() => {
     let empId = propsData?.empId || localhostEmpId;
     axios
-      .get(API_BASE + "/chapterReport/" + empId)
+      .get(process.env.REACT_APP_API_BASE+"/chapterReport/" + empId)
       .then((res) => setChapterReportDetails(res.data))
       .catch((error) => {
         if (error?.response && error?.response.status === 404) {
