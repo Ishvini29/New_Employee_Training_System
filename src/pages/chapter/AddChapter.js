@@ -1,7 +1,6 @@
 import jwt_decode from "jwt-decode";
 import React, { useState, useEffect } from "react";
 import common from "../../images/common.svg";
-import save from "../../images/save3.png";
 import "../../App.css";
 import swal from "sweetalert";
 import validator from "validator";
@@ -118,7 +117,7 @@ const AddChapter = () => {
                     type="submit"
                     className="btn btn-success mr-1 column is-half text-white col-md-3 my-3"
                   >
-                    Save <img src={save} className="picside5" alt="add_symbol" />
+                    Create
                   </button>
                 </center>
               </div>

@@ -77,7 +77,7 @@ const AddDepartment = () => {
                     type="submit"
                     className="btn btn-success mr-1 column is-half text-white col-md-3 my-3"
                   >
-                    Save
+                    Create
                   </button>
                 </center>
               </div>

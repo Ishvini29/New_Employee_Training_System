@@ -111,6 +111,7 @@ const Chapter = () => {
                   <tr style={{ "backgroundColor": "#f8f9fa" }}>
                     <th scope="col">ChapterID</th>
                     <th scope="col">Chapter name</th>
+                    <th scope="col">Department</th>
                     <th>Created On</th>
                     <th scope="col">Edit chapter</th>
                     <th scope="col">Delete chapter</th>
@@ -126,6 +127,7 @@ const Chapter = () => {
                         <tr className="align-middle" key={item._id}>
                           <th scope="row">{item.chapId}</th>
                           <td>{item.chapterName}</td>
+                          <td>{item.depID?.depName}</td>
                           <td> {new Date(item?.createdOn).toLocaleString('en-US', { timeZone: 'Asia/Colombo' })}</td>
                           <td>
                             <Link

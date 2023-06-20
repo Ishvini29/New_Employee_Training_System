@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from "react";
 import image4 from "../../images/deptadd.svg";
 import "../../App.css";
@@ -11,7 +12,6 @@ const DepartmentAddChapter = () => {
     const deptID = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.department;
     const [chaptername, setChapterName] = useState("");
     const [chapId, setChapId] = useState("");
-    const [selectedDepartment, setSelectedDepartment] = useState();
     const [departments, setDepartments] = useState([]);
 
 
@@ -24,6 +24,7 @@ const DepartmentAddChapter = () => {
                 console.log(error);
             });
     }, []);
+    const selectedDepartment = departments.find(department => department._id === deptID);
     const selectedDepartmentName = departments.find(department => department._id === deptID)?.depName;
     // console.log(selectedDepartmentName);
     const firstLetter = selectedDepartmentName ? selectedDepartmentName.charAt(0) : "";
@@ -31,7 +32,7 @@ const DepartmentAddChapter = () => {
         e.preventDefault();
 
         // Validate chapId starts with the department's first letter
-        const pattern = new RegExp(`^${firstLetter}[0-9]`);
+        const pattern = new RegExp(`^${firstLetter}[0-9]+$`);
         if (!pattern.test(chapId)) {
             swal({
                 icon: "warning",
@@ -40,26 +41,11 @@ const DepartmentAddChapter = () => {
             return;
         }
 
-        if (!validator.isAlpha(chaptername.replace(/[^A-Za-z]/g, ""))) {  // Must contain at least 1 alphabet
-            swal({
-                icon: "warning",
-                text: "Chapter name must contain at least one alphabet letter.",
-            });
-            return;
-        }
         // Validate chapter name starts with a capital letter
         if (!chaptername.match(/^[A-Z]/)) {
             swal({
                 icon: "warning",
                 text: "Chapter name must start with a capital letter.",
-            });
-            return;
-        }
-
-        if (!selectedDepartment) {
-            swal({
-                icon: "warning",
-                text: "Please select your department",
             });
             return;
         }
@@ -77,8 +63,9 @@ const DepartmentAddChapter = () => {
                         icon: "success",
                         text: res.data.message,
                     });
-                    setChapterName("");
                     setChapId("");
+                    setChapterName("");
+
                 } else {
                     swal({
                         icon: "warning",
@@ -93,11 +80,11 @@ const DepartmentAddChapter = () => {
     return (
         <div className="container">
             <div className="alert mt-3 heading"><h5>Create Chapter</h5></div>
-            <div className="columns mt-4">
+            <div className="columns mt-5">
                 <div>
                     <img src={image4} className="picside7" draggable={false} alt="this is image" />
                 </div>
-                <div class="card" style={{ borderRadius: "15px", backgroundColor: "#f1f8f5", boxShadow: "0px 0px 5px 2px rgba(151,196,177, 0.5)" }} >
+                <div class="card mt-3" style={{ borderRadius: "15px", backgroundColor: "#f1f8f5", boxShadow: "0px 0px 5px 2px rgba(151,196,177, 0.5)" }} >
                     <div class="card-body">
                         <form name="myForm" onSubmit={submitChapter}>
 
@@ -130,41 +117,35 @@ const DepartmentAddChapter = () => {
                                     />
                                 </div>
                             </div>
-                            <label className="ml-5 my-2 createchap">Suitable Department</label>
-                            <div className="col-md-14">
-                                <select style={{ "backgroundColor": "#fafafa" }}
-                                    onChange={(e) => {
-                                        setSelectedDepartment(e.target.value);
-                                    }}
-                                    className="form-select"
-                                    aria-label="Default select example"
-                                >
-                                    <option disabled selected>Department</option>
-                                    {
-                                        <option value={deptID}>
-                                            {selectedDepartmentName}
-                                        </option>
-                                    }
-                                </select>
+                            <label className="ml-5 my-1">Suitable Department</label>
+                            <div className="control">
+                                <input
+                                    type="text"
+                                    name="cname"
+                                    className="inputdata2 my-2 ml-5"
+                                    value={selectedDepartmentName}
+                                    disabled={true}
+                                />
                             </div>
-
-                            <br></br>
                             <div className="control">
                                 <center>
                                     <button
                                         type="submit"
                                         className="btn btn-success mr-1 column is-half text-white col-md-3 my-3"
                                     >
-                                        Save
+                                        Create
                                     </button>
                                 </center>
                             </div>
                         </form>
                     </div>
+
                 </div>
             </div>
+
         </div>
     );
 };
 
 export default DepartmentAddChapter;
+
