@@ -5,12 +5,12 @@ import swal from 'sweetalert';
 import moment from 'moment';
 import jwt_decode from "jwt-decode";
 
-const QuizPopup = ({ id }) => {
+const QuizPopup = ({ id, chapId }) => {
   const userDocument = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData;
   //const userid = "648050d3b39dcbdf90027b5a";
   const userid = userDocument._id;
   const depid = userDocument.department;
-  const chapterId = '648b44b4190f2b8c4fc0f693';
+  const chapterId = chapId;
 
   const navigate = useNavigate();
   const [quizData, setQuizData] = useState({});
@@ -31,7 +31,7 @@ const QuizPopup = ({ id }) => {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
+      .get(`http://localhost:1337/units/${id}`)
       .then((response) => {
         setQuizData(response.data.quiz);
         setTimeLeft(response.data.quiz.timeLimit * 60); // Convert minutes to seconds
@@ -45,7 +45,7 @@ const QuizPopup = ({ id }) => {
   // user can access the quiz only once
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_BASE+`/submissions/find/${id}/${userid}`)
+      .get(`http://localhost:1337/submissions/find/${id}/${userid}`)
       .then((response) => {
         const existingSubmission = response.data;
         if (existingSubmission) {
@@ -61,7 +61,7 @@ const QuizPopup = ({ id }) => {
 
   const handleAttemptQuiz = useCallback(() => {
     axios
-      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
+      .get(`http://localhost:1337/units/${id}`)
       .then((response) => {
         const quiz = response.data.quiz;
 
@@ -113,7 +113,7 @@ const QuizPopup = ({ id }) => {
     const submittedTime = moment().format("YYYY-MM-DD HH:mm:ss");
 
     axios
-      .post(process.env.REACT_APP_API_BASE+`/submissions/${id}/${userid}/${chapterId}/${depid}`, {
+      .post(`http://localhost:1337/submissions/${id}/${userid}/${chapterId}/${depid}`, {
         questions,
         submittedTime,
         attemptedTime,
@@ -403,4 +403,3 @@ const QuizPopup = ({ id }) => {
 
 
 export default QuizPopup;
-
