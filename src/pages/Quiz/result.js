@@ -78,7 +78,7 @@ const Result = () => {
     >
       <div className="shadow">
         <div className="result-body">
-          <h2 className="result-header">{result?.unitName} quiz </h2>
+          <h2 className="result-header">{result?.unitName} Quiz </h2>
           <div className="d-flex justify-content-center mt-4 fw-semibold">
             <div style={{ width: 150 }}>
               <CircularProgressbar
