@@ -23,7 +23,7 @@ const AddDepartment = () => {
     }
 
     axios
-      .post("http://localhost:1337/departments/addDepartment", {
+      .post(process.env.REACT_APP_API_BASE+"/departments/addDepartment", {
         departmentName: depName,
       })
       .then((res) => {

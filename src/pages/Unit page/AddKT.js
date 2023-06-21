@@ -77,7 +77,7 @@ const AddKT = (props) => {
           console.log(url);
           newKT = { ...newKT, sessionUrl: url };
           axios
-            .post(`http://localhost:1337/kts/add/${id}`, newKT)
+            .post(process.env.REACT_APP_API_BASE+`/kts/add/${id}`, newKT)
             .then((res) => {
               setSubmitStatus(false);
               console.log(res.data);

@@ -10,10 +10,13 @@ import axios from "axios";
 const DepartmentAddChapter = () => {
     const deptID = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.department;
     const [chaptername, setChapterName] = useState("");
+    const [chapId, setChapId] = useState("");
     const [selectedDepartment, setSelectedDepartment] = useState();
     const [departments, setDepartments] = useState([]);
+
+
     useEffect(() => {
-        axios.get("http://localhost:1337/departments/showAllDepartments")
+        axios.get(process.env.REACT_APP_API_BASE+"/departments/showAllDepartments")
             .then((response) => {
                 setDepartments(response.data);
             })
@@ -23,9 +26,20 @@ const DepartmentAddChapter = () => {
     }, []);
     const selectedDepartmentName = departments.find(department => department._id === deptID)?.depName;
     // console.log(selectedDepartmentName);
-
+    const firstLetter = selectedDepartmentName ? selectedDepartmentName.charAt(0) : "";
     function submitChapter(e) {
         e.preventDefault();
+
+        // Validate chapId starts with the department's first letter
+        const pattern = new RegExp(`^${firstLetter}[0-9]`);
+        if (!pattern.test(chapId)) {
+            swal({
+                icon: "warning",
+                text: `Chapter ID must start with "${firstLetter}"and contain numbers`,
+            });
+            return;
+        }
+
         if (!validator.isAlpha(chaptername.replace(/[^A-Za-z]/g, ""))) {  // Must contain at least 1 alphabet
             swal({
                 icon: "warning",
@@ -33,7 +47,6 @@ const DepartmentAddChapter = () => {
             });
             return;
         }
-
         // Validate chapter name starts with a capital letter
         if (!chaptername.match(/^[A-Z]/)) {
             swal({
@@ -52,8 +65,9 @@ const DepartmentAddChapter = () => {
         }
 
         axios
-            .post("http://localhost:1337/chapters/addChapter", {
+            .post(process.env.REACT_APP_API_BASE+"/chapters/addChapter", {
                 chapterName: chaptername,
+                chapId: chapId,
                 depID: selectedDepartment,
                 userID: jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData._id
             })
@@ -64,6 +78,7 @@ const DepartmentAddChapter = () => {
                         text: res.data.message,
                     });
                     setChapterName("");
+                    setChapId("");
                 } else {
                     swal({
                         icon: "warning",
@@ -85,6 +100,22 @@ const DepartmentAddChapter = () => {
                 <div class="card" style={{ borderRadius: "15px", backgroundColor: "#f1f8f5", boxShadow: "0px 0px 5px 2px rgba(151,196,177, 0.5)" }} >
                     <div class="card-body">
                         <form name="myForm" onSubmit={submitChapter}>
+
+                            <div className="field">
+                                <label className="ml-5">Chapter ID</label>
+                                <div className="control">
+                                    <input
+                                        type="text"
+                                        name="cname"
+                                        className="inputdata2 my-3 ml-5"
+                                        placeholder="Enter Chapter ID"
+                                        value={chapId}
+                                        onChange={(e) => setChapId(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                            </div>
+
                             <div className="field">
                                 <label className="ml-5">New Chapter Name</label>
                                 <div className="control">

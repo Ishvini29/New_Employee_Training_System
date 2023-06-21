@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import image1 from "../../images/contentCr/depChap.svg"
 import image2 from "../../images/contentCr/learningChap.svg"
 import image3 from "../../images/contentCr/manageGuidance.svg"
 import image4 from "../../images/contentCr/rating1.svg"
@@ -22,7 +21,7 @@ const ContentCreator = () => {
                 </div>
                 <div className="col-md-4 mb-3">
                     <div className="card shadow">
-                        <Link to="/department" className="btn btn-outline-dark">
+                        <Link to="/ratingsreport" className="btn btn-outline-dark">
                             <center>
                                 <img src={image4} className="card-img-top" style={{ "width": "100px" }} alt="card" ></img>
                             </center>

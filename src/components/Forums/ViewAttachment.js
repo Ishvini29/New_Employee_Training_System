@@ -9,7 +9,7 @@ const ViewAttachment = (props) => {
     props.type === "posts" ? (
       axios
         .get(
-          `http://localhost:1337/get-post-details-by-post-id/${params.forumId}/${params.postId}`
+          process.env.REACT_APP_API_BASE+`/get-post-details-by-post-id/${params.forumId}/${params.postId}`
         )
         .then((response) => {
           console.log(response.data[0].attachment);
@@ -21,7 +21,7 @@ const ViewAttachment = (props) => {
     ) : props.type === "replies" ? (
       axios
         .get(
-          `http://localhost:1337/get-reply-details-by-reply-id/${params.forumId}/${params.postId}/${params.replyId}`
+          process.env.REACT_APP_API_BASE+`/get-reply-details-by-reply-id/${params.forumId}/${params.postId}/${params.replyId}`
         )
         .then((response) => {
           console.log(response.data[0].attachment);

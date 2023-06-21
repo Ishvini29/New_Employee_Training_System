@@ -17,7 +17,7 @@ const RequireAuth = ({ children, userroles }) => {
     useEffect(() => {
         if (userData) {
             console.log("Checking Token Validity");
-            axios.get(`http://localhost:1337/authentication/verifyToken/${userData.token}`)
+            axios.get(process.env.REACT_APP_API_BASE+`/authentication/verifyToken/${userData.token}`)
                 .then((res) => {
                     if (res.data.status === false) {
                         localStorage.removeItem("user");

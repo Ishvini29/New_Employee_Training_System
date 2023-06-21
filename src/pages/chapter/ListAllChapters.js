@@ -17,28 +17,28 @@ const ListAllChapters = () => {
     const [commonChapters, setCommonChapters] = useState([]);
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:1337/finalprojectassignment/isProjectAssigned/${userid}`)
+        axios.get(process.env.REACT_APP_API_BASE+`/finalprojectassignment/isProjectAssigned/${userid}`)
             .then(response => {
                 setisProjectAssigned(response.data.status);
             })
             .catch(function (error) {
                 console.log(error);
             });
-        axios.get(`http://localhost:1337/chapters/loadAllocatedChapters/${depid}/${jobid}`)
+        axios.get(process.env.REACT_APP_API_BASE+`/chapters/loadAllocatedChapters/${depid}/${jobid}`)
             .then(response => {
                 setChapters(response.data)
             })
             .catch(function (error) {
                 console.log(error);
             });
-        axios.get(`http://localhost:1337/chapters/loadAdditionalChapters/${userid}`)
+        axios.get(process.env.REACT_APP_API_BASE+`/chapters/loadAdditionalChapters/${userid}`)
             .then(response => {
                 setAdditionalChapters(response.data)
             })
             .catch(function (error) {
                 console.log(error);
             });
-        axios.get(`http://localhost:1337/commonchapters/showAllChapters`)
+        axios.get(process.env.REACT_APP_API_BASE+`/commonchapters/showAllChapters`)
             .then(response => {
                 setCommonChapters(response.data)
                 setLoading(false);
@@ -59,7 +59,7 @@ const ListAllChapters = () => {
             confirmButtonText: 'Yes, Request'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.get(`http://localhost:1337/finalprojectassignment/request/${userid}/${depid}`)
+                axios.get(process.env.REACT_APP_API_BASE+`/finalprojectassignment/request/${userid}/${depid}`)
                     .then((res) => {
                         console.log(res.data);
                         if (res.data.status === true) {

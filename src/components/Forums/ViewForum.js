@@ -16,7 +16,7 @@ const ViewForum = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/get-forum-details-by-forum-id/${params.forumId}`
+        process.env.REACT_APP_API_BASE+`/get-forum-details-by-forum-id/${params.forumId}`
       )
       .then((response) => {
         setForum(response.data);

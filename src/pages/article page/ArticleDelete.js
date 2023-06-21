@@ -18,7 +18,7 @@ const ArticleHistory = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/deletearticles/")
+      .get(process.env.REACT_APP_API_BASE+"/deletearticles/")
       .then((response) => {
         setdeletearticles(response.data);
       })

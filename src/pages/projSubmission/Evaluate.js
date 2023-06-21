@@ -10,7 +10,6 @@ import {
 } from "react-icons/md";
 
 const Evaluate = () => {
-  const API_BASE = "http://localhost:1337";
 
   // get the evaluator's ID from the JWT
   const gradedBy = jwt_decode(JSON?.parse(localStorage?.getItem("user"))?.token)
@@ -28,7 +27,7 @@ const Evaluate = () => {
   useEffect(() => {
     let empId = propsData?.empId;
     axios
-      .get(API_BASE + "/getEvaluatedFeedback/" + empId)
+      .get(process.env.REACT_APP_API_BASE+"/getEvaluatedFeedback/" + empId)
       .then((res) => {
         setScore(res?.data?.projectScore);
         setFeedback(res?.data?.feedback);
@@ -105,7 +104,7 @@ const Evaluate = () => {
             }).then((willDelete) => {
               if (willDelete) {
                 axios
-                  .post(API_BASE + "/toEvaluateSubmission", {
+                  .post(process.env.REACT_APP_API_BASE+"/toEvaluateSubmission", {
                     empId,
                     score,
                     feedback,
@@ -119,7 +118,7 @@ const Evaluate = () => {
             })
           : // if it is first time evaluating
             axios
-              .post(API_BASE + "/toEvaluateSubmission", {
+              .post(process.env.REACT_APP_API_BASE+"/toEvaluateSubmission", {
                 empId,
                 score,
                 feedback,
@@ -155,7 +154,7 @@ const Evaluate = () => {
       propsData?.update
         ? // if score is already exist (evaluated already)
           axios
-            .put(API_BASE + "/updateScore", {
+            .put(process.env.REACT_APP_API_BASE+"/updateScore", {
               score: score,
               feedback,
               show,
@@ -167,7 +166,7 @@ const Evaluate = () => {
             .catch((err) => console.log(err))
         : //first time evaluating
           axios
-            .post(API_BASE + "/storeScore", {
+            .post(process.env.REACT_APP_API_BASE+"/storeScore", {
               score: score,
               feedback,
               show,

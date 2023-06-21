@@ -8,7 +8,7 @@ const UnitList = (props) => {
   const [units, setunits] = useState([]);
 
   // useEffect(() => {
-  //   axios.get('http://localhost:1337/units/')
+  //   axios.get(process.env.REACT_APP_API_BASE+'/units/')
   //     .then(response => {
   //       setunits(response.data);
   //     })
@@ -18,8 +18,8 @@ const UnitList = (props) => {
   // }, []);
 
   useEffect(() => {
-    // axios.get(`http://localhost:1337/units?belongsToChapter=${chapterId}`)
-    axios.get(`http://localhost:1337/units?chapterId=${chapterId}`)
+    // axios.get(process.env.REACT_APP_API_BASE+`/units?belongsToChapter=${chapterId}`)
+    axios.get(process.env.REACT_APP_API_BASE+`/units?chapterId=${chapterId}`)
       .then(response => {
         setunits(response.data);
       })

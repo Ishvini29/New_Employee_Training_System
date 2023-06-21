@@ -11,7 +11,7 @@ const AddJobtitle = () => {
   const [selectedDepartment, setSelectedDepartment] = useState();
   useEffect(() => {
     axios
-      .get("http://localhost:1337/departments/showAllDepartments")
+      .get(process.env.REACT_APP_API_BASE+"/departments/showAllDepartments")
       .then(function (response) {
         setDepartment(response.data);
       });
@@ -40,7 +40,7 @@ const AddJobtitle = () => {
     }
 
     axios
-      .post("http://localhost:1337/jobtitles/addJobtitle", {
+      .post(process.env.REACT_APP_API_BASE+"/jobtitles/addJobtitle", {
         jobtitleName: jobTitlename,
         depID: selectedDepartment,
       })
@@ -144,7 +144,7 @@ export default AddJobtitle;
 //   const [selectedDepartment, setSelectedDepartment] = useState();
 //   useEffect(() => {
 //     axios
-//       .get("http://localhost:1337/departments/showAllDepartments")
+//       .get(process.env.REACT_APP_API_BASE+"/departments/showAllDepartments")
 //       .then(function (response) {
 //         setDepartment(response.data);
 //       });
@@ -172,7 +172,7 @@ export default AddJobtitle;
 //     }
 
 //     axios
-//       .post("http://localhost:1337/jobtitles/addJobtitle", {
+//       .post(process.env.REACT_APP_API_BASE+"/jobtitles/addJobtitle", {
 //         jobtitleName: jobTitlename,
 //         depID: selectedDepartment,
 //       })

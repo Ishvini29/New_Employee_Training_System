@@ -10,7 +10,7 @@ const ViewKT = () => {
   useEffect(() => {
     console.log(KTid.id);
     axios
-      .get(`http://localhost:1337/kts/${KTid}`)
+      .get(process.env.REACT_APP_API_BASE+`/kts/${KTid}`)
       .then((response) => {
         setkts(response.data);
         console.log(response.data);

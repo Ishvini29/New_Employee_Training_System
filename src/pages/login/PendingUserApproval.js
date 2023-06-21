@@ -10,7 +10,7 @@ const PendingUserApproval = () => {
     const [pageLoading, setPageLoading] = useState(false);
     useEffect(() => {
         setPageLoading(true);
-        axios.get('http://localhost:1337/users/getAllUnverifiedUsers')
+        axios.get(process.env.REACT_APP_API_BASE+'/users/getAllUnverifiedUsers')
             .then(response => {
                 setUnverifiedUsers(response.data);
                 setPageLoading(false);
@@ -44,7 +44,7 @@ const PendingUserApproval = () => {
         }).then((willDelete) => {
             if (willDelete) {
                 setLoading(true);
-                axios.post('http://localhost:1337/users/verifyuser', bodyData)
+                axios.post(process.env.REACT_APP_API_BASE+'/users/verifyuser', bodyData)
                     .then((res) => {
                         setLoading(false);
                         console.log(res.data);

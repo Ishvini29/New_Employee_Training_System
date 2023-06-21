@@ -54,7 +54,7 @@ const Edit = ({ KTsession, unitId }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/units/${unitId}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${unitId}`)
       .then((response) => {
         seteditkts(response.data.unitName);
       })
@@ -131,7 +131,7 @@ const Edit = ({ KTsession, unitId }) => {
 
   const updateKTSession = (updatedSession) => {
     axios
-      .post(`http://localhost:1337/kts/update/${KTsession._id}`, updatedSession)
+      .post(process.env.REACT_APP_API_BASE+`/kts/update/${KTsession._id}`, updatedSession)
       .then(() => {
         setUpdateStatus(false);
         setModal(null);
@@ -164,7 +164,7 @@ const Edit = ({ KTsession, unitId }) => {
     };
 
     axios
-      .post("http://localhost:1337/editkts/add", editData)
+      .post(process.env.REACT_APP_API_BASE+"/editkts/add", editData)
       .then(() => {
         console.log("Edit history data saved successfully");
       })

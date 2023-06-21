@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 
 const EnrollRequestEmployee = () => {
   const [chapters, setChapter] = useState([]);
+  const [loading, setLoading] = useState(false);
   // const user_accepted_chapter = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.acceptedAdditionalChapter
   const userID = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData._id;
   console.log(jwt_decode(JSON.parse(localStorage.getItem("user")).token));
@@ -21,7 +22,7 @@ const EnrollRequestEmployee = () => {
       .then((confirmed) => {
         if (confirmed) {
           axios
-            .post("http://localhost:1337/chapters/enrollChapter", {
+            .post(process.env.REACT_APP_API_BASE+"/chapters/enrollChapter", {
               chapID: chapID,
               userID: userID,
             })
@@ -46,12 +47,14 @@ const EnrollRequestEmployee = () => {
       });
   }
   useEffect(() => {
+    setLoading(true);
     axios
-      .get("http://localhost:1337/chapters/showAllChapters")
+      .get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
       .then(function (response) {
         const filteredChapters = response.data.filter(chapter => chapter.depID !== null && chapter.status !== "notactive");
         // const filteredChapters = response.data.filter(chapter => chapter.depID !== null && chapter._id !== user_accepted_chapter);
         setChapter(filteredChapters);
+        setLoading(false);
       });
   }, [reset]);
   const [buttonStates, setButtonStates] = useState();
@@ -71,41 +74,52 @@ const EnrollRequestEmployee = () => {
         <div className="alert mt-3 heading">
           <h5>Other department Chapters</h5>
         </div>
-        <table className="table">
-          <tbody>
-            {
-              chapters.map((value) => {
-                return (
-                  (value?.depID._id !== jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.department)
-                    ?
-                    <div className="row m-2">
-                      <div className="col-md-6">
-                        <div className="form-control">{value?.chapterName}</div>
-                      </div>
-                      <div className="col-md-4">
-                        <div className="form-control">
-                          {"From " + value?.depID?.depName + " Department"}
-                        </div>
-                      </div>
-                      <div className="col-md-2">
-                        <button
-                          className="btn btn-outline-success form-control"
-                          onClick={() => { requestChapter(value?._id) }}
-                          disabled={true && (value?.requested).includes(userID)}
-                        >
-                          {
-                            ((value?.requested).includes(userID)) ? "Requested" : "Request"
-                          }
-                        </button>
-                      </div>
-                    </div>
-                    :
-                    null
-                )
-              })
-            }
-          </tbody>
-        </table>
+        {
+          (loading)
+            ?
+            <center><div className="spinner-grow mt-3" role="status"></div></center>
+            :
+            (chapters.length === 0)
+              ?
+              <div className="alert alert-info mt-4"> <b>No Other Department Chapters Found !</b> </div>
+              :
+              <table className="table">
+
+                <tbody>
+                  {
+                    chapters.map((value) => {
+                      return (
+                        (value?.depID._id !== jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.department)
+                          ?
+                          <div className="row m-2">
+                            <div className="col-md-6">
+                              <div className="form-control">{value?.chapterName}</div>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-control">
+                                {"From " + value?.depID?.depName + " Department"}
+                              </div>
+                            </div>
+                            <div className="col-md-2">
+                              <button
+                                className="btn btn-outline-success form-control"
+                                onClick={() => { requestChapter(value?._id) }}
+                                disabled={true && (value?.requested).includes(userID)}
+                              >
+                                {
+                                  ((value?.requested).includes(userID)) ? "Requested" : "Request"
+                                }
+                              </button>
+                            </div>
+                          </div>
+                          :
+                          null
+                      )
+                    })
+                  }
+                </tbody>
+              </table>
+        }
       </div>
     </React.Fragment>
   );

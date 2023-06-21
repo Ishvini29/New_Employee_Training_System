@@ -21,7 +21,7 @@ const AddReply = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/get-forum-details-by-forum-id/${params.forumId}`
+        process.env.REACT_APP_API_BASE + `/get-forum-details-by-forum-id/${params.forumId}`
       )
       .then((response) => {
         setAttachmentAllowwed(response.data[0].attachmentAllowed);
@@ -50,7 +50,7 @@ const AddReply = () => {
       if (attachment === null) {
         axios
           .post(
-            `http://localhost:1337/add-replies/${params.forumId}/${params.commentId}`,
+            process.env.REACT_APP_API_BASE + `/add-replies/${params.forumId}/${params.commentId}`,
             data
           )
           .then((res) => {
@@ -89,7 +89,7 @@ const AddReply = () => {
           data = { ...data, attachment: url };
           axios
             .post(
-              `http://localhost:1337/add-replies/${params.forumId}/${params.commentId}`,
+              process.env.REACT_APP_API_BASE + `/add-replies/${params.forumId}/${params.commentId}`,
               data
             )
             .then((res) => {

@@ -14,7 +14,7 @@ function Quizpage(props) {
   
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((response) => {
         const quiz = response.data.quiz;
         const count = quiz.questions.length;

@@ -53,7 +53,7 @@ const AssignFinalAssignment = () => {
         }
         formData.append("supervisor", userData)
         try {
-            axios.post("http://localhost:1337/addFinalAssignment", formData, {
+            axios.post(process.env.REACT_APP_API_BASE+"/addFinalAssignment", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

@@ -41,7 +41,7 @@ const GoogleLogin = () => {
         // if user is new
         setGoogleLoginDecodedValues(jwt_decode(response.credential));
         // we send post request to following endpoint, it gets token as a body 
-        axios.post('http://localhost:1337/authentication/login', { credential: response.credential })
+        axios.post(process.env.REACT_APP_API_BASE+'/authentication/login', { credential: response.credential })
             .then((res) => {
                 // if res.data.status is true, if there is no any un handled error in backend
                 if (res.data.status === true) {

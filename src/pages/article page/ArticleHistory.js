@@ -19,7 +19,7 @@ const UnitHistory = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/editarticles/")
+      .get(process.env.REACT_APP_API_BASE+"/editarticles/")
       .then((response) => {
         seteditarticles(response.data);
       })

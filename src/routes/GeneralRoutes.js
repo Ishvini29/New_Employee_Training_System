@@ -4,6 +4,7 @@ import ProfileOverview from "../pages/profile/ProfileOverview";
 import PendingUserApproval from "../pages/login/PendingUserApproval";
 import PendingUserApprovalDepartment from "../pages/login/PendingUserApprovalDepartment";
 import Notifications from "../pages/Notifications";
+import Logs from "../pages/Logs";
 export const general_routes = [
     {
         path: "/home",
@@ -22,11 +23,11 @@ export const general_routes = [
         ele: <ProfileOverview />
     },
     {
-        path: "/ratings",
-        ele: <Ratings />
-    },
-    {
         path: "/notifications",
         ele: <Notifications />
+    },
+    {
+        path: "/logs",
+        ele: <Logs />
     },
 ]

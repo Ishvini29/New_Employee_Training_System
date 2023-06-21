@@ -7,7 +7,7 @@ const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
     const [handleRefresh, setHandleRefresh] = useState(0);
     useEffect(() => {
-        axios.get(`http://localhost:1337/notifications/${userDocument._id}`)
+        axios.get(process.env.REACT_APP_API_BASE+`/notifications/${userDocument._id}`)
             .then(response => {
                 setNotifications(response.data.notifications);
             })

@@ -41,7 +41,7 @@ export default function AddUnit(props) {
         unitDesc: unitDesc,
       };
 
-      const res = await axios.post('http://localhost:1337/units/add', newUnit);
+      const res = await axios.post(process.env.REACT_APP_API_BASE+'/units/add', newUnit);
       console.log(res.data);
       swal({
         icon: 'success',

@@ -6,7 +6,6 @@ import Search from "../../components/search";
 import jwt_decode from "jwt-decode";
 
 const ProjScore = () => {
-  const API_BASE = "http://localhost:1337";
   const [gradeData, setGradeData] = useState([]);
   const [showFeedback, setShowFeedback] = useState();
   const [search, setSearch] = useState("");
@@ -18,7 +17,7 @@ const ProjScore = () => {
 
   useEffect(() => {
     axios
-      .get(API_BASE + "/getProjScore/" + supervisorId)
+      .get(process.env.REACT_APP_API_BASE+"/getProjScore/" + supervisorId)
       .then((res) => setGradeData(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {

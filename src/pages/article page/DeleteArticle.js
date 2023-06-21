@@ -18,7 +18,7 @@ const Delete = ({ article }) => {
       .then(() => {
         // Once the video file is deleted, delete the KT session from the backend
         axios
-          .delete(`http://localhost:1337/arts/delete/${article._id}`)
+          .delete(process.env.REACT_APP_API_BASE+`/arts/delete/${article._id}`)
           .then((res) => {
             console.log(res.data);
             swal({
@@ -58,7 +58,7 @@ const Delete = ({ article }) => {
     };
 
     axios
-      .post("http://localhost:1337/deletearticles/add", deleteData)
+      .post(process.env.REACT_APP_API_BASE+"/deletearticles/add", deleteData)
       .then(() => {
         console.log("Delete history data saved successfully");
       })

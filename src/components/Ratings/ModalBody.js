@@ -23,7 +23,7 @@ const ModalBody = (props) => {
     event.preventDefault();
     if (props.source === "KT") {
       axios
-        .post(`http://localhost:1337/save-kt-ratings/${props.ID}`, data)
+        .post(process.env.REACT_APP_API_BASE+`/save-kt-ratings/${props.ID}`, data)
         .then((res) => {
           console.log(res.data);
           setIsRated(true);
@@ -52,7 +52,7 @@ const ModalBody = (props) => {
         });
     } else {
       axios
-        .post(`http://localhost:1337/save-article-ratings/${props.ID}`, data)
+        .post(process.env.REACT_APP_API_BASE+`/save-article-ratings/${props.ID}`, data)
         .then((res) => {
           console.log(res.data);
           setIsRated(true);

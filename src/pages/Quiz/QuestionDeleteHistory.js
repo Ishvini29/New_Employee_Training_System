@@ -37,7 +37,7 @@ const QuestionHistory = () => {
    
   useEffect(() => {
     axios
-      .get('http://localhost:1337/deletequestions/')
+      .get(process.env.REACT_APP_API_BASE+'/deletequestions/')
       .then((response) => {
         setquestions(response.data);
       })

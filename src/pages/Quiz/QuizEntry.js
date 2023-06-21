@@ -21,7 +21,7 @@ const QuizEntry = (props) => {
   });
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((response) => {
         const { quizName, quizDesc } = response.data.quiz;
         setUpdatedTodo({ quizName, quizDesc });

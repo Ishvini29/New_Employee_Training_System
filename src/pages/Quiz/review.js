@@ -5,7 +5,6 @@ import axios from "axios";
 import swal from "sweetalert";
 
 const Review = () => {
-  const API_BASE = "http://localhost:1337";
   const [review, setReview] = useState({});
   const location = useLocation();
   const propsData = location.state;
@@ -15,7 +14,7 @@ const Review = () => {
 
   useEffect(() => {
     axios
-      .get(API_BASE + "/review/" + currentUser + "/" + unitId)
+      .get(process.env.REACT_APP_API_BASE+"/review/" + currentUser + "/" + unitId)
       .then((res) => setReview(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
