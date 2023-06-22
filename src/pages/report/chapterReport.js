@@ -10,6 +10,8 @@ const ChapterReport = () => {
   const [chapterReportDetails, setChapterReportDetails] = useState({});
   const [navActive, setNavActive] = useState(0);
   const [selectedOption, setSelectedOption] = useState("Chapter Report");
+  const [loading, setLoading] = useState(false);
+
   //get props
   const location = useLocation();
   const propsData = location.state;
@@ -28,10 +30,14 @@ const ChapterReport = () => {
   const [errorHandling, setErrorHandling] = useState("");
 
   useEffect(() => {
+    setLoading(true);
     let empId = propsData?.empId || localhostEmpId;
     axios
-      .get(process.env.REACT_APP_API_BASE+"/chapterReport/" + empId)
-      .then((res) => setChapterReportDetails(res.data))
+      .get(process.env.REACT_APP_API_BASE + "/chapterReport/" + empId)
+      .then((res) => {
+        setChapterReportDetails(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error?.response && error?.response.status === 404) {
           // Handle "User not found" error
@@ -44,7 +50,11 @@ const ChapterReport = () => {
   }, []);
   return (
     <div className="">
-      {chapterReportDetails?.chapterReportData?.length > 0 ? (
+      {loading ? (
+        <center>
+          <div className="spinner-grow mt-3" role="status"></div>
+        </center>
+      ) : chapterReportDetails?.chapterReportData?.length > 0 ? (
         <div>
           {errorHandling === "" ? (
             <>
@@ -137,17 +147,14 @@ const ChapterReport = () => {
                           {/* displaying unit information */}
                           <tbody>
                             {chap?.units?.map((unit, indexi) => (
-                              <tr
-                                key={indexi}
-                                className=" bg-info bg-opacity-10 leaderboard-tr fw-semibold"
-                              >
-                                <td className="leaderboard-td align-middle text-center">
+                              <tr key={indexi} className="leaderboard-tr">
+                                <td className="leaderboard-td align-middle text-center chapter-row">
                                   {unit?.unitName}
                                 </td>
-                                <td className="leaderboard-td align-middle text-center">
+                                <td className="leaderboard-td align-middle text-center chapter-row">
                                   {unit?.score}
                                 </td>
-                                <td className="leaderboard-td align-middle text-center">
+                                <td className="leaderboard-td align-middle text-center chapter-row">
                                   {unit?.score >= 75
                                     ? "A"
                                     : unit?.score < 75 && unit?.score >= 65
@@ -158,7 +165,7 @@ const ChapterReport = () => {
                                     ? "S"
                                     : "F"}
                                 </td>
-                                <td className="leaderboard-td align-middle text-center">
+                                <td className="leaderboard-td align-middle text-center chapter-row">
                                   {unit?.score}%
                                 </td>
                               </tr>

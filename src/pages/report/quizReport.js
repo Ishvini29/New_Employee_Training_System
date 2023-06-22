@@ -6,7 +6,6 @@ import axios from "axios";
 import swal from "sweetalert";
 
 const QuizReport = () => {
-
   const location = useLocation();
   const navigate = useNavigate();
   const propsData = location.state;
@@ -22,7 +21,7 @@ const QuizReport = () => {
   useEffect(() => {
     const unitId = propsData?.unitId;
     axios
-      .get(process.env.REACT_APP_API_BASE+"/quizReport/" + unitId)
+      .get(process.env.REACT_APP_API_BASE + "/quizReport/" + unitId)
       .then((res) => setQuizReportData(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -52,7 +51,7 @@ const QuizReport = () => {
   return (
     <>
       <div className="d-flex justify-content-between m-4">
-        <h3 className="text-secondary ">Unit Name: {propsData?.unitName}</h3>
+        <h3 className="text-secondary ">{propsData?.unitName} Unit</h3>
         <div id="content-creator" className="mt-2">
           <Search
             handleGetSearchValue={getSearchValue}
@@ -64,7 +63,7 @@ const QuizReport = () => {
         <table className=" empTable table table-striped table-hover mt-sm-5 mt-lg-5 ">
           <thead>
             <tr className="table-head table-dark">
-              <th>ID</th>
+              <th className="text-center">ID</th>
               <th>Name</th>
               <th>Department</th>
               <th>Attempted Time</th>

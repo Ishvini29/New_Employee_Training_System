@@ -19,7 +19,7 @@ const LeaderboardSup = () => {
       "info"
     );
     axios
-      .get(process.env.REACT_APP_API_BASE+"/getLeaderboardData")
+      .get(process.env.REACT_APP_API_BASE + "/getLeaderboardData")
       .then((res) => setScore(res.data))
       .catch((error) => {
         // Handle other errors
@@ -72,6 +72,9 @@ const LeaderboardSup = () => {
                         {score?.[index]?.leaderboard[0]?.empId}
                       </span>
                       <span className="card-title leaderboard-desc">
+                        {score?.[index]?.leaderboard[0]?.rank}
+                      </span>
+                      <span className="card-title leaderboard-desc">
                         {score?.[index]?.leaderboard[0]?.averageScore?.toFixed(
                           2
                         )}
@@ -104,6 +107,9 @@ const LeaderboardSup = () => {
                     <div className="d-flex justify-content-around fw-semibold">
                       <span className="card-title leaderboard-desc">
                         {score?.[index]?.leaderboard[1]?.empId}
+                      </span>
+                      <span className="card-title leaderboard-desc">
+                        {score?.[index]?.leaderboard[1]?.rank}
                       </span>
                       <span className="card-title leaderboard-desc">
                         {score?.[index]?.leaderboard[1]?.averageScore?.toFixed(
@@ -141,6 +147,9 @@ const LeaderboardSup = () => {
                           {score?.[index]?.leaderboard[2]?.empId}
                         </span>
                         <span className="card-title leaderboard-desc">
+                          {score?.[index]?.leaderboard[2]?.rank}
+                        </span>
+                        <span className="card-title leaderboard-desc">
                           {score?.[
                             index
                           ]?.leaderboard[2]?.averageScore?.toFixed(2)}
@@ -168,18 +177,20 @@ const LeaderboardSup = () => {
                 </div>
                 <table className="table leaderboard-table">
                   <thead>
-                    <tr className="table-head">
-                      <th className="leaderboard-empId leaderboard-th">ID</th>
-                      <th className="leaderboard-th align-middle text-center">
+                    <tr>
+                      <th className="leaderboard-empId leaderboard-th bg-light">
+                        ID
+                      </th>
+                      <th className="leaderboard-th align-middle text-center bg-light">
                         Name
                       </th>
-                      <th className="leaderboard-th align-middle text-center">
+                      <th className="leaderboard-th align-middle text-center bg-light">
                         Total Score
                       </th>
-                      <th className="leaderboard-th align-middle text-center">
+                      <th className="leaderboard-th align-middle text-center bg-light">
                         Average Score
                       </th>
-                      <th className="leaderboard-th align-middle text-center">
+                      <th className="leaderboard-th align-middle text-center bg-light">
                         Rank
                       </th>
                     </tr>
