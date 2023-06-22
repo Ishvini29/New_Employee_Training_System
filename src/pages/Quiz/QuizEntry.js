@@ -9,11 +9,11 @@ import QuizPopup from "./QuizPopup";
 import jwt_decode from "jwt-decode";
 
 const QuizEntry = (props) => {
-  const { id } = useParams();
+  const { id, chapName, unitName, chapId } = useParams();
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
-  const userId = jwt_decode(JSON?.parse(localStorage?.getItem("user"))?.token)
-    ?.userData?._id;
+  const userData = jwt_decode(JSON?.parse(localStorage?.getItem("user"))?.token)?.userData
+  const userId = userData?._id;
 
   const [updatedTodo, setUpdatedTodo] = useState({
     quizName: "",
@@ -21,7 +21,7 @@ const QuizEntry = (props) => {
   });
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE + `/units/${id}`)
       .then((response) => {
         const { quizName, quizDesc } = response.data.quiz;
         setUpdatedTodo({ quizName, quizDesc });
@@ -40,68 +40,46 @@ const QuizEntry = (props) => {
   return (
     <React.Fragment>
       <div style={{ backgroundColor: "#ffffff" }}>
-        <div className="container p-4">
-          <div className="card" style={{ backgroundColor: "#70B9E6" }}>
-            <div className="card-body">
-              <h1 style={{ font: "25px", color: "#ffffff" }}>
-                NETS: UML Diagrams
-              </h1>
-            </div>
-          </div>
+        <div className="container my-5">
+          <h4 className="heading rounded p-3">
+            {chapName + ': ' + unitName + ": Quiz"}
+          </h4>
         </div>
-        <div className="container p-4">
+        <div className="container">
           <div className="card">
-            <div className="card-header">
-              <nav
-                className="navbar navbar-expand-lg"
-                style={{ backgroundColor: "#f7f7f7" }}
-              >
-                <div
-                  className="collapse navbar-collapse"
-                  id="navbarSupportedContent"
-                >
-                  <ul className="navbar-nav me-auto mb-5 mb-lg-0">
-                    <li className="nav-item" style={{ fontWeight: "bold" }}>
-                      <Link to="/chapterPage" className="nav-link active">
-                        Units
-                      </Link>
-                    </li>
-                    <li className="nav-item" style={{ fontWeight: "bold" }}>
-                      <Link to="/article" className="nav-link">
-                        Articles
-                      </Link>
-                    </li>
-                    <li className="nav-item" style={{ fontWeight: "bold" }}>
-                      <Link to="/" className="nav-link">
-                        Discussion Forums
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </nav>
-            </div>
-            <div className="card-body" style={{ backgroundColor: "#DDEDF8" }}>
+            <div className="card-body">
+              <button className="btn btn-outline-danger" onClick={() => { navigate(-1) }}>Back</button>
               <br></br>
               <br></br>
-
-              <div className="d-flex flex-wrap justify-content-between align-items-center">
-                <h3 style={{ font: "25px", color: "#000000" }}>
-                  {updatedTodo.quizName}
-                </h3>
-                <div>
-                  <EditQuizEntry id={id} />
-                </div>
-              </div>
-
+              {
+                (userData.userRole === "Hired Employee") ?
+                  null
+                  :
+                  <div className="d-flex flex-wrap justify-content-between align-items-center">
+                    <h3 style={{ font: "25px", color: "#000000" }}>
+                      {updatedTodo.quizName}
+                    </h3>
+                    <div>
+                      <EditQuizEntry id={id} />
+                    </div>
+                  </div>
+              }
               <p>{updatedTodo.quizDesc}</p>
 
               <div class="d-grid gap-2 col-6 mx-auto">
-                <Link to={"/quiz/" + id}>
-                  <button type="button" class="btn btn-secondary form-control">
-                    View Quiz
-                  </button>
-                </Link>
-                <QuizPopup id={id}></QuizPopup>
+                {
+                  (userData.userRole === "Hired Employee")
+                    ?
+                    null
+                    :
+                    <Link to={"/quiz/" + id + "/" + chapName + "/" + unitName}>
+                      <button type="button" class="btn btn-secondary form-control">
+                        View Quiz
+                      </button>
+                    </Link>
+                }
+
+                <QuizPopup id={id} chapId={chapId}></QuizPopup>
                 {/* <QuizComponent id={id} /> */}
                 {submitted && (
                   <button
