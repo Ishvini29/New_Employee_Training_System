@@ -47,7 +47,8 @@ const UnitContent = (props) => {
               </div>
             </div>
             <div className="card-footer">
-              <Link to={"/quiz/view/" + id}>
+              {/* here id means unit id */}
+              <Link to={"/quiz/view/" + id + "/" + chapterID + "/" + chapterName + "/" + unitName}>
                 <button type="button" class="btn btn-primary form-control">
                   Quiz
                 </button>
