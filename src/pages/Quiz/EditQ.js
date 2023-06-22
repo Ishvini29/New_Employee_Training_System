@@ -22,7 +22,7 @@ const Edit = ({ quiz, id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((response) => {
         setunits(response.data);
       })
@@ -45,7 +45,7 @@ const Edit = ({ quiz, id }) => {
 
   const onSubmit = (values) => {
     axios
-      .put(`http://localhost:1337/units/${id}/update/${quiz._id}`, {
+      .put(process.env.REACT_APP_API_BASE+`/units/${id}/update/${quiz._id}`, {
         question: values.question,
         options: values.options,
         correctAnswer: values.correctAnswer,
@@ -82,7 +82,7 @@ const Edit = ({ quiz, id }) => {
     };
 
     axios
-      .post("http://localhost:1337/editquestions/add", editData)
+      .post(process.env.REACT_APP_API_BASE+"/editquestions/add", editData)
       .then(() => {
         console.log("Edit history data saved successfully");
       })

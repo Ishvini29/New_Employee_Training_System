@@ -109,7 +109,7 @@ const Edit = ({ article }) => {
 
   const updateArticle = (updatedArticle) => {
     axios
-      .post(`http://localhost:1337/arts/update/${article._id}`, updatedArticle)
+      .post(process.env.REACT_APP_API_BASE+`/arts/update/${article._id}`, updatedArticle)
       .then(() => {
         setModal(null);
         setArticleUpdateStatus(false);
@@ -141,7 +141,7 @@ const Edit = ({ article }) => {
     };
 
     axios
-      .post("http://localhost:1337/editarticles/add", editData)
+      .post(process.env.REACT_APP_API_BASE+"/editarticles/add", editData)
       .then(() => {
         console.log("Edit history data saved successfully");
       })

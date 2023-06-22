@@ -5,14 +5,14 @@ import swal from "sweetalert";
 import moment from "moment";
 import jwt_decode from "jwt-decode";
 
-const QuizPopup = ({ id }) => {
+const QuizPopup = ({ id, chapId }) => {
   const userDocument = jwt_decode(
     JSON.parse(localStorage.getItem("user")).token
   ).userData;
 
   const userid = userDocument._id;
   const depid = userDocument.department;
-  const chapterId = "648b44b4190f2b8c4fc0f693";
+  const chapterId = chapId;
 
   const navigate = useNavigate();
   const [quizData, setQuizData] = useState({});

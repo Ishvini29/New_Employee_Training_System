@@ -22,7 +22,7 @@ const RequestForm = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/departments/showAllDepartments")
+      .get(process.env.REACT_APP_API_BASE+"/departments/showAllDepartments")
       .then((response) => {
         setDepartments(response.data);
       })

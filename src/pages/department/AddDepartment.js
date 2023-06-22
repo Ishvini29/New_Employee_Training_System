@@ -23,7 +23,7 @@ const AddDepartment = () => {
     }
 
     axios
-      .post("http://localhost:1337/departments/addDepartment", {
+      .post(process.env.REACT_APP_API_BASE+"/departments/addDepartment", {
         departmentName: depName,
       })
       .then((res) => {
@@ -77,7 +77,7 @@ const AddDepartment = () => {
                     type="submit"
                     className="btn btn-success mr-1 column is-half text-white col-md-3 my-3"
                   >
-                    Save
+                    Create
                   </button>
                 </center>
               </div>

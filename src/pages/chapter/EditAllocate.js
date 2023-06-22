@@ -26,7 +26,7 @@ const EditAllocate = () => {
   function submitEdit(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:1337/jobtitles/allocatechapter", {
+      .post(process.env.REACT_APP_API_BASE+"/jobtitles/allocatechapter", {
         chaptersAllocated: selectedChapters,
         editedId: id,
       })
@@ -52,7 +52,7 @@ const EditAllocate = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:1337/chapters/showAllChapters")
+      .get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
       .then(function (response) {
         const filteredChapters = response.data.filter(chapter => chapter.depID._id === department && chapter.status === "active");
         // const filteredChapters = response.data.filter(chapter => chapter.depID !== null);
@@ -83,7 +83,7 @@ const EditAllocate = () => {
                       :
                       (chaptername.length === 0)
                         ?
-                        <div className="alert alert-info mt-4"> <b>No Chapters Found related to your Department !</b> </div>
+                        (<div className="alert alert-info mt-4"> No Chapters Found related to your Department !</div>)
                         : chaptername.map((item) => {
                           return (
 
@@ -98,17 +98,20 @@ const EditAllocate = () => {
                               <label
                                 className="form-check-label"
                               >
+                                {item.chapId}{" "} -{" "}
                                 {item.chapterName}
                               </label>
                             </div>
                           );
                         })}
-                  <input
-                    type="submit"
-                    className="btn btn-success mt-4 col-md-12"
-                    value="     Allocate     "
-                    onClick={submitEdit}
-                  />
+                  {(chaptername.length === 0)
+                    ? "" :
+                    <input
+                      type="submit"
+                      className="btn btn-success mt-4 col-md-12"
+                      value="     Allocate     "
+                      onClick={submitEdit}
+                    />}
 
                 </tbody>
               </table>}
@@ -149,7 +152,7 @@ export default EditAllocate;
 
 //   useEffect(() => {
 //     axios
-//       .get("http://localhost:1337/chapters/showAllChapters")
+//       .get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
 //       .then(function (response) {
 //         const filteredChapters = response.data.filter(
 //           (chapter) =>
@@ -166,7 +169,7 @@ export default EditAllocate;
 //   function submitEdit(e) {
 //     e.preventDefault();
 //     axios
-//       .post("http://localhost:1337/jobtitles/allocatechapter", {
+//       .post(process.env.REACT_APP_API_BASE+"/jobtitles/allocatechapter", {
 //         chaptersAllocated: selectedChapters,
 //         editedId: id,
 //       })

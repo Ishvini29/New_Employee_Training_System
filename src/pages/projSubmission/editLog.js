@@ -5,7 +5,7 @@ import Search from "../../components/search";
 import { MdOutlineCheckCircle, MdOutlineCancel } from "react-icons/md";
 
 const Editlog = () => {
-  const API_BASE = "http://localhost:1337";
+
   const [editlog, setEditlog] = useState([]);
   const [search, setSearch] = useState("");
   const [showFeedback, setShowFeedback] = useState();
@@ -13,7 +13,7 @@ const Editlog = () => {
 
   useEffect(() => {
     axios
-      .get(API_BASE + "/getScoreEditLog")
+      .get(process.env.REACT_APP_API_BASE+"/getScoreEditLog")
       .then((res) => {
         const sortedData = res?.data?.sort((a, b) =>
           a.projectName.localeCompare(b.projectName)

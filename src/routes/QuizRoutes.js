@@ -16,19 +16,18 @@ export const quiz_routes = [
     availability: [ur.hiredEmployee, ur.supervisor],
   },
   {
-    path: "/quiz/view",
+    path: "/quiz/view/:id/:chapId/:chapName/:unitName",
     ele: <QuizEntry />,
-  },
-  {
-    path: "/quiz/view/:id",
-    ele: <QuizEntry />,
+    availability: [ur.hiredEmployee, ur.supervisor, ur.contentCreator],
   },
   {
     path: "/quiz",
     ele: <Quizpage />,
+    availability: [ur.supervisor, ur.contentCreator],
   },
   {
-    path: "/quiz/:id",
+    path: "/quiz/:id/:chapName/:unitName",
     ele: <Quizpage />,
+    availability: [ur.hiredEmployee, ur.supervisor, ur.contentCreator],
   },
 ];

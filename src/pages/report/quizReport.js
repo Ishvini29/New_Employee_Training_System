@@ -6,7 +6,6 @@ import axios from "axios";
 import swal from "sweetalert";
 
 const QuizReport = () => {
-  const API_BASE = "http://localhost:1337";
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ const QuizReport = () => {
   useEffect(() => {
     const unitId = propsData?.unitId;
     axios
-      .get(API_BASE + "/quizReport/" + unitId)
+      .get(process.env.REACT_APP_API_BASE+"/quizReport/" + unitId)
       .then((res) => setQuizReportData(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {

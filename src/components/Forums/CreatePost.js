@@ -24,7 +24,7 @@ const CreatePost = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/get-forum-details-by-forum-id/${params.forumId}`
+        process.env.REACT_APP_API_BASE+`/get-forum-details-by-forum-id/${params.forumId}`
       )
       .then((response) => {
         setAttachmentAllowwed(response.data[0].attachmentAllowed);
@@ -53,7 +53,7 @@ const CreatePost = () => {
 
       if (attachment === null) {
         axios
-          .post(`http://localhost:1337/add-posts/${params.forumId}`, data)
+          .post(process.env.REACT_APP_API_BASE+`/add-posts/${params.forumId}`, data)
           .then((res) => {
             console.log(res.data);
             swal({
@@ -89,7 +89,7 @@ const CreatePost = () => {
           console.log(url);
           data = { ...data, attachment: url };
           axios
-            .post(`http://localhost:1337/add-posts/${params.forumId}`, data)
+            .post(process.env.REACT_APP_API_BASE+`/add-posts/${params.forumId}`, data)
             .then((res) => {
               console.log(res.data);
               swal({

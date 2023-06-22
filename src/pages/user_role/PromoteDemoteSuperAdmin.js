@@ -10,7 +10,7 @@ const PromoteDemoteSuperAdmin = () => {
 
     useEffect(() => {
         // /userRoles/groupbyuserrole
-        axios.get('http://localhost:1337/users/showAllUsers', {
+        axios.get(process.env.REACT_APP_API_BASE+'/users/showAllUsers', {
             headers: {
                 'token': JSON.parse(localStorage.getItem("user")).token,
                 'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ const PromoteDemoteSuperAdmin = () => {
             .catch(function (error) {
                 console.log(error);
             });
-        axios.get('http://localhost:1337/userRoles/groupbyuserrole')
+        axios.get(process.env.REACT_APP_API_BASE+'/userRoles/groupbyuserrole')
             .then(response => {
                 setCount(response.data);
             })
@@ -42,7 +42,7 @@ const PromoteDemoteSuperAdmin = () => {
         }).then((willDelete) => {
             if (willDelete) {
                 const newRole = { userID: userID, newRole: newUserRole };
-                axios.post('http://localhost:1337/userRoles/changeUserRole', newRole)
+                axios.post(process.env.REACT_APP_API_BASE+'/userRoles/changeUserRole', newRole)
                     .then((res) => {
                         if (res.data.status) {
                             swal({

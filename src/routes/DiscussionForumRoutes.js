@@ -5,38 +5,46 @@ import EditForum from "../components/Forums/EditForum";
 import Forums from "../components/Forums/Forums";
 import ViewAttachment from "../components/Forums/ViewAttachment";
 import ViewForum from "../components/Forums/ViewForum";
-
+import { userRoles as ur } from "../data/userRole";
 export const discussion_forum_routes = [
     {
         path: "/forums/:chapterID/:chapterName",
-        ele: <Forums />
+        ele: <Forums />,
+        availability:[ur.hiredEmployee, ur.contentCreator, ur.supervisor]
     },
     {
         path: "/view-forum/:forumId",
-        ele: <ViewForum />
+        ele: <ViewForum />,
+        availability:[ur.hiredEmployee, ur.contentCreator, ur.supervisor]
     },
     {
         path: "/create-forum/:chapterID",
-        ele: <CreateForum />
+        ele: <CreateForum />,
+        availability:[ ur.contentCreator, ur.supervisor]
     },
     {
         path: "/edit-forum/:forumId",
-        ele: <EditForum />
+        ele: <EditForum />,
+        availability:[ ur.contentCreator, ur.supervisor]
     },
     {
         path: "/create-post/:forumId",
-        ele: <CreatePost />
+        ele: <CreatePost />,
+        availability:[ur.hiredEmployee, ur.contentCreator, ur.supervisor]
     },
     {
         path: "/add-reply/:forumId/:commentId",
-        ele: <AddReply />
+        ele: <AddReply />,
+        availability:[ur.hiredEmployee, ur.contentCreator, ur.supervisor]
     },
     {
         path: "/view-forum/:forumId/:postId",
-        ele: <ViewAttachment type="posts" />
+        ele: <ViewAttachment type="posts" />,
+        availability:[ur.hiredEmployee, ur.contentCreator, ur.supervisor]
     },
     {
         path: "/view-forum/:forumId/:postId/:replyId",
-        ele: <ViewAttachment type="replies" />
+        ele: <ViewAttachment type="replies" />,
+        availability:[ur.hiredEmployee, ur.contentCreator, ur.supervisor]
     },
 ]

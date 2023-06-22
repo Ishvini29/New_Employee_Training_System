@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import swal from "sweetalert";
 import axios from "axios";
@@ -6,10 +5,12 @@ import jwt_decode from "jwt-decode";
 
 const EnrollRequestEmployee = () => {
   const [chapters, setChapter] = useState([]);
-  // const user_accepted_chapter = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.acceptedAdditionalChapter
+  const [loading, setLoading] = useState(false);
   const userID = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData._id;
-  console.log(jwt_decode(JSON.parse(localStorage.getItem("user")).token));
   const [reset, setReset] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [buttonStates, setButtonStates] = useState([]);
+
   const requestChapter = (chapID) => {
     swal({
       title: "Are you sure?",
@@ -21,7 +22,7 @@ const EnrollRequestEmployee = () => {
       .then((confirmed) => {
         if (confirmed) {
           axios
-            .post("http://localhost:1337/chapters/enrollChapter", {
+            .post(process.env.REACT_APP_API_BASE+"/chapters/enrollChapter", {
               chapID: chapID,
               userID: userID,
             })
@@ -44,24 +45,32 @@ const EnrollRequestEmployee = () => {
             });
         }
       });
-  }
+  };
+
   useEffect(() => {
+    setLoading(true);
     axios
-      .get("http://localhost:1337/chapters/showAllChapters")
+      .get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
       .then(function (response) {
-        const filteredChapters = response.data.filter(chapter => chapter.depID !== null && chapter.status !== "notactive");
-        // const filteredChapters = response.data.filter(chapter => chapter.depID !== null && chapter._id !== user_accepted_chapter);
+        const filteredChapters = response.data.filter(
+          (chapter) =>
+            chapter.depID !== null && chapter.status !== "notactive"
+        );
         setChapter(filteredChapters);
+        setLoading(false);
+        setButtonStates([]);
       });
   }, [reset]);
-  const [buttonStates, setButtonStates] = useState();
+
   const handleClick = (chapterIndex, deptIndex) => {
-    const confirmed = window.confirm("Are you sure you want to send request to this request?");
+    const confirmed = window.confirm(
+      "Are you sure you want to send request to this request?"
+    );
     if (confirmed) {
       const newButtonStates = [...buttonStates];
       newButtonStates[deptIndex][chapterIndex] = true;
       setButtonStates(newButtonStates);
-      swal("Success", "Your request sent succesfully!", "success");
+      swal("Success", "Your request sent successfully!", "success");
     }
   };
 
@@ -71,15 +80,45 @@ const EnrollRequestEmployee = () => {
         <div className="alert mt-3 heading">
           <h5>Other department Chapters</h5>
         </div>
-        <table className="table">
-          <tbody>
-            {
-              chapters.map((value) => {
-                return (
-                  (value?.depID._id !== jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.department)
-                    ?
+        <input
+          type="text"
+          placeholder="Search by chapId"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{
+            padding: "8px",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+            fontSize: "16px",
+            marginBottom: "16px",
+            width: "280px",
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+          }}
+        />
+        {loading ? (
+          <center>
+            <div className="spinner-grow mt-3" role="status"></div>
+          </center>
+        ) : chapters.length === 0 ? (
+          <div className="alert alert-info mt-4">
+            <b>No Other Department Chapters Found!</b>
+          </div>
+        ) : (
+          <table className="table">
+            <tbody>
+              {chapters
+                .filter((value) =>
+                  value?.chapId.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+                .map((value) => {
+                  return value?.depID._id !==
+                    jwt_decode(JSON.parse(localStorage.getItem("user")).token)
+                      .userData.department ? (
                     <div className="row m-2">
-                      <div className="col-md-6">
+                      <div className="col-md-2">
+                        <div className="form-control">{value?.chapId}</div>
+                      </div>
+                      <div className="col-md-4">
                         <div className="form-control">{value?.chapterName}</div>
                       </div>
                       <div className="col-md-4">
@@ -90,29 +129,26 @@ const EnrollRequestEmployee = () => {
                       <div className="col-md-2">
                         <button
                           className="btn btn-outline-success form-control"
-                          onClick={() => { requestChapter(value?._id) }}
-                          disabled={true && (value?.requested).includes(userID)}
+                          onClick={() => {
+                            requestChapter(value?._id);
+                          }}
+                          disabled={true && value?.requested.includes(userID)}
                         >
-                          {
-                            ((value?.requested).includes(userID)) ? "Requested" : "Request"
-                          }
+                          {value?.requested.includes(userID) ? "Requested" : "Request"}
                         </button>
                       </div>
                     </div>
-                    :
-                    null
-                )
-              })
-            }
-          </tbody>
-        </table>
+                  ) : null;
+                })}
+            </tbody>
+          </table>
+        )}
       </div>
     </React.Fragment>
   );
 };
 
 export default EnrollRequestEmployee;
-
 
 
 

@@ -6,10 +6,11 @@ import axios from "axios";
 const UnitList = (props) => {
   const { id } = useParams();
   const [KTsessions, setKTsessions] = useState([]);
+  // id={id} chapterName={chapterName} chapterID={chapterID} unitName={unitName}
 
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/kts?unitId=${id}`)
+      .get(process.env.REACT_APP_API_BASE + `/kts?unitId=${id}`)
       .then((response) => {
         setKTsessions(response.data);
       })

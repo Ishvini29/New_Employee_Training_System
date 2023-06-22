@@ -21,7 +21,7 @@ const UnitHistory = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/deleteunits/")
+      .get(process.env.REACT_APP_API_BASE + "/deleteunits/")
       .then((response) => {
         setdeleteunits(response.data);
       })

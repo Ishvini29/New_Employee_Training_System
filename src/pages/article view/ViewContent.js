@@ -9,7 +9,7 @@ const ViewContent = () => {
   const [article, setArticle] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/arts/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/arts/${id}`)
       .then((response) => {
         setArticle(response.data);
         console.log(response.data);

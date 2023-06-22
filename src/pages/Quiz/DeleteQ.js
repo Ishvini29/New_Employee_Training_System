@@ -14,7 +14,7 @@ const Delete = ({ quiz, id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((response) => {
         setunits(response.data);
       })
@@ -25,7 +25,7 @@ const Delete = ({ quiz, id }) => {
 
   const onDelete = () => {
     axios
-      .delete(`http://localhost:1337/units/${id}/delete/${quiz._id}`)
+      .delete(process.env.REACT_APP_API_BASE+`/units/${id}/delete/${quiz._id}`)
       .then((res) => {
         console.log(res.data);
         swal({
@@ -54,7 +54,7 @@ const Delete = ({ quiz, id }) => {
     };
 
     axios
-      .post("http://localhost:1337/deletequestions/add", deleteData)
+      .post(process.env.REACT_APP_API_BASE+"/deletequestions/add", deleteData)
       .then(() => {
         console.log("Delete history data saved successfully");
       })

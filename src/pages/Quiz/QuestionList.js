@@ -14,7 +14,7 @@ const Quiz = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:1337/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
       .then((response) => {
         setquizs(response.data.quiz.questions);
       })

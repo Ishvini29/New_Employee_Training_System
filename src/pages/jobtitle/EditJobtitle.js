@@ -25,7 +25,7 @@ const EditJobtitle = () => {
     }
 
     axios
-      .post("http://localhost:1337/jobtitles/editJobtitle", {
+      .post(process.env.REACT_APP_API_BASE+"/jobtitles/editJobtitle", {
         fromName: name,
         newName: newJobtitleName,
         reason: reason,

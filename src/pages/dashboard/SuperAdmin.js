@@ -7,10 +7,11 @@ import promote from "../../images/superAdmin/promote.png";
 import pending from "../../images/superAdmin/pendingUser.png";
 import viewChap from "../../images/superAdmin/viewChapter.png";
 import manageJob from "../../images/superAdmin/manageJob.png";
+import editLogs from "../../images/superAdmin/editLogs.svg";
 const SuperAdmin = () => {
     const [depIsEmpty, setDepIsEmpty] = useState(false);
     useEffect(() => {
-        axios.get("http://localhost:1337/general/depisempty")
+        axios.get(process.env.REACT_APP_API_BASE + "/general/depisempty")
             .then(function (response) {
                 setDepIsEmpty(response.data.status)
             });
@@ -97,6 +98,18 @@ const SuperAdmin = () => {
                             </center>
                             <div className="card-body">
                                 <h6>View Chapters</h6>
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+                <div className="col-md-4 mb-3">
+                    <div className="card shadow">
+                        <Link to="/logs" className="btn btn-outline-dark">
+                            <center>
+                                <img src={editLogs} className="card-img-top" style={{ "width": "100px" }} alt="card" ></img>
+                            </center>
+                            <div className="card-body">
+                                <h6>Edit Logs</h6>
                             </div>
                         </Link>
                     </div>

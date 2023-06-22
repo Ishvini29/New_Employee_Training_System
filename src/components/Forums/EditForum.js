@@ -32,7 +32,7 @@ const EditForum = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/get-forum-details-by-forum-id/${params.forumId}`
+        process.env.REACT_APP_API_BASE+`/get-forum-details-by-forum-id/${params.forumId}`
       )
       .then((response) => {
         setForum(response.data);
@@ -45,7 +45,7 @@ const EditForum = () => {
 
   const onFormSubmit = (formData) => {
     axios
-      .put(`http://localhost:1337/edit-forum/${params.forumId}`, formData)
+      .put(process.env.REACT_APP_API_BASE+`/edit-forum/${params.forumId}`, formData)
       .then((res) => {
         console.log(res.data);
         swal({

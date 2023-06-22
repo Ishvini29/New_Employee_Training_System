@@ -36,7 +36,7 @@ const CreateForum = () => {
     console.log(data);
 
     axios
-      .post("http://localhost:1337/create-forum", data)
+      .post(process.env.REACT_APP_API_BASE+"/create-forum", data)
       .then((res) => {
         console.log(res.data);
         swal({

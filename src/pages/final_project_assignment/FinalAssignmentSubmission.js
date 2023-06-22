@@ -19,7 +19,7 @@ const FinalAssignmentSubmission = () => {
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:1337/finalprojectassignment/getOneAssignment/${userData}`)
+        axios.get(process.env.REACT_APP_API_BASE+`/finalprojectassignment/getOneAssignment/${userData}`)
             .then(response => {
                 if (response.data[0].isProjectAssigned === true) {
                     setIsAssignmentRequested(true);
@@ -50,7 +50,7 @@ const FinalAssignmentSubmission = () => {
             formData.append("ufile", file[0]);
         }
         try {
-            axios.post("http://localhost:1337/addFinalProjectSubmission", formData, {
+            axios.post(process.env.REACT_APP_API_BASE+"/addFinalProjectSubmission", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 }

@@ -23,7 +23,7 @@ const UpdateFinalProjectAssignment = () => {
     const [newFile, setNewFile] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
-        axios.get(`http://localhost:1337/finalprojectassignment/getOneAssignmentByProjectID/${id}`)
+        axios.get(process.env.REACT_APP_API_BASE+`/finalprojectassignment/getOneAssignmentByProjectID/${id}`)
             .then(response => {
                 setFetchData(response.data[0]);
                 if (response.data.status === false) {
@@ -119,7 +119,7 @@ const UpdateFinalProjectAssignment = () => {
         }
         try {
             axios.post(
-                "http://localhost:1337/finalprojectassignment/updateFinalProjectAssignment",
+                process.env.REACT_APP_API_BASE+"/finalprojectassignment/updateFinalProjectAssignment",
                 formData,
                 {
                     headers: {

@@ -14,7 +14,7 @@ const PromoteDemoteSystemAdmin = () => {
 
     useEffect(() => {
         // /userRoles/groupbyuserrole
-        axios.get(`http://localhost:1337/users/showAllUsers/systemadmin/${depid}`, {
+        axios.get(process.env.REACT_APP_API_BASE+`/users/showAllUsers/systemadmin/${depid}`, {
             headers: {
                 'token': JSON.parse(localStorage.getItem("user")).token,
                 'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ const PromoteDemoteSystemAdmin = () => {
         }).then((willDelete) => {
             if (willDelete) {
                 const newRole = { userID: userID, newRole: newUserRole };
-                axios.post('http://localhost:1337/userRoles/changeUserRole', newRole)
+                axios.post(process.env.REACT_APP_API_BASE+'/userRoles/changeUserRole', newRole)
                     .then((res) => {
                         if (res.data.status) {
                             swal({

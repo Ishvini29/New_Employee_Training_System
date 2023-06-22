@@ -20,7 +20,7 @@ const Department = () => {     //Defining Department component as a functional c
     }).then((willDelete) => { //Handling user confirmation to delete the department
       if (willDelete) {  //If user confirms the deletion
         axios
-          .post("http://localhost:1337/departments/deleteDepartment", {
+          .post(process.env.REACT_APP_API_BASE+"/departments/deleteDepartment", {
             id: id,
           })
           .then((res) => {  //Handling response from the server
@@ -48,7 +48,7 @@ const Department = () => {     //Defining Department component as a functional c
   useEffect(() => {  //Declaring a side effect hook that runs only after the component mounts
     setLoading(true);
     axios
-      .get("http://localhost:1337/departments/showAllDepartments")
+      .get(process.env.REACT_APP_API_BASE+"/departments/showAllDepartments")
       .then(function (response) {   //Handling response from the server
         setDepartment(response.data);  //Updating the state variable 'departments' with the data received from the server
         setLoading(false);

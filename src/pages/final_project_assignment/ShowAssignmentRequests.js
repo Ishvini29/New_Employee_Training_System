@@ -11,7 +11,7 @@ const ShowAssignmentRequests = () => {
     const departmentID = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.department
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:1337/finalprojectassignment/showRequests/${departmentID}`)
+        axios.get(process.env.REACT_APP_API_BASE+`/finalprojectassignment/showRequests/${departmentID}`)
             .then(response => {
                 setRequests(response.data);
                 setLoading(false);

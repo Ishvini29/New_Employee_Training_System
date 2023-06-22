@@ -12,7 +12,7 @@ const EditAssignedTasks = () => {
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:1337/finalprojectassignment/getAssigned/${depid}`)
+        axios.get(process.env.REACT_APP_API_BASE+`/finalprojectassignment/getAssigned/${depid}`)
             .then(response => {
                 setRequests(response.data);
                 setLoading(false);
@@ -32,7 +32,7 @@ const EditAssignedTasks = () => {
             confirmButtonText: 'Yes, Delete'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post(`http://localhost:1337/finalprojectassignment/deleteAssignedAssignment`, { projectID: projectID })
+                axios.post(process.env.REACT_APP_API_BASE+`/finalprojectassignment/deleteAssignedAssignment`, { projectID: projectID })
                     .then((res) => {
                         console.log(res.data);
                         if (res.data.status === true) {

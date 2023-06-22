@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import job from "../../images/job.png";
 
 const AllocateChapter = () => {
   const department = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.department;
   const [departments, setDepartments] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:1337/jobtitles/showAllJobtitles")
+      .get(process.env.REACT_APP_API_BASE+"/jobtitles/showAllJobtitles")
       .then(function (response) {
         setDepartments(response.data);
       });
@@ -21,15 +22,15 @@ const AllocateChapter = () => {
     <React.Fragment>
       <div className="container">
         <div className="alert mt-3 heading"><h5>Allocate Default Chapters</h5></div>
-        <br></br> <br></br>
+        <br></br>
         <table className="table">
-
           <tbody>
             {filteredDepartments.map((department, index) => {
               return department.Jobtitle.map((jobtitle, j) => {
                 return (
                   <tr className="align-middle" key={jobtitle._id}>
-                    <td>{jobtitle._id}</td>
+                    {/* <td>{jobtitle._id}</td> */}
+                    <img src={job} className="picside9" draggable={false} alt="this is image" />
                     <td>{jobtitle.jobTitlename}</td>
 
                     <td>

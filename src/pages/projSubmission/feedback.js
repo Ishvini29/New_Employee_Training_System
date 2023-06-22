@@ -4,7 +4,7 @@ import swal from "sweetalert";
 import axios from "axios";
 
 const Feedback = () => {
-  const API_BASE = "http://localhost:1337";
+
   const [employee, setEmployee] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -15,7 +15,7 @@ const Feedback = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(API_BASE + "/getFeedback/" + currentUser)
+      .get(process.env.REACT_APP_API_BASE+"/getFeedback/" + currentUser)
       .then((res) => {
         setEmployee(res?.data)
         setLoading(false);

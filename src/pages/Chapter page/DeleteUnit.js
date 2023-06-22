@@ -14,7 +14,7 @@ const Delete = ({ unit }) => {
 
   const onDelete = () => {
     axios
-      .delete(`http://localhost:1337/units/delete/${unit._id}`)
+      .delete(process.env.REACT_APP_API_BASE+`/units/delete/${unit._id}`)
       .then((res) => {
         console.log(res.data);
         swal({
@@ -42,7 +42,7 @@ const Delete = ({ unit }) => {
     };
 
     axios
-      .post("http://localhost:1337/deleteunits/add", deleteData)
+      .post(process.env.REACT_APP_API_BASE+"/deleteunits/add", deleteData)
       .then(() => {
         console.log("Delete history data saved successfully");
       })

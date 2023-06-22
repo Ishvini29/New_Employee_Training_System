@@ -32,7 +32,7 @@ const EditChapter = () => {
         }
 
         axios
-            .post("http://localhost:1337/commonchapters/editChapter", {
+            .post(process.env.REACT_APP_API_BASE+"/commonchapters/editChapter", {
                 fromName: name,
                 newName: newChapterName,
                 reason: reason,

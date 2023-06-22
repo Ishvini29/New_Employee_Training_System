@@ -10,7 +10,7 @@ const OverDuedFinalProjectAssignment = () => {
     const [requests, setRequests] = useState([]);
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:1337/finalprojectassignment/getOverDuedAssignments/${depid}`)
+        axios.get(process.env.REACT_APP_API_BASE+`/finalprojectassignment/getOverDuedAssignments/${depid}`)
             .then(response => {
                 setLoading(false);
                 setRequests(response.data);

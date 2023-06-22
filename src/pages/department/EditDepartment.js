@@ -26,7 +26,7 @@ const EditDepartment = () => {
     }
 
     axios
-      .post("http://localhost:1337/departments/editDepartment", { //Sends a POST request to the backend server to update the department name with the new name, reason and id.
+      .post(process.env.REACT_APP_API_BASE+"/departments/editDepartment", { //Sends a POST request to the backend server to update the department name with the new name, reason and id.
         fromName: name,
         newName: newDepName,
         reason: reason,

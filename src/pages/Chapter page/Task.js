@@ -8,8 +8,9 @@ const UnitList = (props) => {
   const [units, setunits] = useState([]);
 
   useEffect(() => {
+    // axios.get(process.env.REACT_APP_API_BASE+`/units?belongsToChapter=${chapterId}`)
     axios
-      .get(`http://localhost:1337/units?chapterId=${chapterId}`)
+      .get(process.env.REACT_APP_API_BASE + `/units?chapterId=${chapterId}`)
       .then((response) => {
         setunits(response.data);
       })

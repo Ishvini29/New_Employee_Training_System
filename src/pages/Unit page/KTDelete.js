@@ -26,7 +26,7 @@ const KTHistory = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/deletekts/")
+      .get(process.env.REACT_APP_API_BASE + "/deletekts/")
       .then((response) => {
         setdeletekts(response.data);
       })

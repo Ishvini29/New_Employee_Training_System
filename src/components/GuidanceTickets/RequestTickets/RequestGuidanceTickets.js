@@ -20,7 +20,7 @@ const RequestGuidanceTickets = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/get-tickets-by-requested-user-id/${userDocument._id}`
+        process.env.REACT_APP_API_BASE+`/get-tickets-by-requested-user-id/${userDocument._id}`
       )
       .then((response) => {
         setTickets(response.data);
@@ -40,7 +40,7 @@ const RequestGuidanceTickets = () => {
 
       if (attachment === null) {
         axios
-          .post("http://localhost:1337/save-ticket", data)
+          .post(process.env.REACT_APP_API_BASE+"/save-ticket", data)
           .then((res) => {
             console.log(res.data);
             swal({
@@ -77,7 +77,7 @@ const RequestGuidanceTickets = () => {
           console.log(url);
           data = { ...data, attachment: url };
           axios
-            .post("http://localhost:1337/save-ticket", data)
+            .post(process.env.REACT_APP_API_BASE+"/save-ticket", data)
             .then((res) => {
               console.log(res.data);
               swal({
