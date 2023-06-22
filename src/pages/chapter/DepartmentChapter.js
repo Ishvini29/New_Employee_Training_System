@@ -17,7 +17,7 @@ const DepartmentChapter = () => {
         swal({
             title: "Confirm",
             text:
-                "Are you absolutely sure that you want to delete this Chapter? Please note that this action will send to the Super admin.",
+                "Are you absolutely sure that you want to temporarily delete this Chapter? Please note that this action will send to the Super admin.",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -32,7 +32,7 @@ const DepartmentChapter = () => {
             if (deletionConfirmed !== null && deletionConfirmed !== "") {
                 setDeletionReason(deletionConfirmed);
                 axios
-                    .put(process.env.REACT_APP_API_BASE+`/chapters/${id}`, {
+                    .put(process.env.REACT_APP_API_BASE + `/chapters/${id}`, {
                         status: "notactive",
                         deleteReason: deletionConfirmed,
                     })
@@ -60,7 +60,7 @@ const DepartmentChapter = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
+        axios.get(process.env.REACT_APP_API_BASE + "/chapters/showAllChapters")
             .then(function (response) {
                 const filteredChapters = response.data.filter(
                     (chapter) =>
