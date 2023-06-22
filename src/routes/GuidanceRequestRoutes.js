@@ -1,18 +1,23 @@
 import CompleteGuidanceTickets from "../components/GuidanceTickets/CompleteTickets/CompleteGuidanceTickets";
 import DirectGuidanceTickets from "../components/GuidanceTickets/DirectTickets/DirectGuidanceTickets";
+import ViewAttachment from "../components/GuidanceTickets/DirectTickets/ViewAttachment";
 import RequestGuidanceTickets from "../components/GuidanceTickets/RequestTickets/RequestGuidanceTickets";
 
 export const guidance_request_routes = [
-    {
-        path: "/request-guidance-ticket",
-        ele: <RequestGuidanceTickets/>
-    },
-    {
-        path: "/direct-guidance-ticket",
-        ele: <DirectGuidanceTickets/>
-    },
-    {
-        path: "/complete-guidance-ticket",
-        ele: <CompleteGuidanceTickets/>
-    },
-]
+  {
+    path: "/request-guidance-ticket",
+    ele: <RequestGuidanceTickets />,
+  },
+  {
+    path: "/direct-guidance-ticket",
+    ele: <DirectGuidanceTickets />,
+  },
+  {
+    path: "/complete-guidance-ticket",
+    ele: <CompleteGuidanceTickets />,
+  },
+  {
+    path: "/guidance-ticket-view-attachment/:ticketId",
+    ele: <ViewAttachment />,
+  },
+];

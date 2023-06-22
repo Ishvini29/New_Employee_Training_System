@@ -1,23 +1,25 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import swal from 'sweetalert';
-import * as Yup from 'yup';
+import axios from "axios";
+import React, { useState } from "react";
+import swal from "sweetalert";
+import * as Yup from "yup";
 import jwt_decode from "jwt-decode";
 
 export default function AddUnit(props) {
-  const userDocument = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData;
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
   const chapterId = props.chapterID;
   const userRole = userDocument?.userRole;
   const userid = userDocument._id;
-  console.log("from addunit " + chapterId + "/" + userid)
+  console.log("from addunit " + chapterId + "/" + userid);
 
-  const [unitName, setunitName] = useState('');
-  const [unitDesc, setunitDesc] = useState('');
+  const [unitName, setunitName] = useState("");
+  const [unitDesc, setunitDesc] = useState("");
   const [errors, setErrors] = useState({});
 
   const validationSchema = Yup.object().shape({
-    unitName: Yup.string().required('Unit name is required'),
-    unitDesc: Yup.string().required('Unit introduction is required'),
+    unitName: Yup.string().required("Unit name is required"),
+    unitDesc: Yup.string().required("Unit introduction is required"),
   });
 
   const onChangeunitname = (e) => {
@@ -32,7 +34,10 @@ export default function AddUnit(props) {
     e.preventDefault();
 
     try {
-      await validationSchema.validate({ unitName: unitName, unitDesc: unitDesc }, { abortEarly: false });
+      await validationSchema.validate(
+        { unitName: unitName, unitDesc: unitDesc },
+        { abortEarly: false }
+      );
 
       const newUnit = {
         belongsToChapter: chapterId,
@@ -41,17 +46,16 @@ export default function AddUnit(props) {
         unitDesc: unitDesc,
       };
 
-      const res = await axios.post('http://localhost:1337/units/add', newUnit);
+      const res = await axios.post("http://localhost:1337/units/add", newUnit);
       console.log(res.data);
       swal({
-        icon: 'success',
-        text: 'Successfully created',
+        icon: "success",
+        text: "Successfully created",
       }).then(() => {
-        setunitName('');
-        setunitDesc('');
+        setunitName("");
+        setunitDesc("");
         setErrors({});
         props.sendData(props.toDoRefresh + 1);
-        // window.location.reload(); // Refresh the page
       });
     } catch (err) {
       console.error(err);
@@ -62,8 +66,8 @@ export default function AddUnit(props) {
       });
       setErrors(validationErrors);
       swal({
-        icon: 'warning',
-        text: 'Error',
+        icon: "warning",
+        text: "Error",
       });
     }
   };
@@ -73,11 +77,23 @@ export default function AddUnit(props) {
       <form onSubmit={onSubmit}>
         <div className="form-control">
           <label htmlFor="unitName">Unit </label>
-          <input type="text" id="unitName" className="form-control" value={unitName} onChange={onChangeunitname} />
+          <input
+            type="text"
+            id="unitName"
+            className="form-control"
+            value={unitName}
+            onChange={onChangeunitname}
+          />
           {errors.unitName && <div className="error">{errors.unitName}</div>}
           <br></br>
           <label htmlFor="unitDesc">Introduction </label>
-          <input type="text" id="unitDesc" className="form-control" value={unitDesc} onChange={onChangeunitintro} />
+          <input
+            type="text"
+            id="unitDesc"
+            className="form-control"
+            value={unitDesc}
+            onChange={onChangeunitintro}
+          />
           {errors.unitDesc && <div className="error">{errors.unitDesc}</div>}
           <br></br>
           <input type="submit" value="Save Unit" className="btn btn-primary" />

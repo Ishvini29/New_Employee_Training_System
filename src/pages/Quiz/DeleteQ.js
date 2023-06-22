@@ -3,11 +3,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import swal from "sweetalert";
+import jwt_decode from "jwt-decode";
 
 const Delete = ({ quiz, id }) => {
   const navigate = useNavigate();
   const [units, setunits] = useState([]);
-  const userid = "648050d3b39dcbdf90027b5a";
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
 
   useEffect(() => {
     axios
@@ -42,14 +45,12 @@ const Delete = ({ quiz, id }) => {
 
     const deleteData = {
       createdBy: quiz.createdBy,
-      deletedBy: userid,
+      deletedBy: userDocument._id,
       unitName: units.unitName,
       quizname: units.quiz.quizName,
       question: quiz.question,
       options: quiz.options,
       correctAnswer: quiz.correctAnswer,
-
-      //updated_at: moment.utc().format('YYYY-MM-DD hh:mm:ss A'),
     };
 
     axios

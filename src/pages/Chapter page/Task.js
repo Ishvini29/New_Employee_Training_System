@@ -1,46 +1,39 @@
-import Tasks from './Tasks';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import Tasks from "./Tasks";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const UnitList = (props) => {
   const chapterId = props.chapterID;
-  console.log("This is a data" + chapterId)
+  console.log("This is a data" + chapterId);
   const [units, setunits] = useState([]);
 
-  // useEffect(() => {
-  //   axios.get('http://localhost:1337/units/')
-  //     .then(response => {
-  //       setunits(response.data);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }, []);
-
   useEffect(() => {
-    // axios.get(`http://localhost:1337/units?belongsToChapter=${chapterId}`)
-    axios.get(`http://localhost:1337/units?chapterId=${chapterId}`)
-      .then(response => {
+    axios
+      .get(`http://localhost:1337/units?chapterId=${chapterId}`)
+      .then((response) => {
         setunits(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
-    // }, [chapterId]);
   }, [props.toDoRefresh, chapterId]);
-
 
   return (
     <div>
       <div>
-        {units.map(unit => {
+        {units.map((unit) => {
           return (
-            <Tasks chapterID={props.chapterID} chapterName={props.chapterName} key={unit._id} unit={unit} />
-          )
+            <Tasks
+              chapterID={props.chapterID}
+              chapterName={props.chapterName}
+              key={unit._id}
+              unit={unit}
+            />
+          );
         })}
       </div>
     </div>
   );
-}
+};
 
 export default UnitList;

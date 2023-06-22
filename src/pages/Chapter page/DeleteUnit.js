@@ -1,13 +1,16 @@
 import React from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import swal from "sweetalert";
+import jwt_decode from "jwt-decode";
 
 const Delete = ({ unit }) => {
   const navigate = useNavigate();
-  const chapterName = "diagrams";
-  const userid = "648050d3b39dcbdf90027b5a";
+  const { chapterName } = useParams();
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
 
   const onDelete = () => {
     axios
@@ -31,11 +34,11 @@ const Delete = ({ unit }) => {
 
     const deleteData = {
       chapterName: chapterName,
+      unitId: unit._id,
       unitName: unit.unitName,
       unitDesc: unit.unitDesc,
       createdBy: unit.createdBy,
-      deletedBy: userid,
-      // updated_at: moment().format('YYYY-MM-DD hh:mm:ss.SS A'),
+      deletedBy: userDocument._id,
     };
 
     axios

@@ -6,8 +6,16 @@ const Article = (props) => (
     <td>{props.article.chapterName}</td>
     <td>{props.article.articleName}</td>
     <td>{props.article.articleDesc}</td>
-    <td>{props.article.createdBy}</td>
-    <td>{props.article.deletedBy}</td>
+    <td>
+      {props.article.createdBy?.firstName +
+        " " +
+        props.article.createdBy?.lastName}
+    </td>
+    <td>
+      {props.article.deletedBy?.firstName +
+        " " +
+        props.article.deletedBy?.lastName}
+    </td>
 
     <td>{props.article.updated_at}</td>
   </tr>

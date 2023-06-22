@@ -6,11 +6,13 @@ import * as Yup from "yup";
 import Header from "../Shared/Header";
 import swal from "sweetalert";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const EditForum = () => {
   const navigate = useNavigate();
-  const userid = "648050d3b39dcbdf90027b5a";
-  const chapterName = "diagrams";
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
 
   const formSchema = Yup.object().shape({
     topic: Yup.string().required("* topic is required"),
@@ -66,8 +68,8 @@ const EditForum = () => {
     console.log("Submitted form data:", formData);
 
     const editData = {
-      chapterName: chapterName,
-      updatedby: userid,
+      chapterName: params.chapterName,
+      updatedby: userDocument._id,
       forumTopic: formData.topic,
       forumDesc: formData.description,
       attachmentStatus: formData.attachmentAllowed,

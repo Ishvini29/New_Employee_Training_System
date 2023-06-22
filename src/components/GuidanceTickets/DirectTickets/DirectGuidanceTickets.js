@@ -9,7 +9,9 @@ import jwt_decode from "jwt-decode";
 const DirectGuidanceTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [ticketId, setTicketId] = useState(0);
-  const userDocument = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData;
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
   useEffect(() => {
     axios
       .get(
@@ -41,6 +43,8 @@ const DirectGuidanceTickets = () => {
           text: "The ticket was successfully directed!",
           icon: "success",
           button: "Close",
+        }).then(() => {
+          window.location.reload(); // Refresh the page
         });
       })
       .catch((error) => {
@@ -80,7 +84,8 @@ const DirectGuidanceTickets = () => {
             className="card mb-5"
             style={{
               borderColor: "#1D9EEC",
-              backgroundColor: t?.status === "requested" ? "#DDEDF8" : "#F8F8F8",
+              backgroundColor:
+                t?.status === "requested" ? "#DDEDF8" : "#F8F8F8",
             }}
           >
             <div className="card-body">
@@ -124,15 +129,15 @@ const DirectGuidanceTickets = () => {
                           t?.status === "requested"
                             ? "20%"
                             : t?.status === "directed"
-                              ? "60%"
-                              : "100%",
+                            ? "60%"
+                            : "100%",
                       }}
                       aria-valuenow={
                         t?.status === "requested"
                           ? "20"
                           : t?.status === "directed"
-                            ? "60"
-                            : "100"
+                          ? "60"
+                          : "100"
                       }
                       aria-valuemin="0"
                       aria-valuemax="100"
@@ -140,8 +145,8 @@ const DirectGuidanceTickets = () => {
                       {t?.status === "requested"
                         ? "Requested"
                         : t.status === "directed"
-                          ? "Directed"
-                          : "Completed"}
+                        ? "Directed"
+                        : "Completed"}
                     </div>
                   </div>
                 </div>

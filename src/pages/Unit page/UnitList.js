@@ -1,26 +1,16 @@
-import KTs from './KTs';
-import React, { useState, useEffect } from 'react';
+import KTs from "./KTs";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 const UnitList = (props) => {
   const { id } = useParams();
   const [KTsessions, setKTsessions] = useState([]);
-  // id={id} chapterName={chapterName} chapterID={chapterID} unitName={unitName}
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:1337/kts/')
-  //     .then(response => {
-  //       setKTsessions(response.data);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }, []);
 
   useEffect(() => {
-    axios.get(`http://localhost:1337/kts?unitId=${id}`)
-      .then(response => {
+    axios
+      .get(`http://localhost:1337/kts?unitId=${id}`)
+      .then((response) => {
         setKTsessions(response.data);
       })
       .catch(function (error) {
@@ -30,9 +20,8 @@ const UnitList = (props) => {
 
   return (
     <div>
-
       <div>
-        {KTsessions.map(KTsession => {
+        {KTsessions.map((KTsession) => {
           return (
             <KTs
               key={KTsession._id}
@@ -42,14 +31,11 @@ const UnitList = (props) => {
               chapterID={props.chapterID}
               unitName={props.unitName}
             />
-          )
+          );
         })}
       </div>
-
     </div>
-
-
   );
-}
+};
 
 export default UnitList;

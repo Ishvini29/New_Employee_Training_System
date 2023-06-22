@@ -1,33 +1,30 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import swal from 'sweetalert';
-import moment from 'moment';
+import swal from "sweetalert";
+import moment from "moment";
 import jwt_decode from "jwt-decode";
 
 const QuizPopup = ({ id }) => {
-  const userDocument = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData;
-  //const userid = "648050d3b39dcbdf90027b5a";
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
+
   const userid = userDocument._id;
   const depid = userDocument.department;
-  const chapterId = '648b44b4190f2b8c4fc0f693';
+  const chapterId = "648b44b4190f2b8c4fc0f693";
 
   const navigate = useNavigate();
   const [quizData, setQuizData] = useState({});
   const [startTime] = useState(+new Date());
   const [showConfirmation, setShowConfirmation] = useState(true);
   const [showSubmission, setshowSubmission] = useState(true);
-  const [quizSubmission, setQuizSubmission] = useState({
-    unitId: id,
-    questions: [],
-    attemptedTime: 0, // Add the attemptedTime field
-  });
-  const [selectedAnswers, setSelectedAnswers] = useState([]);
-  const [answers, setAnswers] = useState({});
-  const [attemptedTime, setAttemptedTime] = useState(0);
-  const [submitted, setSubmitted] = useState(false); // Add a state to track the submission status 
-  const [showQuiz, setShowQuiz] = useState(false);
 
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
+
+  const [attemptedTime, setAttemptedTime] = useState(0);
+  const [submitted, setSubmitted] = useState(false); // Add a state to track the submission status
+  const [showQuiz, setShowQuiz] = useState(false);
 
   useEffect(() => {
     axios
@@ -35,7 +32,9 @@ const QuizPopup = ({ id }) => {
       .then((response) => {
         setQuizData(response.data.quiz);
         setTimeLeft(response.data.quiz.timeLimit * 60); // Convert minutes to seconds
-        setSelectedAnswers(new Array(response.data.quiz.questions.length).fill(null));
+        setSelectedAnswers(
+          new Array(response.data.quiz.questions.length).fill(null)
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -54,10 +53,9 @@ const QuizPopup = ({ id }) => {
       })
       .catch((error) => {
         console.log(error);
-        swal('Oops!', 'Something went wrong. Please try again.', 'error');
+        // swal("Oops!", "Something went wrong. Please try again.", "error");
       });
   }, [id, userid]);
-
 
   const handleAttemptQuiz = useCallback(() => {
     axios
@@ -67,10 +65,13 @@ const QuizPopup = ({ id }) => {
 
         if (quiz.questions.length < 5) {
           // Redirect the user to a different page or show an error message
-          swal('Error', 'The quiz does not have enough questions.', 'error')
-            .then(() => {
-              //window.location.reload(); // Refresh the window after user clicks "OK"
-            });
+          swal(
+            "Error",
+            "The quiz does not have enough questions.",
+            "error"
+          ).then(() => {
+            //window.location.reload(); // Refresh the window after user clicks "OK"
+          });
           navigate(`/quiz/view/${id}`);
           //setSubmitted(true);
           setShowQuiz(true);
@@ -83,7 +84,6 @@ const QuizPopup = ({ id }) => {
         setQuizData(quiz);
         setTimeLeft(quiz.timeLimit * 60); // Convert minutes to seconds
         setSelectedAnswers(new Array(quiz.questions.length).fill(null));
-
       })
       .catch((err) => {
         console.log(err);
@@ -96,10 +96,12 @@ const QuizPopup = ({ id }) => {
     setSelectedAnswers(updatedAnswers);
   };
 
-
   const saveQuizSubmission = useCallback(() => {
     const questions = quizData.questions.map((question, questionIndex) => {
-      const selectedAnswer = selectedAnswers[questionIndex] !== null ? selectedAnswers[questionIndex] : -1;
+      const selectedAnswer =
+        selectedAnswers[questionIndex] !== null
+          ? selectedAnswers[questionIndex]
+          : -1;
 
       return {
         questionValue: question.question,
@@ -113,14 +115,21 @@ const QuizPopup = ({ id }) => {
     const submittedTime = moment().format("YYYY-MM-DD HH:mm:ss");
 
     axios
-      .post(`http://localhost:1337/submissions/${id}/${userid}/${chapterId}/${depid}`, {
-        questions,
-        submittedTime,
-        attemptedTime,
-      })
+      .post(
+        `http://localhost:1337/submissions/${id}/${userid}/${chapterId}/${depid}`,
+        {
+          questions,
+          submittedTime,
+          attemptedTime,
+        }
+      )
       .then((response) => {
         console.log(response.data);
-        swal("Quiz submitted!", "Your quiz has been submitted.", "success").then(() => {
+        swal(
+          "Quiz submitted!",
+          "Your quiz has been submitted.",
+          "success"
+        ).then(() => {
           navigate(`/quiz/view/${id}`);
           window.location.reload();
           setSubmitted(true);
@@ -130,11 +139,15 @@ const QuizPopup = ({ id }) => {
         console.log(error);
         swal("Oops!", "Something went wrong. Please try again.", "error");
       });
-  }, [attemptedTime, chapterId, depid, id, navigate, quizData.questions, selectedAnswers]);
-
-
-
-
+  }, [
+    attemptedTime,
+    chapterId,
+    depid,
+    id,
+    navigate,
+    quizData.questions,
+    selectedAnswers,
+  ]);
 
   const calculateTimeLeft = () => {
     const fullTime = quizData.timeLimit * 60 * 1000; // Convert minutes to milliseconds
@@ -157,11 +170,7 @@ const QuizPopup = ({ id }) => {
     return timeLeft;
   };
 
-
   const [timeLeft, setTimeLeft] = useState({});
-
-  //const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());   
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -183,8 +192,6 @@ const QuizPopup = ({ id }) => {
     timerComponents.push(<span>Time's up!</span>);
   }
 
-
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimeLeft(calculateTimeLeft());
@@ -203,14 +210,16 @@ const QuizPopup = ({ id }) => {
       }
     }
 
-
     return () => clearTimeout(timer);
   }, [timeLeft]);
 
   const handleSubmit = () => {
     const endTime = +new Date(); // Get the current time
-    const remainingTime = Number(timeLeft.minutes) * 60 + Number(timeLeft.seconds); // Convert to numbers
-    const attemptedTime = moment(endTime - remainingTime).format('YYYY-MM-DD hh:mm:ss A'); // Calculate the attempted time and format it
+    const remainingTime =
+      Number(timeLeft.minutes) * 60 + Number(timeLeft.seconds); // Convert to numbers
+    const attemptedTime = moment(endTime - remainingTime).format(
+      "YYYY-MM-DD hh:mm:ss A"
+    ); // Calculate the attempted time and format it
 
     setAttemptedTime(attemptedTime); // Store the attempted time in state
     setShowConfirmation(false);
@@ -219,25 +228,20 @@ const QuizPopup = ({ id }) => {
   const handleConfirm = () => {
     setshowSubmission(false);
 
-    // Submit the quiz when the time is up
-    //saveQuizSubmission(attemptedTime);
-
     // Submit the quiz only if it hasn't been submitted yet
     if (!submitted) {
       swal({
-        title: 'Are you sure you want to submit the quiz?',
-        // icon: 'success',
-        buttons: ['No', 'Yes'],
+        title: "Are you sure you want to submit the quiz?",
+
+        buttons: ["No", "Yes"],
         dangerMode: true,
       }).then((confirmed) => {
         if (confirmed) {
-          saveQuizSubmission(attemptedTime)
+          saveQuizSubmission(attemptedTime);
         }
       });
     }
   };
-
-
 
   return (
     <div>
@@ -273,7 +277,10 @@ const QuizPopup = ({ id }) => {
                 aria-labelledby="confirm-modal-label"
                 aria-hidden="true"
               >
-                <div className="modal-dialog modal-xl" style={{ maxWidth: "2000px", width: "95%", height: "100%" }}>
+                <div
+                  className="modal-dialog modal-xl"
+                  style={{ maxWidth: "2000px", width: "95%", height: "100%" }}
+                >
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title" id="exampleModalLabel">
@@ -317,32 +324,46 @@ const QuizPopup = ({ id }) => {
                               <div key={question._id}>
                                 <div className="card">
                                   <div className="container">
-                                    <h5 className="card-title">Question {index + 1}</h5>
+                                    <h5 className="card-title">
+                                      Question {index + 1}
+                                    </h5>
                                     <p>{question.question}</p>
-                                    {question.options.map((option, optionIndex) => (
-                                      <div className="input-group mb-3" key={optionIndex}>
-                                        <div className="input-group-text">
-                                          <input
-                                            className="form-check-input mt-0"
-                                            type="radio"
-                                            name={`question${question._id}`}
-                                            id={`flexRadioDefault${optionIndex}`}
-                                            value={option}
-                                            checked={selectedAnswers[index] === optionIndex}
-                                            onChange={() => handleAnswerChange(index, optionIndex)}
-                                          />
-                                        </div>
-                                        <label
-                                          type="text"
-                                          className="form-control"
-                                          htmlFor={`flexRadioDefault${optionIndex}`}
-                                          aria-label="Text input with radio button"
+                                    {question.options.map(
+                                      (option, optionIndex) => (
+                                        <div
+                                          className="input-group mb-3"
+                                          key={optionIndex}
                                         >
-                                          {option}
-                                        </label>
-                                      </div>
-                                    ))}
-
+                                          <div className="input-group-text">
+                                            <input
+                                              className="form-check-input mt-0"
+                                              type="radio"
+                                              name={`question${question._id}`}
+                                              id={`flexRadioDefault${optionIndex}`}
+                                              value={option}
+                                              checked={
+                                                selectedAnswers[index] ===
+                                                optionIndex
+                                              }
+                                              onChange={() =>
+                                                handleAnswerChange(
+                                                  index,
+                                                  optionIndex
+                                                )
+                                              }
+                                            />
+                                          </div>
+                                          <label
+                                            type="text"
+                                            className="form-control"
+                                            htmlFor={`flexRadioDefault${optionIndex}`}
+                                            aria-label="Text input with radio button"
+                                          >
+                                            {option}
+                                          </label>
+                                        </div>
+                                      )
+                                    )}
                                   </div>
                                 </div>
                               </div>
@@ -400,7 +421,4 @@ const QuizPopup = ({ id }) => {
   );
 };
 
-
-
 export default QuizPopup;
-

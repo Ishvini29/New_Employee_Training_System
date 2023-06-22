@@ -12,6 +12,7 @@ import jwt_decode from "jwt-decode";
 const RequestGuidanceTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [attachment, setAttachment] = useState(null);
+  const [uploading, setUploading] = useState(false); // New state for tracking upload status
   const userDocument = jwt_decode(
     JSON.parse(localStorage.getItem("user")).token
   ).userData;
@@ -63,11 +64,14 @@ const RequestGuidanceTickets = () => {
         return;
       }
       console.log(attachment.name);
+      const fileExtension = attachment.name.split(".").pop(); // Get the file extension
+      const fileName = `tickets_${v4()}.${fileExtension}`; // Generate a unique filename with the correct extension
+
       const AttachmentRef = ref(
         storage,
-        `GuidanceTickets/Attachments/${attachment.name + v4()}`
+        `GuidanceTickets/Attachments/${fileName}`
       );
-
+      setUploading(true);
       uploadBytes(AttachmentRef, attachment).then((a) => {
         getDownloadURL(a.ref).then((url) => {
           console.log(url);
@@ -81,6 +85,8 @@ const RequestGuidanceTickets = () => {
                 text: "Your post was successfully saved!",
                 icon: "success",
                 button: "Close",
+              }).then(() => {
+                window.location.reload(); // Refresh the page
               });
               console.log("Submitted form data:", data);
             })
@@ -91,6 +97,9 @@ const RequestGuidanceTickets = () => {
                 text: "Something went wrong, Please try again!",
                 icon: "warning",
               });
+            })
+            .finally(() => {
+              setUploading(false); // Set the uploading state to false once the upload is complete
             });
         });
       });
@@ -133,6 +142,7 @@ const RequestGuidanceTickets = () => {
           mainButton="Request Guidance"
           body={
             <RequestForm
+              uploading={uploading}
               onFormSubmit={onFormSubmit}
               setAttachment={setAttachment}
             />

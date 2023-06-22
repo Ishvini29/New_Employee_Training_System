@@ -1,6 +1,5 @@
 import QuizEntry from "../pages/Quiz/QuizEntry";
 import Quizpage from "../pages/Quiz/Quizpage";
-import QuizDisplay from "../pages/Quiz/QuizDisplay";
 import Result from "../pages/Quiz/result";
 import Review from "../pages/Quiz/review";
 import { userRoles as ur } from "../data/userRole";
@@ -31,9 +30,5 @@ export const quiz_routes = [
   {
     path: "/quiz/:id",
     ele: <Quizpage />,
-  },
-  {
-    path: "/quiz/attempt/:id",
-    ele: <QuizDisplay />,
   },
 ];

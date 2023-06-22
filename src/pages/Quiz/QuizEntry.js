@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import QuizComponent from "./QuizComponent";
-import NavBar from "../../components/NavBar";
 import EditQuizEntry from "./EditQuizEntry";
 import QuizPopup from "./QuizPopup";
 
@@ -91,7 +89,6 @@ const QuizEntry = (props) => {
                   </button>
                 </Link>
                 <QuizPopup id={id}></QuizPopup>
-                {/* <QuizComponent id={id} /> */}
               </div>
 
               <br></br>
