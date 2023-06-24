@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import swal from "sweetalert";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import common from "../../images/searchbar.png";
 
 const EnrollRequestEmployee = () => {
   const [chapters, setChapter] = useState([]);
   const [loading, setLoading] = useState(false);
   const userID = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData._id;
+  const acceptedChapters = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.acceptedAdditionalChapter;
+  console.log(acceptedChapters);
   const [reset, setReset] = useState();
   const [searchQuery, setSearchQuery] = useState("");
   const [buttonStates, setButtonStates] = useState([]);
@@ -22,7 +25,7 @@ const EnrollRequestEmployee = () => {
       .then((confirmed) => {
         if (confirmed) {
           axios
-            .post(process.env.REACT_APP_API_BASE+"/chapters/enrollChapter", {
+            .post(process.env.REACT_APP_API_BASE + "/chapters/enrollChapter", {
               chapID: chapID,
               userID: userID,
             })
@@ -50,11 +53,11 @@ const EnrollRequestEmployee = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
+      .get(process.env.REACT_APP_API_BASE + "/chapters/showAllChapters")
       .then(function (response) {
         const filteredChapters = response.data.filter(
           (chapter) =>
-            chapter.depID !== null && chapter.status !== "notactive"
+            chapter.depID !== null && chapter.status !== "notactive" && !acceptedChapters.includes(chapter._id)
         );
         setChapter(filteredChapters);
         setLoading(false);
@@ -80,6 +83,7 @@ const EnrollRequestEmployee = () => {
         <div className="alert mt-3 heading">
           <h5>Other department Chapters</h5>
         </div>
+        <img src={common} className="picside10" draggable={false} alt="this is image" />
         <input
           type="text"
           placeholder="Search by chapId"
@@ -95,6 +99,7 @@ const EnrollRequestEmployee = () => {
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
           }}
         />
+
         {loading ? (
           <center>
             <div className="spinner-grow mt-3" role="status"></div>
@@ -149,6 +154,4 @@ const EnrollRequestEmployee = () => {
 };
 
 export default EnrollRequestEmployee;
-
-
 

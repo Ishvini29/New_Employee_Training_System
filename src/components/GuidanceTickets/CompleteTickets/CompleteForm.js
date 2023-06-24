@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CompleteForm = (props) => {
   return (
@@ -15,7 +16,16 @@ const CompleteForm = (props) => {
         </div>
         <div className="row">
           <p className="col-sm-12">
-            Attachment :{/* {props.ticket.attachment} */}
+            {props?.ticket.attachment && (
+              <>
+                Attachment :{" "}
+                <Link
+                  to={`/guidance-ticket-view-attachment/${props?.ticket._id}`}
+                >
+                  View
+                </Link>
+              </>
+            )}
           </p>
         </div>
         <div className="row">

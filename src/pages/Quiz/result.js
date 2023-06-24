@@ -24,7 +24,9 @@ const Result = () => {
   useEffect(() => {
     // Fetch result
     axios
-      .get(process.env.REACT_APP_API_BASE+"/result/" + currentUser + "/" + unitId)
+      .get(
+        process.env.REACT_APP_API_BASE + "/result/" + currentUser + "/" + unitId
+      )
       .then((res) => setResult(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -47,7 +49,11 @@ const Result = () => {
       });
     // store badge for the current user if he will be below rank 4
     axios
-      .post(process.env.REACT_APP_API_BASE+"/storeBadge", { currentUser, unitId, department })
+      .post(process.env.REACT_APP_API_BASE + "/storeBadge", {
+        currentUser,
+        unitId,
+        department,
+      })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   }, []);

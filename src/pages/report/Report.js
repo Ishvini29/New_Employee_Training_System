@@ -19,7 +19,7 @@ const Report = () => {
   };
   // navigate to ratings report page
   const routeToRatingsReport = (empId) => {
-    navigate("/ratings", {
+    navigate("/ratingsreport", {
       state: { empId: empId },
     });
   };
@@ -35,7 +35,7 @@ const Report = () => {
   };
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_BASE+"/showAllUsers")
+      .get(process.env.REACT_APP_API_BASE + "/showAllUsers")
       .then((res) => setReportDetails(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -94,46 +94,46 @@ const Report = () => {
                 ?.map((emp, index) =>
                   show //allow only hired employees
                     ? emp?.userRoleValue.toLowerCase() === "hired employee" && (
-                      <tr
-                        key={index}
-                        onClick={() => routeToChapterReport(emp?.empId)}
-                      >
-                        <td>
-                          <img
-                            className="img-fluid rounded-circle supervisor-avatar"
-                            src={emp?.userImage}
-                            alt={emp?.firstName}
-                          />{" "}
-                          {emp?.empId}
-                        </td>
-                        <td>
-                          {emp?.firstName} {emp?.lastName}
-                        </td>
-                        <td>{emp?.depName}</td>
-                        <td>{emp?.jobTitle}</td>
-                      </tr>
-                    )
+                        <tr
+                          key={index}
+                          onClick={() => routeToChapterReport(emp?.empId)}
+                        >
+                          <td>
+                            <img
+                              className="img-fluid rounded-circle supervisor-avatar"
+                              src={emp?.userImage}
+                              alt={emp?.firstName}
+                            />{" "}
+                            {emp?.empId}
+                          </td>
+                          <td>
+                            {emp?.firstName} {emp?.lastName}
+                          </td>
+                          <td>{emp?.depName}</td>
+                          <td>{emp?.jobTitle}</td>
+                        </tr>
+                      )
                     : emp?.userRoleValue.toLowerCase() ===
-                    "content creator" && ( //allow only content creators
-                      <tr
-                        key={index}
-                        onClick={() => routeToRatingsReport(emp?.empId)}
-                      >
-                        <td>
-                          <img
-                            className="img-fluid rounded-circle supervisor-avatar"
-                            src={emp?.userImage}
-                            alt={emp?.firstName}
-                          />{" "}
-                          {emp?.empId}
-                        </td>
-                        <td>
-                          {emp?.firstName} {emp?.lastName}
-                        </td>
-                        <td>{emp?.depName}</td>
-                        <td>{emp?.jobTitle}</td>
-                      </tr>
-                    )
+                        "content creator" && ( //allow only content creators
+                        <tr
+                          key={index}
+                          onClick={() => routeToRatingsReport(emp?.empId)}
+                        >
+                          <td>
+                            <img
+                              className="img-fluid rounded-circle supervisor-avatar"
+                              src={emp?.userImage}
+                              alt={emp?.firstName}
+                            />{" "}
+                            {emp?.empId}
+                          </td>
+                          <td>
+                            {emp?.firstName} {emp?.lastName}
+                          </td>
+                          <td>{emp?.depName}</td>
+                          <td>{emp?.jobTitle}</td>
+                        </tr>
+                      )
                 )}
             </tbody>
           </table>

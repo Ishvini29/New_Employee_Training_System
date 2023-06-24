@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const DirectForm = (props) => {
   const formSchema = Yup.object().shape({
@@ -11,18 +13,30 @@ const DirectForm = (props) => {
   const validationOpt = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, formState } = useForm(validationOpt);
   const { errors } = formState;
+  const [employees, setEmployees] = useState([]);
 
-  const employees = [
-    { _id: "642460786b0919c07966a2f3", userName: "Nipuni Chandrasena" },
-    { _id: "642461066b0919c07966a2f4", userName: "Ravindra Chandrasena" },
-  ];
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:1337/getContentCreators/${props.ticket.directedDepartmentID}`
+      )
+      .then((response) => {
+        setEmployees(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div className="container bg-white">
       <form onSubmit={handleSubmit(props?.onFormSubmit)}>
         <div className="row">
           <p className="col-sm-6">Request No. {props?.ticket._id}</p>
-          <p className="col-sm-6"> Request Type : {props?.ticket.requestType}</p>
+          <p className="col-sm-6">
+            {" "}
+            Request Type : {props?.ticket.requestType}
+          </p>
         </div>
         <div className="row">
           <p className="col-sm-12">
@@ -36,7 +50,16 @@ const DirectForm = (props) => {
         </div>
         <div className="row">
           <p className="col-sm-12">
-            {props?.ticket.attachment && <>Attachment :</>}
+            {props?.ticket.attachment && (
+              <>
+                Attachment :{" "}
+                <Link
+                  to={`/guidance-ticket-view-attachment/${props?.ticket._id}`}
+                >
+                  View
+                </Link>
+              </>
+            )}
           </p>
         </div>
         <div className="row">
@@ -64,7 +87,7 @@ const DirectForm = (props) => {
               {...register("assignedTo")}
             />
             <label className="form-check-label" for="assignedTo">
-              {emp.userName}
+              {emp.firstName + " " + emp.lastName}
             </label>
           </div>
         ))}

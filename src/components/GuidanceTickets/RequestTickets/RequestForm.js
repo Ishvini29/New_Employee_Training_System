@@ -160,8 +160,9 @@ const RequestForm = (props) => {
                 backgroundColor: "#1D9EEC",
                 borderColor: "#1D9EEC",
               }}
+              disabled={props.uploading}
             >
-              Create
+              {props.uploading ? "Uploading..." : "Create"}
             </button>
           </div>
         </div>

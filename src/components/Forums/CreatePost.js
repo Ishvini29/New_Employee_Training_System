@@ -78,10 +78,10 @@ const CreatePost = () => {
         return;
       }
       console.log(attachment.name);
-      const AttachmentRef = ref(
-        storage,
-        `forums/postsAttachments/${attachment.name + v4()}`
-      );
+      const fileExtension = attachment.name.split(".").pop(); // Get the file extension
+      const fileName = `posts_${v4()}.${fileExtension}`; // Generate a unique filename with the correct extension
+
+      const AttachmentRef = ref(storage, `forums/postsAttachments/${fileName}`);
       setUploading(true);
 
       uploadBytes(AttachmentRef, attachment).then((a) => {
