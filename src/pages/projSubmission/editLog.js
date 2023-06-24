@@ -5,15 +5,15 @@ import Search from "../../components/search";
 import { MdOutlineCheckCircle, MdOutlineCancel } from "react-icons/md";
 
 const Editlog = () => {
-
   const [editlog, setEditlog] = useState([]);
   const [search, setSearch] = useState("");
   const [showFeedback, setShowFeedback] = useState();
   const [showSearch, setShowSearch] = useState();
+  const [showFeed, setShowFeed] = useState(false);
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_BASE+"/getScoreEditLog")
+      .get(process.env.REACT_APP_API_BASE + "/getScoreEditLog")
       .then((res) => {
         const sortedData = res?.data?.sort((a, b) =>
           a.projectName.localeCompare(b.projectName)
@@ -104,9 +104,10 @@ const Editlog = () => {
                                   <tr
                                     key={index}
                                     className="score-editlog-pointer-event vertical-align"
-                                    onClick={() =>
-                                      setShowFeedback(indexi + log?.userEmpId)
-                                    }
+                                    onClick={() => {
+                                      setShowFeedback(indexi + log?.userEmpId);
+                                      setShowFeed(!showFeed);
+                                    }}
                                   >
                                     <td>{log?.projectName}</td>
                                     <td>
@@ -173,35 +174,40 @@ const Editlog = () => {
                                     ></td>
                                     <td>{log.department}</td>
                                   </tr>
-                                  {showFeedback === indexi + log?.userEmpId && (
-                                    <tr>
-                                      {log?.feedback?.map(
-                                        (feedbackData, indexf) =>
-                                          indexf > 0 &&
-                                          indexf === indexi && (
-                                            <td
-                                              key={indexf}
-                                              className=" score-edit-log-feedback-td p-4"
-                                              colSpan="9"
-                                            >
-                                              <div className="d-flex justify-content-between">
-                                                <span>
-                                                  <h4>Previous Feedback</h4>
+                                  {showFeedback === indexi + log?.userEmpId &&
+                                    showFeed && (
+                                      <tr>
+                                        {log?.feedback?.map(
+                                          (feedbackData, indexf) =>
+                                            indexf > 0 &&
+                                            indexf === indexi && (
+                                              <td
+                                                key={indexf}
+                                                className=" score-edit-log-feedback-td p-4"
+                                                colSpan="9"
+                                              >
+                                                <div className="d-flex justify-content-between">
                                                   <span>
-                                                    {log?.feedback[indexf - 1]}
+                                                    <h4>Previous Feedback</h4>
+                                                    <span>
+                                                      {
+                                                        log?.feedback[
+                                                          indexf - 1
+                                                        ]
+                                                      }
+                                                    </span>
                                                   </span>
-                                                </span>
-                                                <span className="border-end border-secondary border-2 mx-4"></span>
-                                                <span>
-                                                  <h4>Updated Feedback</h4>
-                                                  <span>{feedbackData}</span>
-                                                </span>
-                                              </div>
-                                            </td>
-                                          )
-                                      )}
-                                    </tr>
-                                  )}
+                                                  <span className="border-end border-secondary border-2 mx-4"></span>
+                                                  <span>
+                                                    <h4>Updated Feedback</h4>
+                                                    <span>{feedbackData}</span>
+                                                  </span>
+                                                </div>
+                                              </td>
+                                            )
+                                        )}
+                                      </tr>
+                                    )}
                                 </>
                               )
                           )

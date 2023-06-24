@@ -26,7 +26,7 @@ const AddJobtitle = () => {
       swal({
         icon: "warning",
         title: "Invalid",
-        text: "Jobtitle name must start with a capital letter and contain only alphabet letters",
+        text: "Jobtitle name must begin with a capital letter, use lowercase for the remaining letters, and do not include numbers or symbols.",
       });
       return;
     }
