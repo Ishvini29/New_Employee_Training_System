@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import NavBar from "../../components/NavBar";
 
 const Unit = (props) => (
   <tr>
@@ -8,7 +7,9 @@ const Unit = (props) => (
     <td>{props.unit.unitDesc}</td>
     <td>{props.unit.old_data.unitName}</td>
     <td>{props.unit.old_data.unitDesc}</td>
-    <td>{props.unit.updatedby}</td>
+    <td>
+      {props.unit.updatedby?.firstName + " " + props.unit.updatedby?.lastName}
+    </td>
     <td>{props.unit.updated_at}</td>
   </tr>
 );

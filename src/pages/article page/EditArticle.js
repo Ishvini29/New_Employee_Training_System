@@ -1,8 +1,8 @@
 import { FaPencilAlt } from "react-icons/fa";
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
-import moment from "moment";
 import * as Yup from "yup";
 
 import {
@@ -13,15 +13,18 @@ import {
 } from "firebase/storage";
 import { storage } from "../../Firebase config/firebase";
 import { v4 } from "uuid";
+import jwt_decode from "jwt-decode";
 
 const Edit = ({ article }) => {
-  const userid = "648050d3b39dcbdf90027b5a";
-  const chapterName = "diagrams";
+  const { chapterName } = useParams();
   const [updatedFile, setUpdatedFile] = useState(null);
   const [modal, setModal] = useState(null);
   const [updatedarticle, setUpdatedarticle] = useState(article);
   const [errors, setErrors] = useState({});
   const [articleUpdateStatus, setArticleUpdateStatus] = useState(false);
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
 
   const validationSchema = Yup.object().shape({
     articleName: Yup.string().required("Article name is required"),
@@ -45,18 +48,17 @@ const Edit = ({ article }) => {
     try {
       await validationSchema.validate(updatedarticle, { abortEarly: false });
 
-      const formData = new FormData();
-
       if (updatedFile) {
         // Delete the current file from Firebase Storage
         const articleRef = ref(storage, article.articleUrl);
         deleteObject(articleRef)
           .then(() => {
             // Upload the new file to Firebase Storage
-            const newVideoRef = ref(
-              storage,
-              `Articles/${updatedFile.name + v4()}`
-            );
+
+            const fileExtension = updatedFile.name.split(".").pop(); // Get the file extension
+            const fileName = `article_${v4()}.${fileExtension}`; // Generate a unique filename with the correct extension
+
+            const newVideoRef = ref(storage, `Articles/${fileName}`);
             uploadBytes(newVideoRef, updatedFile)
               .then((snapshot) => {
                 // Get the download URL of the new file
@@ -128,14 +130,14 @@ const Edit = ({ article }) => {
 
     const editData = {
       chapterName: chapterName,
-      updatedby: userid,
+      articleId: article._id,
+      updatedby: userDocument._id,
       articleName: updatedArticle.articleName,
       articleDesc: updatedArticle.articleDesc,
       old_data: {
         articleName: article.articleName,
         articleDesc: article.articleDesc,
       },
-      // updated_at: moment.utc().format("YYYY-MM-DD hh:mm:ss A"),
     };
 
     axios
@@ -227,12 +229,12 @@ const Edit = ({ article }) => {
                   <p>If you want to change the file, add the new file here.</p>
                   <input
                     type="file"
-                    accept=".pdf,.doc,.docx"
+                    accept=".pdf"
                     className="form-control"
                     aria-label="file example"
                     onChange={onChange}
                   />
-                  <p>Only pdf and word files are allowed.</p>
+                  <p>Only pdf files are allowed.</p>
                 </div>
                 <div class="modal-footer">
                   <button type="submit" className="btn btn-primary">

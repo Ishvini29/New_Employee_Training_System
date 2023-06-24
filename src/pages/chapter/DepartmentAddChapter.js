@@ -16,7 +16,7 @@ const DepartmentAddChapter = () => {
 
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_API_BASE+"/departments/showAllDepartments")
+        axios.get(process.env.REACT_APP_API_BASE + "/departments/showAllDepartments")
             .then((response) => {
                 setDepartments(response.data);
             })
@@ -36,7 +36,7 @@ const DepartmentAddChapter = () => {
         if (!pattern.test(chapId)) {
             swal({
                 icon: "warning",
-                text: `Chapter ID must start with "${firstLetter}"and contain numbers`,
+                text: `Please start the ChapterID with "${firstLetter} "followed by numerical digits only.`,
             });
             return;
         }
@@ -51,7 +51,7 @@ const DepartmentAddChapter = () => {
         }
 
         axios
-            .post(process.env.REACT_APP_API_BASE+"/chapters/addChapter", {
+            .post(process.env.REACT_APP_API_BASE + "/chapters/addChapter", {
                 chapterName: chaptername,
                 chapId: chapId,
                 depID: selectedDepartment,

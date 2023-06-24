@@ -11,14 +11,14 @@ const PermanentDeleteChapter = () => {
   function deletechapter(id) {
     swal({
       title: "Confirm",
-      text: "Are you absolutely sure you want to permanently delete this Chapter and all the data it contains?",
+      text: "Are you absolutely sure you want to permanently delete this Chapter?",
       icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .post(process.env.REACT_APP_API_BASE+"/chapters/deleteChapter", {
+          .post(process.env.REACT_APP_API_BASE + "/chapters/deleteChapter", {
             id: id,
 
           })
@@ -47,10 +47,10 @@ const PermanentDeleteChapter = () => {
   function recoverchapter(id) {
     swal({
       title: "Confirm",
-      text: "Are you absolutely sure you want this Chapter and all the data it contains?",
-      icon: "warning",
+      text: "Are you absolutely sure, you want this Chapter and all the data it contains?",
+      icon: "info",
       buttons: true,
-      dangerMode: true,
+      successMode: true,
     }).then((willDelete) => {
       if (willDelete) {
         axios
@@ -82,7 +82,7 @@ const PermanentDeleteChapter = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
+    axios.get(process.env.REACT_APP_API_BASE + "/chapters/showAllChapters")
       .then(function (response) {
         const filteredChapters = response.data.filter(chapter => chapter.depID !== null && chapter.status === "notactive");
         setChapter(filteredChapters);

@@ -5,11 +5,14 @@ import { FaTimes } from "react-icons/fa";
 import swal from "sweetalert";
 import { ref, deleteObject } from "firebase/storage";
 import { storage } from "../../Firebase config/firebase";
+import jwt_decode from "jwt-decode";
 
 const Delete = ({ KTsession }) => {
   const [units, setunits] = useState([]);
   const navigate = useNavigate();
-  const userid = "648050d3b39dcbdf90027b5a";
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
 
   useEffect(() => {
     axios
@@ -59,11 +62,9 @@ const Delete = ({ KTsession }) => {
     const deleteData = {
       unitName: units.unitName,
       createdBy: KTsession.createdBy,
-      deletedBy: userid,
+      deletedBy: userDocument._id,
       sessionName: KTsession.sessionName,
       sessionDesc: KTsession.sessionDesc,
-
-      //updated_at: moment.utc().format('YYYY-MM-DD hh:mm:ss A'),
     };
 
     axios

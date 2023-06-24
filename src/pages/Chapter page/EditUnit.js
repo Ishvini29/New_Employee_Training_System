@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { FaPencilAlt } from "react-icons/fa";
 import swal from "sweetalert";
-import moment from "moment";
 import * as Yup from "yup";
+import jwt_decode from "jwt-decode";
 
 const validationSchema = Yup.object().shape({
   unitName: Yup.string().required("Unit Name is required"),
@@ -11,10 +12,13 @@ const validationSchema = Yup.object().shape({
 });
 
 const Edit = ({ unit }) => {
-  const userid = "648050d3b39dcbdf90027b5a";
+  const { chapterName } = useParams();
   const [modal, setModal] = useState(null);
   const [updatedunit, setUpdatedunit] = useState(unit);
   const [errors, setErrors] = useState({});
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
 
   const onChange = (e) => {
     setUpdatedunit({
@@ -48,14 +52,15 @@ const Edit = ({ unit }) => {
           });
 
         const editData = {
-          updatedby: userid,
+          chapterName: chapterName,
+          updatedby: userDocument._id,
           unitName: updatedunit.unitName,
+          unitId: unit._id,
           unitDesc: updatedunit.unitDesc,
           old_data: {
             unitName: unit.unitName,
             unitDesc: unit.unitDesc,
           },
-          // updated_at: moment.utc().format('YYYY-MM-DD hh:mm:ss A'),
         };
 
         axios

@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaPencilAlt } from "react-icons/fa";
 import swal from "sweetalert";
-import moment from "moment";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import jwt_decode from "jwt-decode";
 
 const Edit = ({ quiz, id }) => {
-  const userid = "648050d3b39dcbdf90027b5a";
   const [units, setunits] = useState([]);
   const [modal, setModal] = useState(null);
   const [updatedQuestion, setUpdatedQuestion] = useState({
@@ -17,28 +16,9 @@ const Edit = ({ quiz, id }) => {
   const [updatedCorrectAnswer, setUpdatedCorrectAnswer] = useState({
     correctAnswer: quiz.correctAnswer,
   });
-
-  const onChangeOption = (index, event) => {
-    const values = [...updatedQuestion.options];
-    values[index] = event.target.value;
-    setUpdatedQuestion({
-      ...updatedQuestion,
-      options: values,
-    });
-  };
-
-  const onChange = (e) => {
-    setUpdatedQuestion({
-      ...updatedQuestion,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const onChangeAnswer = (e) => {
-    setUpdatedCorrectAnswer({
-      correctAnswer: e.target.value,
-    });
-  };
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
 
   useEffect(() => {
     axios
@@ -88,7 +68,7 @@ const Edit = ({ quiz, id }) => {
       });
 
     const editData = {
-      updatedby: userid,
+      updatedby: userDocument._id,
       unitName: units.unitName,
       quizname: units.quiz.quizName,
       question: values.question,
@@ -99,7 +79,6 @@ const Edit = ({ quiz, id }) => {
         options: quiz.options,
         correctAnswer: quiz.correctAnswer,
       },
-      // updated_at: moment.utc().format('YYYY-MM-DD hh:mm:ss A'),
     };
 
     axios

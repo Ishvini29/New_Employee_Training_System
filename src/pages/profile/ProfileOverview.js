@@ -10,7 +10,7 @@ function ProfileOverview(props) {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(process.env.REACT_APP_API_BASE+`/users/getLoggedinUserData/${userID}`)
+    axios.get(process.env.REACT_APP_API_BASE + `/users/getLoggedinUserData/${userID}`)
       .then(response => {
         console.log(response.data);
         setData(response.data[0]);
@@ -54,7 +54,7 @@ function ProfileOverview(props) {
                           type="email"
                           className="form-control a2"
                           id="inputEmail4"
-                          value={data.fname}
+                          value={data.fname + " " + data.lname}
                           disabled={true}
                         />
                       </div>

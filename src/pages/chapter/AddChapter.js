@@ -17,7 +17,8 @@ const AddChapter = () => {
     if (!chapId.match(/^[C][O][0-9]/)) {
       swal({
         icon: "warning",
-        text: "Invalid Chapter ID",
+        title: "Invalid Chapter ID",
+        text: "Please start the ChapterID with 'CO' followed by numerical digits only.",
       });
       return;
     }
@@ -43,7 +44,7 @@ const AddChapter = () => {
     }
 
     axios
-      .post(process.env.REACT_APP_API_BASE+"/commonchapters/addChapter", {
+      .post(process.env.REACT_APP_API_BASE + "/commonchapters/addChapter", {
         chapterName: chaptername,
         chapId: chapId,
         userID: jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData._id

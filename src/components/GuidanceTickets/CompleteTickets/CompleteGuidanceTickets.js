@@ -9,7 +9,9 @@ import jwt_decode from "jwt-decode";
 const CompleteGuidanceTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [ticketId, setTicketId] = useState([]);
-  const userDocument = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData;
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
   useEffect(() => {
     axios
       .get(
@@ -40,6 +42,8 @@ const CompleteGuidanceTickets = () => {
           text: "The ticket was successfully completed!",
           icon: "success",
           button: "Close",
+        }).then(() => {
+          window.location.reload(); // Refresh the page
         });
       })
       .catch((error) => {
@@ -106,15 +110,15 @@ const CompleteGuidanceTickets = () => {
                           t.status === "requested"
                             ? "20%"
                             : t.status === "directed"
-                              ? "60%"
-                              : "100%",
+                            ? "60%"
+                            : "100%",
                       }}
                       aria-valuenow={
                         t.status === "requested"
                           ? "20"
                           : t.status === "directed"
-                            ? "60"
-                            : "100"
+                          ? "60"
+                          : "100"
                       }
                       aria-valuemin="0"
                       aria-valuemax="100"
@@ -122,8 +126,8 @@ const CompleteGuidanceTickets = () => {
                       {t.status === "requested"
                         ? "Requested"
                         : t.status === "directed"
-                          ? "Directed"
-                          : "Completed"}
+                        ? "Directed"
+                        : "Completed"}
                     </div>
                   </div>
                 </div>
