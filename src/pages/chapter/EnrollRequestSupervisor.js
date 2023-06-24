@@ -77,14 +77,14 @@ const EnrollRequestSupervisor = () => {
                   return (
                     <div class="accordion-item">
                       <h2 class="accordion-header" id={"chapter1" + item._id}>
-                        <button style={{ "backgroundColor": "#e5f4f7" }} class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target={"#open" + item._id} aria-expanded="false" aria-controls={"open" + item._id}>
+                        <button style={{ "backgroundColor": "#e1e7e4" }} class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse" data-bs-target={"#open" + item._id} aria-expanded="false" aria-controls={"open" + item._id}>
                           <b>{item.chapId}-{item.chapterName}</b>
                         </button>
                       </h2>
                       <br></br>
                       <div id={"open" + item._id} class="accordion-collapse collapse" aria-labelledby={"chapter1" + item._id} data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
-                          <table class="table">
+                          <table className="view-table">
                             <thead>
                               <tr style={{ "backgroundColor": "#b9e1dc" }}>
                                 <th scope="col">Image</th>
@@ -95,7 +95,7 @@ const EnrollRequestSupervisor = () => {
                                 <th scope="col"><center>Action</center></th>
                               </tr>
                             </thead>
-                            <tbody style={{ "backgroundColor": "MintCream !important" }}>
+                            <tbody style={{ "backgroundColor": "MintCream" }}>
                               {
                                 item?.requested?.map((emps) => {
                                   return (

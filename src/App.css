@@ -143,6 +143,39 @@
   width: 55%;
 }
 
+.view-table {
+  border-spacing: 0 15px;
+  width: 100%;
+  border-collapse: collapse;
+
+}
+
+.view-table th {
+  padding: 8px;
+  vertical-align: middle;
+  font-weight: 600;
+}
+
+.view-table td {
+  padding: 8px;
+  vertical-align: middle;
+  border-bottom: 1px solid #e8e6e6;
+}
+
+.editallocatelist {
+  width: 100%;
+
+}
+
+.editallocatelist label {
+  padding: 8px;
+  vertical-align: middle;
+}
+
+.editallocatelist input {
+  padding: 10px;
+  vertical-align: middle;
+}
 
 .showBut {
   color: #0d8071;
@@ -252,12 +285,6 @@
   ;
 
   box-sizing: border-box;
-
-
-
-
-
-
 
 }
 
@@ -540,6 +567,8 @@
   border-collapse: separate;
   border-spacing: 0 15px;
 }
+
+
 
 .leaderboard-tr {
   position: relative;
