@@ -29,7 +29,7 @@ const LeaderBoard = () => {
       "info"
     );
     axios
-      .get(process.env.REACT_APP_API_BASE+"/getCurrentUserLeaderboardData", {
+      .get(process.env.REACT_APP_API_BASE + "/getCurrentUserLeaderboardData", {
         params: { currentUser, currentUserDep },
       })
       .then((res) => setScore(res.data))
@@ -60,7 +60,7 @@ const LeaderBoard = () => {
             <div className="col col-12 col-md-12 col-lg-3">
               <div className="card leaderboard-card text-center">
                 {/* Top gainer 1 total score in the header */}
-                <div className={`card-header leaderboard-header `}>
+                <div className="card-header leaderboard-header">
                   <h2 className="w-100">
                     {score?.lbData?.[0]?.totalScore.toFixed(2)}
                   </h2>
@@ -84,6 +84,9 @@ const LeaderBoard = () => {
                   <div className="d-flex justify-content-around fw-semibold">
                     <span className="card-title leaderboard-desc">
                       {score?.lbData?.[0]?.empId}
+                    </span>
+                    <span className="card-title leaderboard-desc">
+                      {score?.lbData?.[0]?.rank}
                     </span>
                     <span className="card-title leaderboard-desc">
                       {score?.lbData?.[0]?.averageScore.toFixed(2)}
@@ -118,6 +121,9 @@ const LeaderBoard = () => {
                       {score?.lbData?.[1]?.empId}
                     </span>
                     <span className="card-title leaderboard-desc">
+                      {score?.lbData?.[1]?.rank}
+                    </span>
+                    <span className="card-title leaderboard-desc">
                       {score?.lbData?.[1]?.averageScore.toFixed(2)}
                     </span>
                   </div>
@@ -148,6 +154,9 @@ const LeaderBoard = () => {
                     <div className="d-flex justify-content-around fw-semibold">
                       <span className="card-title leaderboard-desc">
                         {score?.lbData?.[2]?.empId}
+                      </span>
+                      <span className="card-title leaderboard-desc">
+                        {score?.lbData?.[2]?.rank}
                       </span>
                       <span className="card-title leaderboard-desc">
                         {score?.lbData?.[2]?.averageScore.toFixed(2)}
@@ -215,18 +224,20 @@ const LeaderBoard = () => {
               </div>
               <table className="table leaderboard-table">
                 <thead>
-                  <tr className="table-head">
-                    <th className="leaderboard-empId leaderboard-th">ID</th>
-                    <th className="leaderboard-th align-middle text-center">
+                  <tr>
+                    <th className="leaderboard-empId leaderboard-th bg-light">
+                      ID
+                    </th>
+                    <th className="leaderboard-th align-middle text-center bg-light">
                       Name
                     </th>
-                    <th className="leaderboard-th align-middle text-center">
+                    <th className="leaderboard-th align-middle text-center  bg-light">
                       Total Score
                     </th>
-                    <th className="leaderboard-th align-middle text-center">
+                    <th className="leaderboard-th align-middle text-center  bg-light">
                       Average Score
                     </th>
-                    <th className="leaderboard-th align-middle text-center">
+                    <th className="leaderboard-th align-middle text-center  bg-light">
                       Rank
                     </th>
                   </tr>

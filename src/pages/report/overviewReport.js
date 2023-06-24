@@ -15,6 +15,7 @@ const OverviewReport = () => {
   const [selectedOption, setSelectedOption] = useState("Overview Report");
   const [errorHandling, setErrorHandling] = useState("");
   const [badges, setBadges] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
   const propsData = location.state;
@@ -33,10 +34,14 @@ const OverviewReport = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     let empId = propsData?.empId || localhostEmpId;
     axios
-      .get(process.env.REACT_APP_API_BASE+"/overviewReport/" + empId)
-      .then((res) => setOverviewReportDetails(res.data))
+      .get(process.env.REACT_APP_API_BASE + "/overviewReport/" + empId)
+      .then((res) => {
+        setOverviewReportDetails(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -47,14 +52,18 @@ const OverviewReport = () => {
         }
       });
     axios
-      .get(process.env.REACT_APP_API_BASE+"/showbadge/" + empId)
+      .get(process.env.REACT_APP_API_BASE + "/showbadge/" + empId)
       .then((res) => setBadges(res?.data))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <>
-      {overviewReportDetails?.overviewReportData?.length > 0 ? (
+      {loading ? (
+        <center>
+          <div className="spinner-grow mt-3" role="status"></div>
+        </center>
+      ) : overviewReportDetails?.overviewReportData?.length > 0 ? (
         <>
           {errorHandling === "" ? (
             <div
@@ -118,28 +127,57 @@ const OverviewReport = () => {
                       {/* chapter details */}
                       {overviewReportDetails?.overviewReportData?.map(
                         (overviewItem, index) => (
-                          <tr
-                            key={index}
-                            className={`${
-                              overviewItem?.depName ===
-                              overviewReportDetails?.userData?.userDepartment
-                                ? " bg-primary bg-opacity-10 leaderboard-tr fw-semibold"
-                                : " bg-info  bg-opacity-10 leaderboard-tr fw-semibold"
-                            }`}
-                          >
-                            <td className="leaderboard-td align-middle text-center">
+                          <tr key={index} className="leaderboard-tr">
+                            <td
+                              className={`${
+                                overviewItem?.depName ===
+                                overviewReportDetails?.userData?.userDepartment
+                                  ? "chapter-row leaderboard-td align-middle text-center"
+                                  : "dif-dep-chap leaderboard-td align-middle text-center"
+                              }`}
+                            >
                               {overviewItem?.chapterName}
                             </td>
-                            <td className="leaderboard-td align-middle text-center">
+                            <td
+                              className={`${
+                                overviewItem?.depName ===
+                                overviewReportDetails?.userData?.userDepartment
+                                  ? "chapter-row leaderboard-td align-middle text-center"
+                                  : "dif-dep-chap leaderboard-td align-middle text-center"
+                              }`}
+                            >
                               {overviewItem?.unitCount}
                             </td>
-                            <td className="leaderboard-td align-middle text-center">
-                              {overviewItem?.depName}
+                            <td
+                              className={`${
+                                overviewItem?.depName ===
+                                overviewReportDetails?.userData?.userDepartment
+                                  ? "chapter-row leaderboard-td align-middle text-center"
+                                  : "dif-dep-chap leaderboard-td align-middle text-center"
+                              }`}
+                            >
+                              {overviewItem?.depName
+                                ? overviewItem?.depName
+                                : "Common chapter"}
                             </td>
-                            <td className="leaderboard-td align-middle text-center">
+                            <td
+                              className={`${
+                                overviewItem?.depName ===
+                                overviewReportDetails?.userData?.userDepartment
+                                  ? "chapter-row leaderboard-td align-middle text-center"
+                                  : "dif-dep-chap leaderboard-td align-middle text-center"
+                              }`}
+                            >
                               {overviewItem?.score}
                             </td>
-                            <td className="leaderboard-td align-middle text-center">
+                            <td
+                              className={`${
+                                overviewItem?.depName ===
+                                overviewReportDetails?.userData?.userDepartment
+                                  ? "chapter-row leaderboard-td align-middle text-center"
+                                  : "dif-dep-chap leaderboard-td align-middle text-center"
+                              }`}
+                            >
                               {overviewItem?.average}
                             </td>
                           </tr>
