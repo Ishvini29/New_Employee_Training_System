@@ -17,13 +17,13 @@ const AddDepartment = () => {
       swal({
         icon: "warning",
         title: "Invalid",
-        text: "Department name must start with a capital letter and contain only alphabet letters.",
+        text: "Department name must begin with a capital letter, use lowercase for the remaining letters, and do not include numbers or symbols.",
       });
       return;
     }
 
     axios
-      .post(process.env.REACT_APP_API_BASE+"/departments/addDepartment", {
+      .post(process.env.REACT_APP_API_BASE + "/departments/addDepartment", {
         departmentName: depName,
       })
       .then((res) => {

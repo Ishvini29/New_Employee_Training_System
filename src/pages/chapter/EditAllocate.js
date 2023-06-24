@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import swal from "sweetalert";
-import NavBar from "../../components/NavBar";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import image1 from "../../images/4.svg";
+import AllocateChapter from "./AllocateChapter";
 
 const EditAllocate = () => {
   const department = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData.department;
   const [chaptername, setChapter] = useState([]);
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
+  const { name } = useParams();
 
   let selectedChapters = []
   const updateArray = (event) => {
@@ -26,7 +27,7 @@ const EditAllocate = () => {
   function submitEdit(e) {
     e.preventDefault();
     axios
-      .post(process.env.REACT_APP_API_BASE+"/jobtitles/allocatechapter", {
+      .post(process.env.REACT_APP_API_BASE + "/jobtitles/allocatechapter", {
         chaptersAllocated: selectedChapters,
         editedId: id,
       })
@@ -52,7 +53,7 @@ const EditAllocate = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
+      .get(process.env.REACT_APP_API_BASE + "/chapters/showAllChapters")
       .then(function (response) {
         const filteredChapters = response.data.filter(chapter => chapter.depID._id === department && chapter.status === "active");
         // const filteredChapters = response.data.filter(chapter => chapter.depID !== null);
@@ -62,11 +63,13 @@ const EditAllocate = () => {
       });
   }, []);
 
+
   return (
     <React.Fragment>
       <div className="container">
         <div className="alert mt-3 heading">
-          <h5>Allocate Chapters For Jobtitle</h5>
+          <h5>Allocate Chapters For {name}</h5>
+
         </div>
         <div>
           <img src={image1} className="picside3" draggable={false} alt="this is image" />
@@ -114,6 +117,7 @@ const EditAllocate = () => {
                     />}
 
                 </tbody>
+
               </table>}
           </div>
         </div>
@@ -125,51 +129,46 @@ export default EditAllocate;
 
 
 
+//it is the code for when I select the checkbox,that does not change
 // import React, { useState, useEffect } from "react";
 // import { useParams } from "react-router-dom";
 // import swal from "sweetalert";
-// import NavBar from "../../components/NavBar";
 // import axios from "axios";
 // import jwt_decode from "jwt-decode";
+// import image1 from "../../images/4.svg";
 
 // const EditAllocate = () => {
 //   const department = jwt_decode(
 //     JSON.parse(localStorage.getItem("user")).token
 //   ).userData.department;
 //   const [chaptername, setChapter] = useState([]);
+//   const [loading, setLoading] = useState(false);
 //   const { id } = useParams();
-//   const [selectedChapters, setSelectedChapters] = useState(
-//     JSON.parse(localStorage.getItem("selectedChapters")) || []
-//   );
+//   const { name } = useParams();
+
+//   const jobTitleKey = `jobtitle_${id}`; // Key for storing checkbox state for each job title
+
+//   const [selectedChapters, setSelectedChapters] = useState(() => {
+//     const storedState = localStorage.getItem(jobTitleKey);
+//     return storedState ? JSON.parse(storedState) : [];
+//   }); // State to store selected chapter IDs for the job title
 
 //   const updateArray = (event) => {
-//     if (selectedChapters.includes(event.target.value)) {
-//       setSelectedChapters(selectedChapters.filter((id) => id !== event.target.value));
-//     } else {
-//       setSelectedChapters([...selectedChapters, event.target.value]);
-//     }
+//     const value = event.target.value;
+//     setSelectedChapters((prevSelectedChapters) => {
+//       if (prevSelectedChapters.includes(value)) {
+//         return prevSelectedChapters.filter((chapterId) => chapterId !== value);
+//       } else {
+//         return [...prevSelectedChapters, value];
+//       }
+//     });
 //   };
 
-//   useEffect(() => {
-//     axios
-//       .get(process.env.REACT_APP_API_BASE+"/chapters/showAllChapters")
-//       .then(function (response) {
-//         const filteredChapters = response.data.filter(
-//           (chapter) =>
-//             chapter.depID._id === department && chapter.status === "active"
-//         );
-//         setChapter(filteredChapters);
-//       });
-//   }, []);
-
-//   useEffect(() => {
-//     localStorage.setItem("selectedChapters", JSON.stringify(selectedChapters));
-//   }, [selectedChapters]);
-
+//   //----
 //   function submitEdit(e) {
 //     e.preventDefault();
 //     axios
-//       .post(process.env.REACT_APP_API_BASE+"/jobtitles/allocatechapter", {
+//       .post(process.env.REACT_APP_API_BASE + "/jobtitles/allocatechapter", {
 //         chaptersAllocated: selectedChapters,
 //         editedId: id,
 //       })
@@ -190,44 +189,96 @@ export default EditAllocate;
 //         console.log(error);
 //       });
 //   }
+//   //-----
+
+//   useEffect(() => {
+//     setLoading(true);
+//     axios
+//       .get(process.env.REACT_APP_API_BASE + "/chapters/showAllChapters")
+//       .then(function (response) {
+//         const filteredChapters = response.data.filter(
+//           (chapter) =>
+//             chapter.depID._id === department && chapter.status === "active"
+//         );
+//         setChapter(filteredChapters);
+//         setLoading(false);
+//       });
+//   }, []);
+
+//   useEffect(() => {
+//     localStorage.setItem(jobTitleKey, JSON.stringify(selectedChapters));
+//   }, [selectedChapters, jobTitleKey]);
+
 //   return (
 //     <React.Fragment>
-//       <NavBar></NavBar>
 //       <div className="container">
 //         <div className="alert mt-3 heading">
-//           <h5>Edit Allocate Chapters</h5>
+//           <h5>Allocate Chapters For {name}</h5>
 //         </div>
-//         <br></br> <br></br>
-//         <table className="table">
-//           <tbody>
-//             {chaptername.map((item) => {
-//               return (
-//                 <div key={item._id} className="form-check form-switch">
-//                   <input
-//                     className="form-check-input"
-//                     type="checkbox"
-//                     value={item._id}
-//                     id={item._id}
-//                     onChange={(e) => {
-//                       updateArray(e);
-//                     }}
-//                     checked={selectedChapters.includes(item._id)}
-//                   />
-//                   <label className="form-check-label">{item.chapterName}</label>
-//                 </div>
-//               );
-//             })}
-//             <input
-//               type="submit"
-//               className="btn btn-primary"
-//               value="Edit Allocated chapter"
-//               onClick={submitEdit}
-//             />
-//           </tbody>
-//         </table>
+//         <div>
+//           <img
+//             src={image1}
+//             className="picside3"
+//             draggable={false}
+//             alt="this is image"
+//           />
+//         </div>
+//         <div
+//           className="card"
+//           style={{
+//             borderRadius: "15px",
+//             backgroundColor: "#f1f8f5",
+//             boxShadow: "0px 0px 5px 2px rgba(151,196,177, 0.5)",
+//           }}
+//         >
+//           <div className="card-body">
+//             <br></br>
+//             {loading ? (
+//               <center>
+//                 <div className="spinner-grow mt-3" role="status"></div>
+//               </center>
+//             ) : chaptername.length === 0 ? (
+//               <div className="alert alert-info mt-4">
+//                 No Chapters Found related to your Department!
+//               </div>
+//             ) : (
+//               <table className="table">
+//                 <tbody>
+//                   {chaptername.map((item) => (
+//                     <div key={item._id} className="form-check">
+//                       <input
+//                         className="form-check-input"
+//                         type="checkbox"
+//                         value={item._id}
+//                         id={item._id}
+//                         onChange={(e) => {
+//                           updateArray(e);
+//                         }}
+//                         checked={selectedChapters.includes(item._id)} // Set the checked state based on selectedChapters
+//                       />
+//                       <label className="form-check-label">
+//                         {item.chapId} - {item.chapterName}
+//                       </label>
+//                     </div>
+//                   ))}
+//                   {chaptername.length !== 0 && (
+//                     <input
+//                       type="submit"
+//                       className="btn btn-success mt-4 col-md-12"
+//                       value="     Allocate     "
+//                       onClick={submitEdit}
+//                     />
+//                   )}
+//                 </tbody>
+//               </table>
+//             )}
+//           </div>
+//         </div>
 //       </div>
 //     </React.Fragment>
 //   );
 // };
+
 // export default EditAllocate;
+
 
