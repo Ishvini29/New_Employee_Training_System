@@ -86,7 +86,7 @@ const Jobtitle = () => {
                 <label htmlFor="departmentSelect" style={{ color: "#32766e" }}>Select Department:</label>
                 <br></br>
                 <select
-                  className="form-control"
+                  className="form-control mt-2"
                   id="departmentSelect"
                   value={selectedDepartment}
                   onChange={handleDepartmentChange}

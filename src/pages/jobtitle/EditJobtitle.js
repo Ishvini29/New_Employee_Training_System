@@ -14,12 +14,12 @@ const EditJobtitle = () => {
     e.preventDefault();
 
     // Validate jobtitle name
-    const regex = /^[A-Z][a-z\s-]+$/;  //contains alphabet,space,-
+    const regex = /^[A-Z][A-Za-z\s-]+$/;  //contains alphabet,space,-
     if (!validator.matches(newJobtitleName, regex)) {
       swal({
         icon: "warning",
         title: "Invalid",
-        text: "Jobtitle name must begin with a capital letter, use lowercase for the remaining letters, and do not include numbers or symbols.",
+        text: "Jobtitle name must begin with a capital letter and do not include numbers or symbols.",
       });
       return;
     }
@@ -51,6 +51,7 @@ const EditJobtitle = () => {
   return (
     <div className="container">
       <div className="alert mt-3 heading"><h5>Edit Jobtitles</h5></div>
+      <div className="alert alert-info mt-4"> <b>Jobtitle Name must begin with a capital letter and do not include numbers or symbols.</b> </div>
       <div className="columns mt-4">
         <div>
           <img src={image1} className="picside2" draggable={false} alt="this is image" />

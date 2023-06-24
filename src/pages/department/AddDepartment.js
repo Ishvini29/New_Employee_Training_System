@@ -12,12 +12,12 @@ const AddDepartment = () => {
     e.preventDefault();
 
     // Validate department name
-    const regex = /^[A-Z][a-z\s]+$/; //contains alphabet,space
+    const regex = /^[A-Z][A-Za-z\s]+$/; //contains alphabet,space
     if (!validator.matches(depName, regex)) {
       swal({
         icon: "warning",
         title: "Invalid",
-        text: "Department name must begin with a capital letter, use lowercase for the remaining letters, and do not include numbers or symbols.",
+        text: "Department name must begin with a capital letter and do not include numbers or symbols.",
       });
       return;
     }
@@ -50,6 +50,7 @@ const AddDepartment = () => {
       <div className="alert mt-3 heading">
         <h5>Create Department</h5>
       </div>
+      <div className="alert alert-info mt-4"> <b>Department Name must begin with a capital letter and do not include numbers or symbols.</b> </div>
       <div className="columns mt-4">
         <div>
           <img src={image4} className="picside4" draggable={false} alt="this is image" />
