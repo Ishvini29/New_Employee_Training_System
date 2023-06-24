@@ -12,15 +12,18 @@ import {
 import { storage } from "../../Firebase config/firebase";
 import { v4 } from "uuid";
 import * as Yup from "yup";
+import jwt_decode from "jwt-decode";
 
 const Edit = ({ KTsession, unitId }) => {
-  const userid = "648050d3b39dcbdf90027b5a";
   const [updatedFile, setUpdatedFile] = useState(null);
   const [modal, setModal] = useState(null);
   const [editkts, seteditkts] = useState([]);
   const [updatedKTsession, setUpdatedKTsession] = useState(KTsession);
   const [errors, setErrors] = useState({});
   const [updateStatus, setUpdateStatus] = useState(false);
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
 
   const validationSchema = Yup.object().shape({
     sessionName: Yup.string().required("KT Session name is required"),
@@ -81,8 +84,6 @@ const Edit = ({ KTsession, unitId }) => {
       setUpdateStatus(false);
       return;
     }
-
-    const formData = new FormData();
 
     if (updatedFile) {
       // Delete the current file from Firebase Storage
@@ -152,8 +153,9 @@ const Edit = ({ KTsession, unitId }) => {
       });
 
     const editData = {
-      updatedby: userid,
+      updatedby: userDocument._id,
       unitName: editkts,
+      sessionId: KTsession._id,
       sessionName: updatedSession.sessionName,
       sessionDesc: updatedSession.sessionDesc,
       old_data: {
@@ -213,8 +215,9 @@ const Edit = ({ KTsession, unitId }) => {
                   </label>
                   <input
                     type="text"
-                    className={`form-control ${errors.sessionName && "is-invalid"
-                      }`}
+                    className={`form-control ${
+                      errors.sessionName && "is-invalid"
+                    }`}
                     id="sessionName"
                     name="sessionName"
                     value={updatedKTsession.sessionName}
@@ -230,8 +233,9 @@ const Edit = ({ KTsession, unitId }) => {
                   </label>
                   <input
                     type="text"
-                    className={`form-control ${errors.sessionDesc && "is-invalid"
-                      }`}
+                    className={`form-control ${
+                      errors.sessionDesc && "is-invalid"
+                    }`}
                     id="sessionDesc"
                     name="sessionDesc"
                     value={updatedKTsession.sessionDesc}
@@ -251,8 +255,9 @@ const Edit = ({ KTsession, unitId }) => {
                   <input
                     type="file"
                     accept="video/mp4,video/mpeg,video/quicktime,video/x-msvideo"
-                    className={`form-control ${errors.sessionFile && "is-invalid"
-                      }`}
+                    className={`form-control ${
+                      errors.sessionFile && "is-invalid"
+                    }`}
                     aria-label="file example"
                     onChange={onChange}
                   />
@@ -265,19 +270,19 @@ const Edit = ({ KTsession, unitId }) => {
                   <button
                     type="submit"
                     className="btn btn-primary"
-                    disabled = {updateStatus && true}
+                    disabled={updateStatus && true}
                   >
-                    {
-                      (updateStatus)
-                        ?
-                        <>
-                          <span className='spinner-grow spinner-grow-sm me-3' role="status"></span>
-                          Updating...
-                        </>
-                        :
-                        "Update KT Session"
-                    }
-
+                    {updateStatus ? (
+                      <>
+                        <span
+                          className="spinner-grow spinner-grow-sm me-3"
+                          role="status"
+                        ></span>
+                        Updating...
+                      </>
+                    ) : (
+                      "Update KT Session"
+                    )}
                   </button>
                 </div>
               </form>

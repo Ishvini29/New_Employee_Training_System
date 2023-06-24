@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import NavBar from "../../components/NavBar";
 import Pdf from "./Pdf";
 import CommentSection from "../../components/Comments/CommentSection";
 
@@ -33,17 +32,26 @@ const ViewContent = () => {
             >
               <ul className="navbar-nav me-auto mb-5 mb-lg-0">
                 <li className="nav-item" style={{ fontWeight: "bold" }}>
-                  <Link to={"/chapterPage/" + chapterID + "/" + chapterName} className="nav-link active">
+                  <Link
+                    to={"/chapterPage/" + chapterID + "/" + chapterName}
+                    className="nav-link active"
+                  >
                     Units
                   </Link>
                 </li>
                 <li className="nav-item" style={{ fontWeight: "bold" }}>
-                  <Link to={"/article/" + chapterID + "/" + chapterName} className="nav-link">
+                  <Link
+                    to={"/article/" + chapterID + "/" + chapterName}
+                    className="nav-link"
+                  >
                     Articles
                   </Link>
                 </li>
                 <li className="nav-item" style={{ fontWeight: "bold" }}>
-                  <Link to={"/forums/" + chapterID + "/" + chapterName} className="nav-link">
+                  <Link
+                    to={"/forums/" + chapterID + "/" + chapterName}
+                    className="nav-link"
+                  >
                     Discussion Forums
                   </Link>
                 </li>

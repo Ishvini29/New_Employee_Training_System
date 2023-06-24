@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import NavBar from "../../components/NavBar";
 
 const Article = (props) => (
   <tr>
@@ -9,7 +8,11 @@ const Article = (props) => (
     <td>{props.article.articleDesc}</td>
     <td>{props.article.old_data.articleName}</td>
     <td>{props.article.old_data.articleDesc}</td>
-    <td>{props.article.updatedby}</td>
+    <td>
+      {props.article.updatedby?.firstName +
+        " " +
+        props.article.updatedby?.lastName}
+    </td>
     <td>{props.article.updated_at}</td>
   </tr>
 );

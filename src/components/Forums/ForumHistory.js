@@ -10,7 +10,11 @@ const Forum = (props) => (
     <td>{props?.forum?.old_data?.topic}</td>
     <td>{props?.forum?.old_data?.description}</td>
     <td>{props?.forum?.old_data?.attachmentAllowed === true ? "yes" : "no"}</td>
-    <td>{props?.forum?.updatedby}</td>
+    <td>
+      {props?.forum?.updatedby?.firstName +
+        " " +
+        props?.forum?.updatedby?.lastName}
+    </td>
     <td>{props?.forum?.updated_at}</td>
   </tr>
 );

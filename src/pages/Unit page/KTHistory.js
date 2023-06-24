@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import NavBar from "../../components/NavBar";
 
 const KT = (props) => (
   <tr>
@@ -9,7 +8,11 @@ const KT = (props) => (
     <td>{props.ktsession.sessionDesc}</td>
     <td>{props.ktsession.old_data.sessionName}</td>
     <td>{props.ktsession.old_data.sessionDesc}</td>
-    <td>{props.ktsession.updatedby}</td>
+    <td>
+      {props.ktsession.updatedby?.firstName +
+        " " +
+        props.ktsession.updatedby?.lastName}
+    </td>
     <td>{props.ktsession.updated_at}</td>
   </tr>
 );

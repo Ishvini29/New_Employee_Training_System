@@ -1,15 +1,18 @@
 import React from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import swal from "sweetalert";
 import { ref, deleteObject } from "firebase/storage";
 import { storage } from "../../Firebase config/firebase";
+import jwt_decode from "jwt-decode";
 
 const Delete = ({ article }) => {
   const navigate = useNavigate();
-  const chapterName = "diagrams";
-  const userid = "648050d3b39dcbdf90027b5a";
+  const { chapterName } = useParams();
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
 
   const onDelete = () => {
     // Delete the video file from Firebase Storage
@@ -47,14 +50,13 @@ const Delete = ({ article }) => {
     const deleteData = {
       chapterName: chapterName,
       createdBy: article.createdBy,
-      deletedBy: userid,
+      deletedBy: userDocument._id,
       articleName: article.articleName,
       articleDesc: article.articleDesc,
       old_data: {
         articleName: article.articleName,
         articleDesc: article.articleDesc,
       },
-      //updated_at: moment.utc().format('YYYY-MM-DD hh:mm:ss A'),
     };
 
     axios
