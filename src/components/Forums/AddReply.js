@@ -76,9 +76,12 @@ const AddReply = () => {
         return;
       }
       console.log(attachment.name);
+      const fileExtension = attachment.name.split(".").pop(); // Get the file extension
+      const fileName = `replies_${v4()}.${fileExtension}`; // Generate a unique filename with the correct extension
+
       const AttachmentRef = ref(
         storage,
-        `forums/repliesAttachments/${attachment.name + v4()}`
+        `forums/repliesAttachments/${fileName}`
       );
 
       setUploading(true);

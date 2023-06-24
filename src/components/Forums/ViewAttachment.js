@@ -31,7 +31,7 @@ const ViewAttachment = (props) => {
           console.log(error);
         })
     ) : (
-      <p>mm</p>
+      <></>
     );
   }, []);
   return (

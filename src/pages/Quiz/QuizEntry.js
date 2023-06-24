@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import QuizComponent from "./QuizComponent";
-import NavBar from "../../components/NavBar";
 import EditQuizEntry from "./EditQuizEntry";
 import QuizPopup from "./QuizPopup";
 import jwt_decode from "jwt-decode";
@@ -12,7 +10,9 @@ const QuizEntry = (props) => {
   const { id, chapName, unitName, chapId } = useParams();
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
-  const userData = jwt_decode(JSON?.parse(localStorage?.getItem("user"))?.token)?.userData
+  const userData = jwt_decode(
+    JSON?.parse(localStorage?.getItem("user"))?.token
+  )?.userData;
   const userId = userData?._id;
 
   const [updatedTodo, setUpdatedTodo] = useState({
@@ -42,42 +42,45 @@ const QuizEntry = (props) => {
       <div style={{ backgroundColor: "#ffffff" }}>
         <div className="container my-5">
           <h4 className="heading rounded p-3">
-            {chapName + ': ' + unitName + ": Quiz"}
+            {chapName + ": " + unitName + ": Quiz"}
           </h4>
         </div>
         <div className="container">
           <div className="card">
             <div className="card-body">
-              <button className="btn btn-outline-danger" onClick={() => { navigate(-1) }}>Back</button>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                Back
+              </button>
               <br></br>
               <br></br>
-              {
-                (userData.userRole === "Hired Employee") ?
-                  null
-                  :
-                  <div className="d-flex flex-wrap justify-content-between align-items-center">
-                    <h3 style={{ font: "25px", color: "#000000" }}>
-                      {updatedTodo.quizName}
-                    </h3>
-                    <div>
-                      <EditQuizEntry id={id} />
-                    </div>
+              {userData.userRole === "Hired Employee" ? null : (
+                <div className="d-flex flex-wrap justify-content-between align-items-center">
+                  <h3 style={{ font: "25px", color: "#000000" }}>
+                    {updatedTodo.quizName}
+                  </h3>
+                  <div>
+                    <EditQuizEntry id={id} />
                   </div>
-              }
+                </div>
+              )}
               <p>{updatedTodo.quizDesc}</p>
 
               <div class="d-grid gap-2 col-6 mx-auto">
-                {
-                  (userData.userRole === "Hired Employee")
-                    ?
-                    null
-                    :
-                    <Link to={"/quiz/" + id + "/" + chapName + "/" + unitName}>
-                      <button type="button" class="btn btn-secondary form-control">
-                        View Quiz
-                      </button>
-                    </Link>
-                }
+                {userData.userRole === "Hired Employee" ? null : (
+                  <Link to={"/quiz/" + id + "/" + chapName + "/" + unitName}>
+                    <button
+                      type="button"
+                      class="btn btn-secondary form-control"
+                    >
+                      View Quiz
+                    </button>
+                  </Link>
+                )}
 
                 <QuizPopup id={id} chapId={chapId}></QuizPopup>
                 {/* <QuizComponent id={id} /> */}

@@ -8,26 +8,26 @@ export const deletelogs_routes = [
   {
     path: "/deleteunits",
     ele: <DeleteUnit />,
-    availability: [ur.superAdmin]
+    availability: [ur.superAdmin],
   },
   {
     path: "/deletekts",
     ele: <DeleteKT />,
-    availability: [ur.superAdmin]
+    availability: [ur.superAdmin],
   },
   {
     path: "/deletearticles",
     ele: <DeleteArticle />,
-    availability: [ur.superAdmin]
+    availability: [ur.superAdmin],
   },
   {
     path: "/deletequestions",
     ele: <DeleteQ />,
-    availability: [ur.superAdmin]
+    availability: [ur.superAdmin],
   },
   {
     path: "/deletehistory",
     ele: <DeleteHistory />,
-    availability: [ur.superAdmin]
+    availability: [ur.superAdmin],
   },
 ];
