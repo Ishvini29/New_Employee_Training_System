@@ -13,6 +13,7 @@ const LeaderBoard = () => {
   const [score, setScore] = useState([]);
   const [search, setSearch] = useState();
   const [showSearch, setShowSearch] = useState();
+  const [loading, setLoading] = useState(false);
   let filtering = 3;
 
   const currentUser = jwt_decode(
@@ -23,6 +24,7 @@ const LeaderBoard = () => {
   )?.userData?.department;
 
   useEffect(() => {
+    setLoading(true);
     Swal.fire(
       `Need to know!`,
       "The leaderboard is determined based on the average score of department chapters.",
@@ -32,7 +34,10 @@ const LeaderBoard = () => {
       .get(process.env.REACT_APP_API_BASE + "/getCurrentUserLeaderboardData", {
         params: { currentUser, currentUserDep },
       })
-      .then((res) => setScore(res.data))
+      .then((res) => {
+        setScore(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         // Handle errors
         swal({
@@ -51,7 +56,11 @@ const LeaderBoard = () => {
 
   return (
     <div>
-      {score?.lbData?.length > 1 ? (
+      {loading ? (
+        <center>
+          <div className="spinner-grow mt-3" role="status"></div>
+        </center>
+      ) : score?.lbData?.length > 1 ? (
         <div className="container-md bg-light my-lg-3 p-md-4">
           {/* Top gainers section */}
           <h2 className="top-gainers">Top Gainers</h2>

@@ -564,8 +564,8 @@
 }
 
 .supervisor-avatar {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 50px;
 }
 
 .feedback-title {
@@ -754,6 +754,9 @@
 
 .score-editlog-pointer-event {
   cursor: pointer;
+}
+.vertical-align {
+  vertical-align: middle;
 }
 
 /* End of score edit log */

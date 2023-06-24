@@ -20,14 +20,19 @@ const Result = () => {
   const unitId = propsData?.unitId;
   const [result, setResult] = useState({});
   const [percentage, setPercentage] = useState(0); //circular process percentage
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Fetch result
+    setLoading(true);
     axios
       .get(
         process.env.REACT_APP_API_BASE + "/result/" + currentUser + "/" + unitId
       )
-      .then((res) => setResult(res.data))
+      .then((res) => {
+        setResult(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -69,7 +74,11 @@ const Result = () => {
   const resultPercentage =
     (result?.numOfCorrectAns / result?.totalNumOfQuestions) * 100;
 
-  return (
+  return loading ? (
+    <center>
+      <div className="spinner-grow mt-3" role="status"></div>
+    </center>
+  ) : (
     <div
       className={`${
         resultPercentage > 75

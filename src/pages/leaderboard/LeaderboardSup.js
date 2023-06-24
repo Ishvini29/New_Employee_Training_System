@@ -9,10 +9,12 @@ const LeaderboardSup = () => {
   const [search, setSearch] = useState();
   const [showSearch, setShowSearch] = useState();
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   let filtering = 3;
 
   useEffect(() => {
+    setLoading(true);
     Swal.fire(
       `Need to know!`,
       "The leaderboard is determined based on the average score of department chapters.",
@@ -20,7 +22,10 @@ const LeaderboardSup = () => {
     );
     axios
       .get(process.env.REACT_APP_API_BASE + "/getLeaderboardData")
-      .then((res) => setScore(res.data))
+      .then((res) => {
+        setScore(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         // Handle other errors
         swal({
@@ -39,7 +44,11 @@ const LeaderboardSup = () => {
   const departmentLeaderboard = (index) => {
     return (
       <>
-        {score[index]?.leaderboard?.length > 1 ? (
+        {loading ? (
+          <center>
+            <div className="spinner-grow mt-3" role="status"></div>
+          </center>
+        ) : score[index]?.leaderboard?.length > 1 ? (
           <>
             <div className="row m-0 justify-content-center gy-3">
               {/* Top gainer 1 */}

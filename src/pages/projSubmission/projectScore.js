@@ -11,15 +11,20 @@ const ProjScore = () => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState();
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const supervisorId = jwt_decode(
     JSON?.parse(localStorage?.getItem("user"))?.token
   )?.userData?._id;
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(process.env.REACT_APP_API_BASE + "/getProjScore/" + supervisorId)
-      .then((res) => setGradeData(res.data))
+      .then((res) => {
+        setGradeData(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -48,7 +53,11 @@ const ProjScore = () => {
 
   return (
     <>
-      {gradeData?.length > 0 ? (
+      {loading ? (
+        <center>
+          <div className="spinner-grow mt-3" role="status"></div>
+        </center>
+      ) : gradeData?.length > 0 ? (
         <>
           <div className="d-flex justify-content-between m-4">
             <h3 className="text-secondary ">Project Assignment Grades</h3>
@@ -110,13 +119,14 @@ const ProjScore = () => {
                             setShow(!show);
                           }}
                         >
-                          <td className="leaderboard-td score-table-body">
+                          <td className="leaderboard-td score-table-body vertical-align">
                             {data?.projectName}
                           </td>
-                          <td className="leaderboard-td score-table-body">
-                            <span className="ms-3">
+                          <td className="leaderboard-td score-table-body vertical-align">
+                            <span className="ms-4">
                               <img
-                                className="img-fluid rounded-circle supervisor-avatar"
+                                className="img-fluid rounded-circle "
+                                style={{ width: "50px", height: "50px" }}
                                 src={data?.employeeUserImage}
                                 alt={data?.submittedName}
                               />
@@ -126,23 +136,24 @@ const ProjScore = () => {
                             <br></br>
                             {data?.submittedName}
                           </td>
-                          <td className="leaderboard-td score-table-body">
+                          <td className="leaderboard-td score-table-body vertical-align">
                             {data?.grade}
                           </td>
-                          <td className="pt-4 text-center score-table-body">
+                          <td className="pt-4 text-center score-table-body vertical-align">
                             {data?.show ? (
                               <MdOutlineCheckCircle color="green" size={25} />
                             ) : (
                               <MdOutlineCancel color="red" size={25} />
                             )}
                           </td>
-                          <td className="leaderboard-td score-table-body">
+                          <td className="leaderboard-td score-table-body vertical-align">
                             {data?.submittedTime}
                           </td>
-                          <td className="leaderboard-td score-table-body">
-                            <span className="ms-3">
+                          <td className="leaderboard-td score-table-body vertical-align">
+                            <span className="ms-4">
                               <img
-                                className="img-fluid rounded-circle supervisor-avatar"
+                                className="img-fluid rounded-circle"
+                                style={{ width: "50px", height: "50px" }}
                                 src={data?.supervisorUserImage}
                                 alt={data?.gradedName}
                               />
@@ -152,7 +163,7 @@ const ProjScore = () => {
                             <br></br>
                             {data?.gradedName}
                           </td>
-                          <td className="leaderboard-td score-table-body">
+                          <td className="leaderboard-td score-table-body vertical-align">
                             {data?.gradedTime}
                           </td>
                         </tr>
@@ -181,7 +192,7 @@ const ProjScore = () => {
           height="90px"
           style={{ margin: "15%", padding: "20px" }}
         >
-          <h4>No submissions were submitted for evaluation. </h4>
+          <h4>No evaluated submissions found. </h4>
         </div>
       )}
     </>

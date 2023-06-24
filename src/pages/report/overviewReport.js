@@ -156,9 +156,7 @@ const OverviewReport = () => {
                                   : "dif-dep-chap leaderboard-td align-middle text-center"
                               }`}
                             >
-                              {overviewItem?.depName
-                                ? overviewItem?.depName
-                                : "Common chapter"}
+                              {overviewItem?.depName}
                             </td>
                             <td
                               className={`${

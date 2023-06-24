@@ -13,6 +13,7 @@ const Submission = () => {
   const [errorHandling, setErrorHandling] = useState("");
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState();
+  const [loading, setLoading] = useState(false);
 
   const supervisorId = jwt_decode(
     JSON?.parse(localStorage?.getItem("user"))?.token
@@ -20,9 +21,15 @@ const Submission = () => {
 
   // Fetch data on mount
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(process.env.REACT_APP_API_BASE+"/getSubmissionTable/" + supervisorId)
-      .then((res) => setSubmissionData(res.data))
+      .get(
+        process.env.REACT_APP_API_BASE + "/getSubmissionTable/" + supervisorId
+      )
+      .then((res) => {
+        setSubmissionData(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -35,10 +42,10 @@ const Submission = () => {
   }, []);
 
   // Download zip file of the submitted project
-  const handleGetZipFile = (empId) => {
+  const handleGetZipFile = (empId, projName) => {
     axios
-      .get(process.env.REACT_APP_API_BASE+"/getZipFile/" + empId)
-      .then((res) => downloadFile(res.data))
+      .get(process.env.REACT_APP_API_BASE + "/getZipFile/" + empId)
+      .then((res) => downloadFile(res.data, empId, projName))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -55,11 +62,10 @@ const Submission = () => {
       });
   };
   // Download file using the provided URL
-  const downloadFile = async (fileURL) => {
+  const downloadFile = async (fileURL, empId, projName) => {
     try {
       const response = await fetch(fileURL);
-      let fileNameIndex = fileURL.lastIndexOf("/");
-      let fileName = fileURL.slice(fileNameIndex + 1);
+      let fileName = empId + "_" + projName;
       const blob = await response.blob(); //to convert the response into a Blob object.
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -86,7 +92,11 @@ const Submission = () => {
     setShowSearch(showSearch);
   };
 
-  return (
+  return loading ? (
+    <center>
+      <div className="spinner-grow mt-3" role="status"></div>
+    </center>
+  ) : (
     <>
       {/* checking whether there is error or not */}
       {submissionData?.length > 0 ? (
@@ -156,7 +166,9 @@ const Submission = () => {
                                   color="#0198E1"
                                   className="download-icon"
                                   // click to download file and pass employeeId as argument
-                                  onClick={() => handleGetZipFile(emp.empId)}
+                                  onClick={() =>
+                                    handleGetZipFile(emp.empId, emp.projectName)
+                                  }
                                 />
                               )}
                           </td>

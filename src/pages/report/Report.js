@@ -10,6 +10,7 @@ const Report = () => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState();
   const [show, setShow] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,9 +35,13 @@ const Report = () => {
     setShowSearch(showSearch);
   };
   useEffect(() => {
+    setLoading(true);
     axios
       .get(process.env.REACT_APP_API_BASE + "/showAllUsers")
-      .then((res) => setReportDetails(res.data))
+      .then((res) => {
+        setReportDetails(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -60,7 +65,11 @@ const Report = () => {
 
   return (
     <>
-      {reportDetails?.length > 0 ? ( //checking whether system has data to show
+      {loading ? (
+        <center>
+          <div className="spinner-grow mt-3" role="status"></div>
+        </center>
+      ) : reportDetails?.length > 0 ? ( //checking whether system has data to show
         <div className="mt-3">
           <TabReport handleGetTabReport={getTabReport} />
           <div className="">
@@ -72,7 +81,7 @@ const Report = () => {
           <table className=" empTable table table-striped table-hover mt-sm-5 mt-lg-5 ">
             <thead>
               <tr className="table-head table-dark">
-                <th>ID</th>
+                <th className="ps-5">ID</th>
                 <th>Name</th>
                 <th>Department</th>
                 <th>Job Title</th>
@@ -100,10 +109,12 @@ const Report = () => {
                         >
                           <td>
                             <img
-                              className="img-fluid rounded-circle supervisor-avatar"
+                              className="img-fluid rounded-circle"
+                              style={{ width: "50px", height: "50px" }}
                               src={emp?.userImage}
                               alt={emp?.firstName}
-                            />{" "}
+                            />
+                            {"  "}
                             {emp?.empId}
                           </td>
                           <td>
@@ -121,7 +132,8 @@ const Report = () => {
                         >
                           <td>
                             <img
-                              className="img-fluid rounded-circle supervisor-avatar"
+                              className="img-fluid rounded-circle"
+                              style={{ width: "50px", height: "50px" }}
                               src={emp?.userImage}
                               alt={emp?.firstName}
                             />{" "}

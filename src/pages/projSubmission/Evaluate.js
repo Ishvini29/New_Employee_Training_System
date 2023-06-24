@@ -10,7 +10,6 @@ import {
 } from "react-icons/md";
 
 const Evaluate = () => {
-
   // get the evaluator's ID from the JWT
   const gradedBy = jwt_decode(JSON?.parse(localStorage?.getItem("user"))?.token)
     ?.userData?._id;
@@ -23,11 +22,13 @@ const Evaluate = () => {
   const [userImage, setUserImage] = useState("");
   const [description, setDescription] = useState("");
   const [isDescription, setIsDescription] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     let empId = propsData?.empId;
     axios
-      .get(process.env.REACT_APP_API_BASE+"/getEvaluatedFeedback/" + empId)
+      .get(process.env.REACT_APP_API_BASE + "/getEvaluatedFeedback/" + empId)
       .then((res) => {
         setScore(res?.data?.projectScore);
         setFeedback(res?.data?.feedback);
@@ -35,6 +36,7 @@ const Evaluate = () => {
         setUserImage(res?.data?.userImage);
         setDescription(res?.data?.description);
         setIsDescription(res?.data?.isDescription);
+        setLoading(false);
       })
       .catch((error) => {
         if (error?.response && error?.response?.status === 404) {
@@ -104,13 +106,16 @@ const Evaluate = () => {
             }).then((willDelete) => {
               if (willDelete) {
                 axios
-                  .post(process.env.REACT_APP_API_BASE+"/toEvaluateSubmission", {
-                    empId,
-                    score,
-                    feedback,
-                    show,
-                    gradedBy,
-                  })
+                  .post(
+                    process.env.REACT_APP_API_BASE + "/toEvaluateSubmission",
+                    {
+                      empId,
+                      score,
+                      feedback,
+                      show,
+                      gradedBy,
+                    }
+                  )
                   .then(() => {
                     swal("Updated!", "Upgraded successfully", "success");
                   });
@@ -118,7 +123,7 @@ const Evaluate = () => {
             })
           : // if it is first time evaluating
             axios
-              .post(process.env.REACT_APP_API_BASE+"/toEvaluateSubmission", {
+              .post(process.env.REACT_APP_API_BASE + "/toEvaluateSubmission", {
                 empId,
                 score,
                 feedback,
@@ -154,7 +159,7 @@ const Evaluate = () => {
       propsData?.update
         ? // if score is already exist (evaluated already)
           axios
-            .put(process.env.REACT_APP_API_BASE+"/updateScore", {
+            .put(process.env.REACT_APP_API_BASE + "/updateScore", {
               score: score,
               feedback,
               show,
@@ -166,7 +171,7 @@ const Evaluate = () => {
             .catch((err) => console.log(err))
         : //first time evaluating
           axios
-            .post(process.env.REACT_APP_API_BASE+"/storeScore", {
+            .post(process.env.REACT_APP_API_BASE + "/storeScore", {
               score: score,
               feedback,
               show,
@@ -178,7 +183,11 @@ const Evaluate = () => {
             .catch((err) => console.log(err));
     }
   };
-  return (
+  return loading ? (
+    <center>
+      <div className="spinner-grow mt-3" role="status"></div>
+    </center>
+  ) : (
     <div className="evaluate-grid">
       <div></div>
       <div className="shadow mt-lg-3">

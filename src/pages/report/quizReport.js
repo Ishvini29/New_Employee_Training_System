@@ -12,6 +12,7 @@ const QuizReport = () => {
   const [quizReportData, setQuizReportData] = useState([]);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState();
+  const [loading, setLoading] = useState(false);
 
   // storing seach values
   const getSearchValue = (search, showSearch) => {
@@ -19,10 +20,14 @@ const QuizReport = () => {
     setShowSearch(showSearch);
   };
   useEffect(() => {
+    setLoading(true);
     const unitId = propsData?.unitId;
     axios
       .get(process.env.REACT_APP_API_BASE + "/quizReport/" + unitId)
-      .then((res) => setQuizReportData(res.data))
+      .then((res) => {
+        setQuizReportData(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -48,7 +53,11 @@ const QuizReport = () => {
     });
   };
 
-  return (
+  return loading ? (
+    <center>
+      <div className="spinner-grow mt-3" role="status"></div>
+    </center>
+  ) : (
     <>
       <div className="d-flex justify-content-between m-4">
         <h3 className="text-secondary ">{propsData?.unitName} Unit</h3>
@@ -99,7 +108,8 @@ const QuizReport = () => {
                 >
                   <td>
                     <img
-                      className="img-fluid rounded-circle supervisor-avatar"
+                      className="img-fluid rounded-circle"
+                      style={{ width: "50px", height: "50px" }}
                       src={emp?.userImage}
                       alt={emp?.firstName}
                     />{" "}

@@ -14,12 +14,17 @@ const Ratings = () => {
   // states for storing fetched data
   const [ktSessionRating, setKtSessionRating] = useState({});
   const [articleRating, setArticleRating] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     let empId = propsData?.empId || localhostEmpId;
     axios
       .get(process.env.REACT_APP_API_BASE + "/ktsessionRatings/" + empId)
-      .then((res) => setKtSessionRating(res.data))
+      .then((res) => {
+        setKtSessionRating(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -47,9 +52,13 @@ const Ratings = () => {
           );
         }
       });
+    setLoading(true);
     axios
       .get(process.env.REACT_APP_API_BASE + "/articleRatings/" + empId)
-      .then((res) => setArticleRating(res.data))
+      .then((res) => {
+        setArticleRating(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -78,8 +87,12 @@ const Ratings = () => {
         }
       });
   }, []);
-  console.log(ktSessionRating);
-  return (
+
+  return loading ? (
+    <center>
+      <div className="spinner-grow mt-3" role="status"></div>
+    </center>
+  ) : (
     <>
       {Object.keys(ktSessionRating).length !== 0 ||
       Object.keys(articleRating).length !== 0 ? (
@@ -87,7 +100,8 @@ const Ratings = () => {
           <div className=" row mt-3 ps-5 mx-auto justify-content-between">
             <div className="col col-12 col-lg-6 d-flex ">
               <img
-                className="img-fluid rounded-circle leaderboard-avatar"
+                className="img-fluid rounded-circle"
+                style={{ width: "70px", height: "70px" }}
                 src={
                   articleRating?.userData?.userImage ||
                   ktSessionRating?.userData?.userImage
@@ -98,10 +112,10 @@ const Ratings = () => {
                 }
               />
               <div className="d-flex flex-column ps-4">
-                <h2 className="text-dark">
+                <h3 className="text-dark">
                   {articleRating?.userData?.empName ||
                     ktSessionRating?.userData?.empName}
-                </h2>
+                </h3>
                 <h5 className="text-secondary">
                   {articleRating?.userData?.empId ||
                     ktSessionRating?.userData?.empId}
@@ -323,7 +337,7 @@ const Ratings = () => {
                   </span>
                 </div>
 
-                {/*  */}
+                {/* Articles  */}
                 <div div className="specific-chapter w-75 mb-4">
                   <div
                     id="articles"
@@ -450,7 +464,7 @@ const Ratings = () => {
                   <span> Article Name</span>
                   <span>Rating</span>
                 </div>
-                {articleRating?.articleRatingsData?.map((article, index) => (
+                {articleRating?.artRatings?.map((article, index) => (
                   <div
                     key={index}
                     className="specific-chapter w-75 kt-article-data shadow"

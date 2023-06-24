@@ -10,8 +10,9 @@ const Editlog = () => {
   const [showFeedback, setShowFeedback] = useState();
   const [showSearch, setShowSearch] = useState();
   const [showFeed, setShowFeed] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     axios
       .get(process.env.REACT_APP_API_BASE + "/getScoreEditLog")
       .then((res) => {
@@ -19,6 +20,7 @@ const Editlog = () => {
           a.projectName.localeCompare(b.projectName)
         ); // Sorting the fetched data alphabetically by project name
         setEditlog(sortedData);
+        setLoading(false);
       })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -45,7 +47,11 @@ const Editlog = () => {
   };
   return (
     <>
-      {editlog?.length !== 0 ? ( // Checking if there is data to show
+      {loading ? (
+        <center>
+          <div className="spinner-grow mt-3" role="status"></div>
+        </center>
+      ) : editlog?.length !== 0 ? ( // Checking if there is data to show
         <>
           {/* Rendering the search bar component */}
           <div className="d-flex justify-content-between m-4">
