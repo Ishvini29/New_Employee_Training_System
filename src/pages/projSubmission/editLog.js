@@ -119,7 +119,11 @@ const Editlog = () => {
                                     <td>
                                       <span className="ms-3">
                                         <img
-                                          className="img-fluid rounded-circle supervisor-avatar"
+                                          className="img-fluid rounded-circle"
+                                          style={{
+                                            width: "50px",
+                                            height: "50px",
+                                          }}
                                           src={log?.employeeUserImage}
                                           alt={log?.submittedBy}
                                         />
@@ -162,9 +166,13 @@ const Editlog = () => {
                                     <td>
                                       <span className="ms-3">
                                         <img
-                                          className="img-fluid rounded-circle supervisor-avatar"
+                                          className="img-fluid rounded-circle"
                                           src={supervisor?.supervisorUserImage}
                                           alt={supervisor?.supName}
+                                          style={{
+                                            width: "50px",
+                                            height: "50px",
+                                          }}
                                         />
                                         <br></br>
                                         <span className="ms-3">

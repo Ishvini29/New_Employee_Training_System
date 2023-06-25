@@ -1,7 +1,7 @@
-import QuizEntry from "../pages/Quiz/QuizEntry";
-import Quizpage from "../pages/Quiz/Quizpage";
-import Result from "../pages/Quiz/result";
-import Review from "../pages/Quiz/review";
+import QuizEntry from "../pages/quiz/QuizEntry";
+import Quizpage from "../pages/quiz/Quizpage";
+import Result from "../pages/quiz/result";
+import Review from "../pages/quiz/review";
 
 import { userRoles as ur } from "../data/userRole";
 
