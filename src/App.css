@@ -17,8 +17,8 @@
 }
 
 .picside2 {
-  width: 350px;
-  height: 350px;
+  width: 380px;
+  height: 335px;
   float: right;
 }
 
@@ -30,7 +30,7 @@
 
 .picside4 {
   width: 400px;
-  height: 400px;
+  height: 350px;
   float: right;
 }
 
@@ -41,13 +41,13 @@
 
 .picside6 {
   width: 370px;
-  height: 370px;
+  height: 345px;
   float: right;
 }
 
 .picside7 {
   width: 400px;
-  height: 400px;
+  height: 380px;
   float: right;
 }
 
@@ -137,6 +137,40 @@
   border-radius: 15px;
   margin: auto;
   width: 55%;
+}
+
+.view-table {
+  border-spacing: 0 15px;
+  width: 100%;
+  border-collapse: collapse;
+
+}
+
+.view-table th {
+  padding: 8px;
+  vertical-align: middle;
+  font-weight: 600;
+}
+
+.view-table td {
+  padding: 8px;
+  vertical-align: middle;
+  border-bottom: 1px solid #e8e6e6;
+}
+
+.editallocatelist {
+  width: 100%;
+
+}
+
+.editallocatelist label {
+  padding: 8px;
+  vertical-align: middle;
+}
+
+.editallocatelist input {
+  padding: 10px;
+  vertical-align: middle;
 }
 
 .showBut {
@@ -244,6 +278,7 @@
   border-radius: 4px;
   border: 1.4px solid #ebeded !important;
   box-sizing: border-box;
+
 }
 
 /* Result page */
@@ -526,6 +561,8 @@
   border-spacing: 0 15px;
 }
 
+
+
 .leaderboard-tr {
   position: relative;
   height: 80px;
@@ -625,6 +662,7 @@
   display: grid;
   grid-template-columns: 15% 1fr;
 }
+
 .chapter-row {
   background-color: #e6fafda9 !important;
 }
@@ -647,6 +685,7 @@
   display: grid;
   grid-template-columns: 2fr 0.5fr;
 }
+
 .dif-dep-chap {
   background-color: #d0e3ff !important;
 }

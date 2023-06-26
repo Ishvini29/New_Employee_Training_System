@@ -75,9 +75,9 @@ const EditAllocate = () => {
           <img src={image1} className="picside3" draggable={false} alt="this is image" />
         </div>
         <div class="card" style={{ borderRadius: "15px", backgroundColor: "#f1f8f5", boxShadow: "0px 0px 5px 2px rgba(151,196,177, 0.5)" }} >
-          <div class="card-body">
+          <div className="card-body">
             <br></br>{
-              <table className="table">
+              <table className="editallocatelist" >
                 <tbody>
                   {
                     (loading)
@@ -129,7 +129,7 @@ export default EditAllocate;
 
 
 
-//it is the code for when I select the checkbox,that does not change
+// it is the code for when I select the checkbox, that does not change
 // import React, { useState, useEffect } from "react";
 // import { useParams } from "react-router-dom";
 // import swal from "sweetalert";
@@ -242,7 +242,7 @@ export default EditAllocate;
 //                 No Chapters Found related to your Department!
 //               </div>
 //             ) : (
-//               <table className="table">
+//               <table className="editallocatelist">
 //                 <tbody>
 //                   {chaptername.map((item) => (
 //                     <div key={item._id} className="form-check">
