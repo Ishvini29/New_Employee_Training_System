@@ -252,12 +252,12 @@
   background-size: contain;
 }
 
-.result-greater-than-50 {
+.result-greater-than-65 {
   background-image: url("../src/images/resultGT50.png");
   background-size: contain;
 }
 
-.result-greater-than-30 {
+.result-greater-than-40 {
   background-image: url("../src/images/resultGT30.png");
   background-size: contain;
 }

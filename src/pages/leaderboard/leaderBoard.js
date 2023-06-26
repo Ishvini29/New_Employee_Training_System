@@ -180,18 +180,16 @@ const LeaderBoard = () => {
           </div>
           {/* Only show the badge for the employees who are below the rank 4 */}
           <div className="d-flex justify-content-center mt-5">
-            {score?.currentUserRank < 4 && (
+            {score?.currentUserRank < 4 && score?.currentUserRank > 0 && (
               <img
                 src={
                   score?.currentUserRank === 1
                     ? rank1
                     : score?.currentUserRank === 2
                     ? rank2
-                    : score?.currentUserRank === 3
-                    ? rank3
-                    : ""
+                    : score?.currentUserRank === 3 && rank3
                 }
-                className=" rank-badge mt-6 ms-5"
+                className="rank-badge mt-6 ms-5"
                 alt="rank above 3"
                 draggable="false"
               />
@@ -224,7 +222,7 @@ const LeaderBoard = () => {
             <div className="leaderboard-table-wrapper">
               <div div className="d-flex justify-content-between my-5">
                 <h4 className="top-gainers">All Employees</h4>
-                <div id="" className="mt-2 float-end">
+                <div className="mt-2 float-end">
                   <Search
                     handleGetSearchValue={getSearchValue}
                     width={{ width: "w-auto" }}

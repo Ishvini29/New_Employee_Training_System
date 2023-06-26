@@ -83,10 +83,10 @@ const Result = () => {
       className={`${
         resultPercentage > 75
           ? "result-greater-than-75 d-flex flex-column align-items-center text-center"
-          : resultPercentage > 50
-          ? " result-greater-than-50 d-flex flex-column align-items-center text-center"
-          : resultPercentage > 30
-          ? " result-greater-than-30 d-flex flex-column align-items-center text-center"
+          : resultPercentage > 65
+          ? " result-greater-than-65 d-flex flex-column align-items-center text-center"
+          : resultPercentage > 40
+          ? " result-greater-than-40 d-flex flex-column align-items-center text-center"
           : " result d-flex flex-column align-items-center text-center"
       }`}
     >

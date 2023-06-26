@@ -132,7 +132,7 @@ const Report = () => {
                         >
                           <td>
                             <img
-                              className="img-fluid rounded-circle"
+                              className="img-fluid rounded-circle "
                               style={{ width: "50px", height: "50px" }}
                               src={emp?.userImage}
                               alt={emp?.firstName}

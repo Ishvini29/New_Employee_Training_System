@@ -44,11 +44,7 @@ const LeaderboardSup = () => {
   const departmentLeaderboard = (index) => {
     return (
       <>
-        {loading ? (
-          <center>
-            <div className="spinner-grow mt-3" role="status"></div>
-          </center>
-        ) : score[index]?.leaderboard?.length > 1 ? (
+        {score[index]?.leaderboard?.length > 1 ? (
           <>
             <div className="row m-0 justify-content-center gy-3">
               {/* Top gainer 1 */}
@@ -176,7 +172,7 @@ const LeaderboardSup = () => {
                 <div className="d-flex justify-content-between my-5">
                   <h4 className="top-gainers mt-2">All Employees</h4>
                   <div className="d-flex justify-content-between ">
-                    <div id="" className="mt-2 float-end">
+                    <div className="mt-2 float-end">
                       <Search
                         handleGetSearchValue={getSearchValue}
                         width={{ width: "w-auto" }}
@@ -274,9 +270,13 @@ const LeaderboardSup = () => {
     );
   };
 
-  return (
+  return loading ? (
+    <center>
+      <div className="spinner-grow mt-3" role="status"></div>
+    </center>
+  ) : (
     <div>
-      {score.length > 1 ? (
+      {score?.length > 1 ? (
         <div className="container-md bg-light my-lg-3 p-md-4">
           {/* Top gainers section */}
           <div className="d-flex justify-content-between  flex-sm-row flex-column">
