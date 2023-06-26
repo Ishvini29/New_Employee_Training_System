@@ -97,7 +97,7 @@ const ViewChapter = () => {
             <b>No chapters Found!</b>
           </div>
         ) : (
-          <table className="table">
+          <table className="view-table">
             <thead>
               <tr style={{ backgroundColor: "#b9e1dc" }}>
                 <th scope="col">ChapterID</th>
@@ -109,7 +109,7 @@ const ViewChapter = () => {
             <tbody style={{ backgroundColor: "MintCream" }}>
               {searchedChapters.map((chapter) => (
                 <tr className="align-middle" key={chapter._id}>
-                  <th scope="row">{chapter.chapId}</th>
+                  <td scope="row"><b>{chapter.chapId}</b></td>
                   <td>{chapter.chapterName}</td>
                   <td>{chapter.depID?.depName}</td>
                   <td>{chapter.createdBy?.empId}</td>

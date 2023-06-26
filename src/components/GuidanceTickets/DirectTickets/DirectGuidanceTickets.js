@@ -5,6 +5,7 @@ import DirectForm from "./DirectForm";
 import swal from "sweetalert";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { Link } from "react-router-dom";
 
 const DirectGuidanceTickets = () => {
   const [tickets, setTickets] = useState([]);
@@ -13,7 +14,11 @@ const DirectGuidanceTickets = () => {
     JSON.parse(localStorage.getItem("user")).token
   ).userData;
   useEffect(() => {
-    axios.get(process.env.REACT_APP_API_BASE + `/get-tickets-by-directed-department-id/${userDocument?.department}`)
+    axios
+      .get(
+        process.env.REACT_APP_API_BASE +
+          `/get-tickets-by-directed-department-id/${userDocument?.department}`
+      )
       .then((response) => {
         setTickets(response.data);
       })
@@ -32,7 +37,11 @@ const DirectGuidanceTickets = () => {
     console.log("id", ticketId);
 
     axios
-      .put(`process.env.REACT_APP_API_BASE/assign-ticket-by-ticket-id/${ticketId}`, data)
+      .put(
+        process.env.REACT_APP_API_BASE +
+          `/assign-ticket-by-ticket-id/${ticketId}`,
+        data
+      )
       .then((res) => {
         console.log(res.data);
         swal({
@@ -92,6 +101,22 @@ const DirectGuidanceTickets = () => {
               </div>
               <div className="row">
                 <p className="col-sm-6">
+                  Requested By :{" "}
+                  {t?.requestedBy?.firstName + " " + t?.requestedBy?.lastName}
+                </p>
+                <p className="col-sm-6">
+                  {t?.attachment && (
+                    <>
+                      Attachment :{" "}
+                      <Link to={`/guidance-ticket-view-attachment/${t?._id}`}>
+                        View
+                      </Link>
+                    </>
+                  )}
+                </p>
+              </div>
+              <div className="row">
+                <p className="col-sm-6">
                   {t.status === "requested" ? (
                     <LargeModal
                       title="Guidance Direction Form"
@@ -112,9 +137,10 @@ const DirectGuidanceTickets = () => {
                   )}
                 </p>
                 <p className="col-sm-6">
-                  Requested on: {formatDate(t.createdTime)}
+                  Requested on: {formatDate(t?.createdTime)}
                 </p>
               </div>
+
               <div className="row">
                 <div className="col-sm-10 mx-auto my-3">
                   <div className="progress">
@@ -141,7 +167,7 @@ const DirectGuidanceTickets = () => {
                     >
                       {t?.status === "requested"
                         ? "Requested"
-                        : t.status === "directed"
+                        : t?.status === "directed"
                         ? "Directed"
                         : "Completed"}
                     </div>

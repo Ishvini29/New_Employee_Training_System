@@ -9,6 +9,7 @@ const QuizReportFront = () => {
   const [quizReport, setQuizReport] = useState([]);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState();
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -24,9 +25,13 @@ const QuizReportFront = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(process.env.REACT_APP_API_BASE+"/quizFront")
-      .then((res) => setQuizReport(res.data))
+      .get(process.env.REACT_APP_API_BASE + "/quizFront")
+      .then((res) => {
+        setQuizReport(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -48,7 +53,11 @@ const QuizReportFront = () => {
       });
   }, []);
 
-  return (
+  return loading ? (
+    <center>
+      <div className="spinner-grow mt-3" role="status"></div>
+    </center>
+  ) : (
     <div className="pb-5 mt-4">
       <h2 className="text-secondary mb-4 ms-3">Quiz Report</h2>
       {quizReport?.departments?.length > 0 &&

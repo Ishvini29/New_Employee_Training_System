@@ -32,7 +32,8 @@ const EditForum = () => {
   useEffect(() => {
     axios
       .get(
-        process.env.REACT_APP_API_BASE+`/get-forum-details-by-forum-id/${params.forumId}`
+        process.env.REACT_APP_API_BASE +
+          `/get-forum-details-by-forum-id/${params?.forumId}`
       )
       .then((response) => {
         setForum(response.data);
@@ -45,7 +46,10 @@ const EditForum = () => {
 
   const onFormSubmit = (formData) => {
     axios
-      .put(process.env.REACT_APP_API_BASE+`/edit-forum/${params.forumId}`, formData)
+      .put(
+        process.env.REACT_APP_API_BASE + `/edit-forum/${params?.forumId}`,
+        formData
+      )
       .then((res) => {
         console.log(res.data);
         swal({
@@ -54,7 +58,7 @@ const EditForum = () => {
           icon: "success",
           button: "Close",
         }).then(() => {
-          navigate("/forums");
+          navigate("/forums/" + params?.chapterID + "/" + params?.chapterName);
         });
       })
       .catch((error) => {
@@ -202,7 +206,9 @@ const EditForum = () => {
             >
               Save
             </button>
-            <Link to="/forums">
+            <Link
+              to={"/forums/" + params?.chapterID + "/" + params?.chapterName}
+            >
               <button
                 type="button"
                 className="btn btn-primary mt-5 mx-3"

@@ -10,8 +10,9 @@ const Editlog = () => {
   const [showFeedback, setShowFeedback] = useState();
   const [showSearch, setShowSearch] = useState();
   const [showFeed, setShowFeed] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     axios
       .get(process.env.REACT_APP_API_BASE + "/getScoreEditLog")
       .then((res) => {
@@ -19,6 +20,7 @@ const Editlog = () => {
           a.projectName.localeCompare(b.projectName)
         ); // Sorting the fetched data alphabetically by project name
         setEditlog(sortedData);
+        setLoading(false);
       })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -45,7 +47,11 @@ const Editlog = () => {
   };
   return (
     <>
-      {editlog?.length !== 0 ? ( // Checking if there is data to show
+      {loading ? (
+        <center>
+          <div className="spinner-grow mt-3" role="status"></div>
+        </center>
+      ) : editlog?.length !== 0 ? ( // Checking if there is data to show
         <>
           {/* Rendering the search bar component */}
           <div className="d-flex justify-content-between m-4">
@@ -95,10 +101,15 @@ const Editlog = () => {
                         //Map upgraded array
                         log?.upgradedOn?.map((date, indexx) =>
                           log?.upgradedBy?.map(
+                            // Map supervisor array
                             (supervisor, indexs) =>
+                              // Checking if the index of the score array is equal to the index of the show array
                               indexi === indexsh &&
+                              // Checking if the index of the show array is equal to the index of the upgradedOn array
                               indexsh === indexx &&
+                              // Checking if the index of the upgradedOn array is equal to the index of the upgradedBy array
                               indexx === indexs &&
+                              // Checking if the index of the score array is greater than 0
                               indexi > 0 && ( // Rendering table rows for each editlog entry
                                 <>
                                   <tr
@@ -113,7 +124,11 @@ const Editlog = () => {
                                     <td>
                                       <span className="ms-3">
                                         <img
-                                          className="img-fluid rounded-circle supervisor-avatar"
+                                          className="img-fluid rounded-circle"
+                                          style={{
+                                            width: "50px",
+                                            height: "50px",
+                                          }}
                                           src={log?.employeeUserImage}
                                           alt={log?.submittedBy}
                                         />
@@ -156,9 +171,13 @@ const Editlog = () => {
                                     <td>
                                       <span className="ms-3">
                                         <img
-                                          className="img-fluid rounded-circle supervisor-avatar"
+                                          className="img-fluid rounded-circle"
                                           src={supervisor?.supervisorUserImage}
                                           alt={supervisor?.supName}
+                                          style={{
+                                            width: "50px",
+                                            height: "50px",
+                                          }}
                                         />
                                         <br></br>
                                         <span className="ms-3">
@@ -172,14 +191,16 @@ const Editlog = () => {
                                     <td
                                       dangerouslySetInnerHTML={{ __html: date }}
                                     ></td>
-                                    <td>{log.department}</td>
+                                    <td>{log?.department}</td>
                                   </tr>
                                   {showFeedback === indexi + log?.userEmpId &&
                                     showFeed && (
                                       <tr>
                                         {log?.feedback?.map(
                                           (feedbackData, indexf) =>
+                                            // Checking if the index of the feedback array is greater than 0
                                             indexf > 0 &&
+                                            // Checking if the index of the feedback array is equal to the index of the score array
                                             indexf === indexi && (
                                               <td
                                                 key={indexf}

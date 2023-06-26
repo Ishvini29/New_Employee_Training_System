@@ -24,7 +24,8 @@ const CreatePost = () => {
   useEffect(() => {
     axios
       .get(
-        process.env.REACT_APP_API_BASE+`/get-forum-details-by-forum-id/${params.forumId}`
+        process.env.REACT_APP_API_BASE +
+          `/get-forum-details-by-forum-id/${params?.forumId}`
       )
       .then((response) => {
         setAttachmentAllowwed(response.data[0].attachmentAllowed);
@@ -53,7 +54,10 @@ const CreatePost = () => {
 
       if (attachment === null) {
         axios
-          .post(process.env.REACT_APP_API_BASE+`/add-posts/${params.forumId}`, data)
+          .post(
+            process.env.REACT_APP_API_BASE + `/add-posts/${params?.forumId}`,
+            data
+          )
           .then((res) => {
             console.log(res.data);
             swal({
@@ -62,7 +66,7 @@ const CreatePost = () => {
               icon: "success",
               button: "Close",
             }).then(() => {
-              navigate(`/view-forum/${params.forumId}`);
+              navigate(`/view-forum/${params?.forumId}`);
             });
             console.log("Submitted form data:", data);
             reset();
@@ -89,7 +93,10 @@ const CreatePost = () => {
           console.log(url);
           data = { ...data, attachment: url };
           axios
-            .post(process.env.REACT_APP_API_BASE+`/add-posts/${params.forumId}`, data)
+            .post(
+              process.env.REACT_APP_API_BASE + `/add-posts/${params?.forumId}`,
+              data
+            )
             .then((res) => {
               console.log(res.data);
               swal({
@@ -98,7 +105,7 @@ const CreatePost = () => {
                 icon: "success",
                 button: "Close",
               }).then(() => {
-                navigate(`/view-forum/${params.forumId}`);
+                navigate(`/view-forum/${params?.forumId}`);
               });
               console.log("Submitted form data:", data);
               reset();
@@ -190,7 +197,7 @@ const CreatePost = () => {
             >
               {uploading ? "Uploading..." : "Create"}
             </button>
-            <Link to={`/view-forum/${params.forumId}`}>
+            <Link to={`/view-forum/${params?.forumId}`}>
               <button
                 type="submit"
                 className="btn btn-primary mt-5 mx-3"

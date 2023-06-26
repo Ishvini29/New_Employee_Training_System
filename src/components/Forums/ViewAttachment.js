@@ -6,10 +6,11 @@ const ViewAttachment = (props) => {
   const params = useParams();
   const [link, setLink] = useState("");
   useEffect(() => {
-    props.type === "posts" ? (
+    props?.type === "posts" ? (
       axios
         .get(
-          process.env.REACT_APP_API_BASE+`/get-post-details-by-post-id/${params.forumId}/${params.postId}`
+          process.env.REACT_APP_API_BASE +
+            `/get-post-details-by-post-id/${params?.forumId}/${params?.postId}`
         )
         .then((response) => {
           console.log(response.data[0].attachment);
@@ -18,10 +19,11 @@ const ViewAttachment = (props) => {
         .catch(function (error) {
           console.log(error);
         })
-    ) : props.type === "replies" ? (
+    ) : props?.type === "replies" ? (
       axios
         .get(
-          process.env.REACT_APP_API_BASE+`/get-reply-details-by-reply-id/${params.forumId}/${params.postId}/${params.replyId}`
+          process.env.REACT_APP_API_BASE +
+            `/get-reply-details-by-reply-id/${params?.forumId}/${params?.postId}/${params?.replyId}`
         )
         .then((response) => {
           console.log(response.data[0].attachment);

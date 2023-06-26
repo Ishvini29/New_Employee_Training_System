@@ -10,10 +10,15 @@ const QuizEntry = (props) => {
   const { id, chapName, unitName, chapId } = useParams();
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
+<<<<<<< HEAD
   const [quizContent, setQuizContent] = useState("");
   const userData = jwt_decode(
     JSON?.parse(localStorage?.getItem("user"))?.token
   )?.userData;
+=======
+  const userData = jwt_decode(JSON?.parse(localStorage?.getItem("user"))?.token)
+    ?.userData;
+>>>>>>> b21a7fa3904e18557b51d3094bf87366e1c60b5f
   const userId = userData?._id;
 
   const [updatedTodo, setUpdatedTodo] = useState({
