@@ -13,6 +13,7 @@ const Submission = () => {
   const [errorHandling, setErrorHandling] = useState("");
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState();
+  const [loading, setLoading] = useState(false);
 
   const supervisorId = jwt_decode(
     JSON?.parse(localStorage?.getItem("user"))?.token
@@ -20,9 +21,15 @@ const Submission = () => {
 
   // Fetch data on mount
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(process.env.REACT_APP_API_BASE+"/getSubmissionTable/" + supervisorId)
-      .then((res) => setSubmissionData(res.data))
+      .get(
+        process.env.REACT_APP_API_BASE + "/getSubmissionTable/" + supervisorId
+      )
+      .then((res) => {
+        setSubmissionData(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -35,10 +42,10 @@ const Submission = () => {
   }, []);
 
   // Download zip file of the submitted project
-  const handleGetZipFile = (empId) => {
+  const handleGetZipFile = (empId, projName) => {
     axios
-      .get(process.env.REACT_APP_API_BASE+"/getZipFile/" + empId)
-      .then((res) => downloadFile(res.data))
+      .get(process.env.REACT_APP_API_BASE + "/getZipFile/" + empId)
+      .then((res) => downloadFile(res.data, empId, projName))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -55,19 +62,18 @@ const Submission = () => {
       });
   };
   // Download file using the provided URL
-  const downloadFile = async (fileURL) => {
+  const downloadFile = async (fileURL, empId, projName) => {
     try {
       const response = await fetch(fileURL);
-      let fileNameIndex = fileURL.lastIndexOf("/");
-      let fileName = fileURL.slice(fileNameIndex + 1);
+      let fileName = empId + "_" + projName;
       const blob = await response.blob(); //to convert the response into a Blob object.
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
+      const url = URL.createObjectURL(blob); //to create a temporary URL for the file.
+      const a = document.createElement("a"); //to create a link to that URL.
+      a.href = url; //to specify the link URL.
+      a.download = fileName; //to specify the file name.
+      document.body.appendChild(a); // to attach the anchor tag to the document body.
+      a.click(); //to perform a click on the element programmatically.
+      a.remove(); //to remove the anchor tag from the document body once done.
     } catch (error) {
       console.log(error);
     }
@@ -86,7 +92,11 @@ const Submission = () => {
     setShowSearch(showSearch);
   };
 
-  return (
+  return loading ? (
+    <center>
+      <div className="spinner-grow mt-3" role="status"></div>
+    </center>
+  ) : (
     <>
       {/* checking whether there is error or not */}
       {submissionData?.length > 0 ? (
@@ -134,43 +144,48 @@ const Submission = () => {
                         // when mouse enter the tr set state downloadIcon as employee ID when leave the mouse cursor set it to empty string
                         <tr
                           key={index}
-                          onMouseEnter={() => setDownloadIcon(emp.empId)}
+                          onMouseEnter={() => setDownloadIcon(emp?.empId)}
                           onMouseLeave={() => setDownloadIcon("")}
                         >
-                          <td>{emp.empId}</td>
+                          <td>{emp?.empId}</td>
                           <td>
-                            {emp.firstName} {emp.lastName}
+                            {emp?.firstName} {emp?.lastName}
                           </td>
                           <td
                             className="ps-4"
                             dangerouslySetInnerHTML={{
-                              __html: emp.submittedOn,
+                              __html: emp?.submittedOn,
                             }}
                           ></td>
                           <td className="td-download-icon">
-                            {emp.projectName}{" "}
+                            {emp?.projectName}{" "}
                             {/* if downloadIcon is equal to current employeeID the download icon will appear */}
-                            {downloadIcon === emp.empId &&
+                            {downloadIcon === emp?.empId &&
                               emp?.isFileToDownload && (
                                 <UilFolderDownload
                                   color="#0198E1"
                                   className="download-icon"
                                   // click to download file and pass employeeId as argument
-                                  onClick={() => handleGetZipFile(emp.empId)}
+                                  onClick={() =>
+                                    handleGetZipFile(
+                                      emp?.empId,
+                                      emp?.projectName
+                                    )
+                                  }
                                 />
                               )}
                           </td>
 
                           <td className="text-center">
-                            {emp.status ? (
+                            {emp?.status ? (
                               <Link
                                 to="/evaluate"
                                 state={{
-                                  empId: emp.empId,
-                                  firstName: emp.firstName,
-                                  lastName: emp.lastName,
-                                  projectName: emp.projectName,
-                                  update: emp.status,
+                                  empId: emp?.empId,
+                                  firstName: emp?.firstName,
+                                  lastName: emp?.lastName,
+                                  projectName: emp?.projectName,
+                                  update: emp?.status,
                                 }}
                                 className="text-decoration-none text-white"
                               >
@@ -182,11 +197,11 @@ const Submission = () => {
                               <Link
                                 to="/evaluate"
                                 state={{
-                                  empId: emp.empId,
-                                  firstName: emp.firstName,
-                                  projectName: emp.projectName,
-                                  lastName: emp.lastName,
-                                  update: emp.status,
+                                  empId: emp?.empId,
+                                  firstName: emp?.firstName,
+                                  projectName: emp?.projectName,
+                                  lastName: emp?.lastName,
+                                  update: emp?.status,
                                 }}
                                 className="text-decoration-none text-white"
                               >

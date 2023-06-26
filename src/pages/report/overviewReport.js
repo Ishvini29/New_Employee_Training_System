@@ -156,9 +156,7 @@ const OverviewReport = () => {
                                   : "dif-dep-chap leaderboard-td align-middle text-center"
                               }`}
                             >
-                              {overviewItem?.depName
-                                ? overviewItem?.depName
-                                : "Common chapter"}
+                              {overviewItem?.depName}
                             </td>
                             <td
                               className={`${
@@ -168,7 +166,7 @@ const OverviewReport = () => {
                                   : "dif-dep-chap leaderboard-td align-middle text-center"
                               }`}
                             >
-                              {overviewItem?.score}
+                              {overviewItem?.score?.toFixed(2)}
                             </td>
                             <td
                               className={`${
@@ -178,7 +176,7 @@ const OverviewReport = () => {
                                   : "dif-dep-chap leaderboard-td align-middle text-center"
                               }`}
                             >
-                              {overviewItem?.average}
+                              {overviewItem?.average?.toFixed(2)}
                             </td>
                           </tr>
                         )
