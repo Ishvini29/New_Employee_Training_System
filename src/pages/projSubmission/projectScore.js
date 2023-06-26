@@ -10,6 +10,7 @@ const ProjScore = () => {
   const [showFeedback, setShowFeedback] = useState();
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState();
+  const [show, setShow] = useState(false);
 
   const supervisorId = jwt_decode(
     JSON?.parse(localStorage?.getItem("user"))?.token
@@ -17,7 +18,7 @@ const ProjScore = () => {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_BASE+"/getProjScore/" + supervisorId)
+      .get(process.env.REACT_APP_API_BASE + "/getProjScore/" + supervisorId)
       .then((res) => setGradeData(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -104,7 +105,10 @@ const ProjScore = () => {
                         <tr
                           key={index}
                           className="leaderboard-tr"
-                          onClick={() => setShowFeedback(index)}
+                          onClick={() => {
+                            setShowFeedback(index);
+                            setShow(!show);
+                          }}
                         >
                           <td className="leaderboard-td score-table-body">
                             {data?.projectName}
@@ -152,7 +156,7 @@ const ProjScore = () => {
                             {data?.gradedTime}
                           </td>
                         </tr>
-                        {showFeedback === index && (
+                        {showFeedback === index && show && (
                           <tr>
                             <td
                               className=" score-table-feedback-td leaderboard-td fw-semibold p-4"

@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-const RatingsReport = () => {
+const Ratings = () => {
   const localhostEmpId = jwt_decode(
-    JSON?.parse(localStorage?.getItem("user"))?.token
+    JSON.parse(localStorage?.getItem("user"))?.token
   )?.userData?.empId;
 
   const location = useLocation();
@@ -18,7 +18,7 @@ const RatingsReport = () => {
   useEffect(() => {
     let empId = propsData?.empId || localhostEmpId;
     axios
-      .get(process.env.REACT_APP_API_BASE+"/ktsessionRatingsReport/" + empId)
+      .get(process.env.REACT_APP_API_BASE + "/ktsessionRatings/" + empId)
       .then((res) => setKtSessionRating(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -48,7 +48,7 @@ const RatingsReport = () => {
         }
       });
     axios
-      .get(process.env.REACT_APP_API_BASE+"/articleRatingsReport/" + empId)
+      .get(process.env.REACT_APP_API_BASE + "/articleRatings/" + empId)
       .then((res) => setArticleRating(res.data))
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -78,6 +78,7 @@ const RatingsReport = () => {
         }
       });
   }, []);
+  console.log(ktSessionRating);
   return (
     <>
       {Object.keys(ktSessionRating).length !== 0 ||
@@ -108,10 +109,10 @@ const RatingsReport = () => {
               </div>
             </div>
           </div>
-          {/* before ratingsRepRatingsReport */}
-          <div className="ratingsRepRatingsReport-grid ">
+          {/* before ratings */}
+          <div className="ratings-grid px-sm-3 py-sm-2 px-lg-0 py-lg-0 ">
             {Object.keys(ktSessionRating).length !== 0 && (
-              <div className=" specific-chapter rounded d-flex flex-column align-items-center bg-light m-lg-5 my-5 shadow">
+              <div className="specific-chapter rounded d-flex flex-column align-items-center bg-light m-lg-5 my-5 shadow">
                 <div className="rounded d-flex justify-content-around w-100 text-light py-4 mb-3 fw-semibold fs-4 bg-secondary">
                   <span className=" mt-1">
                     {ktSessionRating?.numOfKtSessions < 10
@@ -449,17 +450,15 @@ const RatingsReport = () => {
                   <span> Article Name</span>
                   <span>Rating</span>
                 </div>
-                {articleRating?.articleRatingsReportData?.map(
-                  (article, index) => (
-                    <div
-                      key={index}
-                      className="specific-chapter w-75 kt-article-data shadow"
-                    >
-                      <span>{article?.articleName}</span>
-                      <span>{article?.overallRating}</span>
-                    </div>
-                  )
-                )}
+                {articleRating?.articleRatingsData?.map((article, index) => (
+                  <div
+                    key={index}
+                    className="specific-chapter w-75 kt-article-data shadow"
+                  >
+                    <span>{article?.articleName}</span>
+                    <span>{article?.overallRating}</span>
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -471,11 +470,11 @@ const RatingsReport = () => {
           height="90px"
           style={{ margin: "15%", padding: "20px" }}
         >
-          <h4>No KT session or article has been uploaded yet.</h4>
+          <h4>No KT session or article has been rated yet.</h4>
         </div>
       )}
     </>
   );
 };
 
-export default RatingsReport;
+export default Ratings;

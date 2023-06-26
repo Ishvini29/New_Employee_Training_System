@@ -20,13 +20,13 @@ const EditDepartment = () => {
       swal({
         icon: "warning",
         title: "Invalid",
-        text: "Department name must start with a capital letter and contain only alphabet letters.",
+        text: "Department name must begin with a capital letter, use lowercase for the remaining letters, and do not include numbers or symbols.",
       });
       return;
     }
 
     axios
-      .post(process.env.REACT_APP_API_BASE+"/departments/editDepartment", { //Sends a POST request to the backend server to update the department name with the new name, reason and id.
+      .post(process.env.REACT_APP_API_BASE + "/departments/editDepartment", { //Sends a POST request to the backend server to update the department name with the new name, reason and id.
         fromName: name,
         newName: newDepName,
         reason: reason,

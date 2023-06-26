@@ -19,13 +19,13 @@ const EditJobtitle = () => {
       swal({
         icon: "warning",
         title: "Invalid",
-        text: "Jobtitle name must start with a capital letter and contain only alphabet letters",
+        text: "Jobtitle name must begin with a capital letter, use lowercase for the remaining letters, and do not include numbers or symbols.",
       });
       return;
     }
 
     axios
-      .post(process.env.REACT_APP_API_BASE+"/jobtitles/editJobtitle", {
+      .post(process.env.REACT_APP_API_BASE + "/jobtitles/editJobtitle", {
         fromName: name,
         newName: newJobtitleName,
         reason: reason,
