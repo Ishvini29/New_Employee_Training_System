@@ -94,6 +94,7 @@ const PromoteDemoteSuperAdmin = () => {
                             <thead>
                                 <tr>
                                     <th scope="col">Image</th>
+                                    <th scope="col">ID</th>
                                     <th scope="col">First Name</th>
                                     <th scope="col">Last Name</th>
                                     <th scope="col">Department</th>
@@ -111,6 +112,7 @@ const PromoteDemoteSuperAdmin = () => {
                                                 <>
                                                     <tr className="align-middle ">
                                                         <th scope="row"><img draggable={false} referrerPolicy="no-referrer" className="shadow rounded-circle" style={{ "width": "40px" }} alt="user" src={item.userImage}></img></th>
+                                                        <td>{item?.empId}</td>
                                                         <td>{item?.firstName}</td>
                                                         <td>{item?.lastName}</td>
                                                         <td>{item?.department?.depName}</td>

@@ -88,7 +88,7 @@ const ListAllChapters = () => {
                             ?
                             <>
                                 <div className="card">
-                                    <div className="card-header heading">
+                                    <div className="card-header">
                                         <h5> Department Chapters</h5>
                                     </div>
                                     <div className="card-body">
@@ -112,7 +112,7 @@ const ListAllChapters = () => {
                                     </div>
                                 </div>
                                 <div className="card mt-3">
-                                    <div className="card-header heading">
+                                    <div className="card-header">
                                         <h5>Common Chapters</h5>
                                     </div>
                                     <div className="card-body">
@@ -136,7 +136,7 @@ const ListAllChapters = () => {
                                     </div>
                                 </div>
                                 <div className="card mt-3">
-                                    <div className="card-header heading">
+                                    <div className="card-header">
                                         <h5>Enrolled Additional Chapters:  <Link to="/enrollrequestemployee">Request More</Link></h5>
                                     </div>
                                     <div className="card-body">

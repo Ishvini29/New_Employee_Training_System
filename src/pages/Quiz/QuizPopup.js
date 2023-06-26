@@ -70,9 +70,8 @@ const QuizPopup = ({ id, chapId }) => {
             "The quiz does not have enough questions.",
             "error"
           ).then(() => {
-            //window.location.reload(); // Refresh the window after user clicks "OK"
+            window.location.reload(); // Refresh the window after user clicks "OK"
           });
-          navigate(`/quiz/view/${id}`);
           //setSubmitted(true);
           setShowQuiz(true);
           setSubmitted(false);
@@ -130,7 +129,6 @@ const QuizPopup = ({ id, chapId }) => {
           "Your quiz has been submitted.",
           "success"
         ).then(() => {
-          navigate(`/quiz/view/${id}`);
           window.location.reload();
           setSubmitted(true);
         });
