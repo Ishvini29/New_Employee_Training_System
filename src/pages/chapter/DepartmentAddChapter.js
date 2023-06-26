@@ -80,6 +80,7 @@ const DepartmentAddChapter = () => {
     return (
         <div className="container">
             <div className="alert mt-3 heading"><h5>Create Chapter</h5></div>
+            <div className="alert alert-info mt-4"> <b>Please start the ChapterID with  "{firstLetter} "  followed by numerical digits only.Chapter Name must start with upper case and it can consist numerical digits.</b> </div>
             <div className="columns mt-5">
                 <div>
                     <img src={image4} className="picside7" draggable={false} alt="this is image" />
@@ -142,7 +143,7 @@ const DepartmentAddChapter = () => {
 
                 </div>
             </div>
-
+            <br></br>
         </div>
     );
 };
