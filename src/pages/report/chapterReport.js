@@ -167,7 +167,7 @@ const ChapterReport = () => {
                                     : "F"}
                                 </td>
                                 <td className="leaderboard-td align-middle text-center chapter-row">
-                                  {unit?.score}%
+                                  {unit?.score.toFixed(2)}%
                                 </td>
                               </tr>
                             ))}
