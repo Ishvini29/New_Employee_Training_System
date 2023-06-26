@@ -70,7 +70,7 @@ const Evaluate = () => {
       // Score input is required
       swal({
         title: "Score is required",
-        text: "score is required to complete evaluation",
+        text: "score is required to evaluate the submission",
         icon: "warning",
         dangerMode: true,
       });
@@ -79,7 +79,7 @@ const Evaluate = () => {
     if (score < 0 || score > 100) {
       // Score input must be a number between 0 and 100 and
       swal({
-        title: "Not valid score",
+        title: "Not a valid score",
         text: "Score must be a number between 0 and 100",
         icon: "warning",
         dangerMode: true,
