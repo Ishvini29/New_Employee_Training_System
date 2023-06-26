@@ -16,7 +16,7 @@ const Chapter = () => {
   function deletechapter(id) {
     swal({
       title: "Confirm",
-      text: "Are you absolutely sure you want to permanently delete this Chapter and all the data it contains?",
+      text: "Are you absolutely sure you want to permanently delete this Chapter?",
       icon: "warning",
       buttons: true,
       dangerMode: true,

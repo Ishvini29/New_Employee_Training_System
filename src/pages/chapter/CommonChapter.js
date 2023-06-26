@@ -3,6 +3,7 @@ import axios from "axios";
 import swal from "sweetalert";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import before from "../../images/before.png";
 
 const Chapter = () => {
     const [commonchapters, setChapter] = useState([]);
@@ -17,7 +18,7 @@ const Chapter = () => {
         }).then((willDelete) => {
             if (willDelete) {
                 axios
-                    .post(process.env.REACT_APP_API_BASE+"/commonchapters/deleteChapter", {
+                    .post(process.env.REACT_APP_API_BASE + "/commonchapters/deleteChapter", {
                         id: id,
 
                     })
@@ -45,7 +46,7 @@ const Chapter = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(process.env.REACT_APP_API_BASE+"/commonchapters/showAllChapters")
+        axios.get(process.env.REACT_APP_API_BASE + "/commonchapters/showAllChapters")
             .then(function (response) {
                 setChapter(response.data);
                 setLoading(false);
@@ -55,7 +56,13 @@ const Chapter = () => {
     return (
         <React.Fragment>
             <div className="container">
-                <div className="alert mt-3 heading"><h5>Common Chapters</h5></div>
+                <div className="alert mt-3 heading">
+                    <Link
+                        to={"/chapter"}
+                        className="image">
+                        <img src={before} className="picside11" draggable={false} alt="this is image" />
+                    </Link>
+                    <h5>Common Chapters</h5></div>
                 <div className="row ">
                 </div>{
                     (loading)
@@ -64,7 +71,8 @@ const Chapter = () => {
                         :
                         (commonchapters.length === 0)
                             ?
-                            <div className="alert alert-info mt-4"> <b>No Common Chapters Found !</b> </div>
+                            <div className="alert alert-info mt-4">
+                                <b>No Common Chapters Found !</b> </div>
                             :
                             <table className="table">
                                 <thead>

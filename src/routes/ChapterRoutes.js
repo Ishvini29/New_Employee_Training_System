@@ -95,6 +95,6 @@ export const chapter_routes = [
   {
     path: "/chapterPage/:chapterId/:chapterName",
     ele: <Content />,
-    availability: [ur.hiredEmployee, ur.contentCreator, ur.supervisor],
+    availability: [ur.hiredEmployee, ur.contentCreator, ur.supervisor, ur.systemAdmin],
   },
 ];
