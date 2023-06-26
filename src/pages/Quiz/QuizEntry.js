@@ -10,9 +10,8 @@ const QuizEntry = (props) => {
   const { id, chapName, unitName, chapId } = useParams();
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
-  const userData = jwt_decode(
-    JSON?.parse(localStorage?.getItem("user"))?.token
-  )?.userData;
+  const userData = jwt_decode(JSON?.parse(localStorage?.getItem("user"))?.token)
+    ?.userData;
   const userId = userData?._id;
 
   const [updatedTodo, setUpdatedTodo] = useState({
@@ -82,7 +81,7 @@ const QuizEntry = (props) => {
                   </Link>
                 )}
 
-                <QuizPopup id={id} chapId={chapId}></QuizPopup>
+                <QuizPopup id={id} chapId={chapId} unitId={id}></QuizPopup>
                 {/* <QuizComponent id={id} /> */}
                 {submitted && (
                   <button

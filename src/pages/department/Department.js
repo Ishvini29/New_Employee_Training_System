@@ -13,14 +13,14 @@ const Department = () => {     //Defining Department component as a functional c
 
     swal({  //Displaying an alert message using Sweetalert library
       title: "Confirm",
-      text: "Are you absolutely sure you want to permanently delete this Department and all the data it contains?",
+      text: "Are you absolutely sure you want to permanently delete this Department and all the Jobtitles it contains?",
       icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => { //Handling user confirmation to delete the department
       if (willDelete) {  //If user confirms the deletion
         axios
-          .post(process.env.REACT_APP_API_BASE+"/departments/deleteDepartment", {
+          .post(process.env.REACT_APP_API_BASE + "/departments/deleteDepartment", {
             id: id,
           })
           .then((res) => {  //Handling response from the server
@@ -48,7 +48,7 @@ const Department = () => {     //Defining Department component as a functional c
   useEffect(() => {  //Declaring a side effect hook that runs only after the component mounts
     setLoading(true);
     axios
-      .get(process.env.REACT_APP_API_BASE+"/departments/showAllDepartments")
+      .get(process.env.REACT_APP_API_BASE + "/departments/showAllDepartments")
       .then(function (response) {   //Handling response from the server
         setDepartment(response.data);  //Updating the state variable 'departments' with the data received from the server
         setLoading(false);

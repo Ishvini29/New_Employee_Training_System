@@ -3,6 +3,7 @@ import swal from "sweetalert";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import add from "../../images/create.png";
+import filter from "../../images/filter.png";
 
 const Jobtitle = () => {
   const [departments, setDepartments] = useState([]);
@@ -23,7 +24,7 @@ const Jobtitle = () => {
     }).then((willDelete) => {
       if (willDelete) {
         axios
-          .post(process.env.REACT_APP_API_BASE+"/jobtitles/deleteJobtitle", {
+          .post(process.env.REACT_APP_API_BASE + "/jobtitles/deleteJobtitle", {
             id: id,
           })
           .then((res) => {
@@ -51,7 +52,7 @@ const Jobtitle = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(process.env.REACT_APP_API_BASE+"/jobtitles/showAllJobtitles")
+      .get(process.env.REACT_APP_API_BASE + "/jobtitles/showAllJobtitles")
       .then(function (response) {
         setDepartments(response.data);
         setLoading(false);
@@ -71,7 +72,8 @@ const Jobtitle = () => {
             </center>
           ) : departments.length === 0 ? (
             <div className="alert alert-danger mt-4">
-              <b>Department Creation Required !</b>
+              <b>Department Creation Required ! </b>
+              <Link to={"/department"} className="btn btn-danger btn-sm me-2">Create Department</Link>
             </div>
           ) : (
             <div className="col-md-12">
@@ -79,10 +81,12 @@ const Jobtitle = () => {
                 <img src={add} className="picside5" /> Add New Jobtitle
               </Link>
 
-              <div className="form-group">
+              <div className="form-group mt-3">
+                <img src={filter} className="picside5" />
                 <label htmlFor="departmentSelect" style={{ color: "#32766e" }}>Select Department:</label>
+                <br></br>
                 <select
-                  className="form-control"
+                  className="form-control mt-2"
                   id="departmentSelect"
                   value={selectedDepartment}
                   onChange={handleDepartmentChange}
@@ -100,9 +104,9 @@ const Jobtitle = () => {
             </div>
           )}
         </div>
-        <table className="table">
+        <table className="view-table">
           <thead>
-            <tr>
+            <tr style={{ backgroundColor: "#b9e1dc" }}>
               <th scope="col">Department name</th>
               <th scope="col">Jobtitle_ID</th>
               <th scope="col">Jobtitle name</th>
@@ -110,7 +114,7 @@ const Jobtitle = () => {
               <th scope="col">Delete jobtitle </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{ backgroundColor: "MintCream" }}>
             {departments.map((department) => {
               if (
                 selectedDepartment === '' ||
@@ -145,6 +149,7 @@ const Jobtitle = () => {
             })}
           </tbody>
         </table>
+        <br></br><br></br>
       </div>
     </React.Fragment>
   );
