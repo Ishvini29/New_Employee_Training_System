@@ -124,7 +124,7 @@ const Result = () => {
                   Nice Going..
                 </h4>
               </h2>
-            ) : resultPercentage * 100 > 30 ? (
+            ) : resultPercentage > 30 ? (
               <h2 style={{ color: "#d313b3" }}>
                 Much better!
                 <h4 className="py-2" style={{ color: "#f762dc" }}>

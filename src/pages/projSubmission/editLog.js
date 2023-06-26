@@ -101,10 +101,15 @@ const Editlog = () => {
                         //Map upgraded array
                         log?.upgradedOn?.map((date, indexx) =>
                           log?.upgradedBy?.map(
+                            // Map supervisor array
                             (supervisor, indexs) =>
+                              // Checking if the index of the score array is equal to the index of the show array
                               indexi === indexsh &&
+                              // Checking if the index of the show array is equal to the index of the upgradedOn array
                               indexsh === indexx &&
+                              // Checking if the index of the upgradedOn array is equal to the index of the upgradedBy array
                               indexx === indexs &&
+                              // Checking if the index of the score array is greater than 0
                               indexi > 0 && ( // Rendering table rows for each editlog entry
                                 <>
                                   <tr
@@ -186,14 +191,16 @@ const Editlog = () => {
                                     <td
                                       dangerouslySetInnerHTML={{ __html: date }}
                                     ></td>
-                                    <td>{log.department}</td>
+                                    <td>{log?.department}</td>
                                   </tr>
                                   {showFeedback === indexi + log?.userEmpId &&
                                     showFeed && (
                                       <tr>
                                         {log?.feedback?.map(
                                           (feedbackData, indexf) =>
+                                            // Checking if the index of the feedback array is greater than 0
                                             indexf > 0 &&
+                                            // Checking if the index of the feedback array is equal to the index of the score array
                                             indexf === indexi && (
                                               <td
                                                 key={indexf}
