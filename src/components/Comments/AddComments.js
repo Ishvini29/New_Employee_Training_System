@@ -8,7 +8,8 @@ import swal from "sweetalert";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 const AddComments = (props) => {
-  const userID = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData._id;
+  const userID = jwt_decode(JSON.parse(localStorage.getItem("user")).token)
+    .userData._id;
 
   const formSchema = Yup.object().shape({
     comment: Yup.string().required("* comment is required"),
@@ -20,14 +21,17 @@ const AddComments = (props) => {
 
   const onFormSubmit = (formData) => {
     console.log("data", formData);
-    if (props.type === "comment") {
+    if (props?.type === "comment") {
       const data = {
         addedBy: userID,
         comment: formData.comment,
       };
-      if (props.source === "KT") {
+      if (props?.source === "KT") {
         axios
-          .post(process.env.REACT_APP_API_BASE + `/add-kt-comment/${props.ID}`, data)
+          .post(
+            process.env.REACT_APP_API_BASE + `/add-kt-comment/${props?.ID}`,
+            data
+          )
           .then((res) => {
             console.log(res.data);
             swal({
@@ -50,7 +54,11 @@ const AddComments = (props) => {
           });
       } else {
         axios
-          .post(process.env.REACT_APP_API_BASE + `/add-article-comment/${props.ID}`, data)
+          .post(
+            process.env.REACT_APP_API_BASE +
+              `/add-article-comment/${props?.ID}`,
+            data
+          )
           .then((res) => {
             console.log(res.data);
             swal({
@@ -78,10 +86,11 @@ const AddComments = (props) => {
         reply: formData.comment,
       };
 
-      if (props.source === "KT") {
+      if (props?.source === "KT") {
         axios
           .post(
-            process.env.REACT_APP_API_BASE + `/add-kt-comment-replies/${props.ID}/${props.selectedComment}`,
+            process.env.REACT_APP_API_BASE +
+              `/add-kt-comment-replies/${props?.ID}/${props?.selectedComment}`,
             data
           )
           .then((res) => {
@@ -107,7 +116,8 @@ const AddComments = (props) => {
       } else {
         axios
           .post(
-            process.env.REACT_APP_API_BASE + `/add-article-comment-replies/${props.ID}/${props.selectedComment}`,
+            process.env.REACT_APP_API_BASE +
+              `/add-article-comment-replies/${props?.ID}/${props?.selectedComment}`,
             data
           )
           .then((res) => {
@@ -143,7 +153,7 @@ const AddComments = (props) => {
         style={{ display: "flex", justifyContent: "flex-end" }}
         onSubmit={handleSubmit(onFormSubmit)}
       >
-        <Avatar />
+        <Avatar img={JSON.parse(localStorage.getItem("user"))?.picture} />
 
         <input
           type="text"

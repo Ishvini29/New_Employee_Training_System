@@ -16,7 +16,8 @@ const ViewForum = () => {
   useEffect(() => {
     axios
       .get(
-        process.env.REACT_APP_API_BASE+`/get-forum-details-by-forum-id/${params.forumId}`
+        process.env.REACT_APP_API_BASE +
+          `/get-forum-details-by-forum-id/${params?.forumId}`
       )
       .then((response) => {
         setForum(response.data);
@@ -79,14 +80,17 @@ const ViewForum = () => {
               marginRight: "auto",
             }}
           >
-            {f?.posts.length === 0 ? (
+            {f?.posts?.length === 0 ? (
               <h3 className="text-center my-5">No Posts yet</h3>
             ) : (
-              f?.posts.map((p) => (
+              f?.posts?.map((p) => (
                 <>
                   <Comment
                     id={p?._id}
-                    user={p?.createdBy?.firstName + " " + p?.createdBy?.lastName}
+                    user={
+                      p?.createdBy?.firstName + " " + p?.createdBy?.lastName
+                    }
+                    img={p?.createdBy?.userImage}
                     role={p?.createdBy?.userRole}
                     time={formatDate(p?.createdOn)}
                     message={p?.description}
@@ -193,15 +197,16 @@ const ViewForum = () => {
                               user={
                                 r?.createdBy?.firstName +
                                 " " +
-                                r.createdBy.lastName
+                                r?.createdBy?.lastName
                               }
+                              img={r?.createdBy?.userImage}
                               role={r?.createdBy?.userRole}
                               time={formatDate(r?.createdOn)}
                               message={r?.description}
                             />
                             {r?.attachment && (
                               <Link
-                                to={`/view-forum/${params.forumId}/${p?._id}/${r?._id}`}
+                                to={`/view-forum/${params?.forumId}/${p?._id}/${r?._id}`}
                                 className="text-decoration-none text-secondary"
                               >
                                 <svg

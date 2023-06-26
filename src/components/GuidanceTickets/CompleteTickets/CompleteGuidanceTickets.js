@@ -5,6 +5,7 @@ import CompleteForm from "./CompleteForm";
 import swal from "sweetalert";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { Link } from "react-router-dom";
 
 const CompleteGuidanceTickets = () => {
   const [tickets, setTickets] = useState([]);
@@ -15,7 +16,8 @@ const CompleteGuidanceTickets = () => {
   useEffect(() => {
     axios
       .get(
-        process.env.REACT_APP_API_BASE+`/get-tickets-by-assigned-user-id/${userDocument?._id}`
+        process.env.REACT_APP_API_BASE +
+          `/get-tickets-by-assigned-user-id/${userDocument?._id}`
       )
       .then((response) => {
         setTickets(response.data);
@@ -32,7 +34,8 @@ const CompleteGuidanceTickets = () => {
 
     axios
       .put(
-        process.env.REACT_APP_API_BASE+`/complete-ticket-by-ticket-id/${ticketId}`,
+        process.env.REACT_APP_API_BASE +
+          `/complete-ticket-by-ticket-id/${ticketId}`,
         data
       )
       .then((res) => {
@@ -87,16 +90,31 @@ const CompleteGuidanceTickets = () => {
           >
             <div className="card-body">
               <div className="row">
-                <p className="col-sm-6">Request No. {t._id}</p>
-                <p className="col-sm-6"> Request Type : {t.requestType}</p>
+                <p className="col-sm-6">Request No. {t?._id}</p>
+                <p className="col-sm-6"> Request Type : {t?.requestType}</p>
               </div>
               <div className="row">
                 <p className="col-sm-6">
                   Requested by:{" "}
-                  {t.requestedBy.firstName + " " + t.requestedBy.lastName}
+                  {t?.requestedBy?.firstName + " " + t?.requestedBy?.lastName}
                 </p>
                 <p className="col-sm-6">
-                  Requested on: {formatDate(t.createdTime)}
+                  Requested on: {formatDate(t?.createdTime)}
+                </p>
+              </div>
+              <div className="row">
+                <p className="col-sm-6">
+                  Contact Number : {t?.requestedBy?.phoneNumber}
+                </p>
+                <p className="col-sm-6">
+                  {t?.attachment && (
+                    <>
+                      Attachment :{" "}
+                      <Link to={`/guidance-ticket-view-attachment/${t?._id}`}>
+                        View
+                      </Link>
+                    </>
+                  )}
                 </p>
               </div>
               <div className="row">
@@ -107,25 +125,25 @@ const CompleteGuidanceTickets = () => {
                       role="progressbar"
                       style={{
                         width:
-                          t.status === "requested"
+                          t?.status === "requested"
                             ? "20%"
-                            : t.status === "directed"
+                            : t?.status === "directed"
                             ? "60%"
                             : "100%",
                       }}
                       aria-valuenow={
-                        t.status === "requested"
+                        t?.status === "requested"
                           ? "20"
-                          : t.status === "directed"
+                          : t?.status === "directed"
                           ? "60"
                           : "100"
                       }
                       aria-valuemin="0"
                       aria-valuemax="100"
                     >
-                      {t.status === "requested"
+                      {t?.status === "requested"
                         ? "Requested"
-                        : t.status === "directed"
+                        : t?.status === "directed"
                         ? "Directed"
                         : "Completed"}
                     </div>

@@ -1,51 +1,40 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const CompleteForm = (props) => {
   return (
     <div className="container bg-white">
-      <form onSubmit={props.onFormSubmit}>
+      <form onSubmit={props?.onFormSubmit}>
         <div className="row">
-          <p className="col-sm-6">Request No. {props.ticket._id}</p>
-          <p className="col-sm-6"> Request Type : {props.ticket.requestType}</p>
-        </div>
-        <div className="row">
-          <p className="col-sm-12">
-            Short Description : {props.ticket.description}
+          <p className="col-sm-6">Request No. {props?.ticket?._id}</p>
+          <p className="col-sm-6">
+            {" "}
+            Request Type : {props?.ticket?.requestType}
           </p>
         </div>
         <div className="row">
           <p className="col-sm-12">
-            {props?.ticket.attachment && (
-              <>
-                Attachment :{" "}
-                <Link
-                  to={`/guidance-ticket-view-attachment/${props?.ticket._id}`}
-                >
-                  View
-                </Link>
-              </>
-            )}
+            Short Description : {props?.ticket?.description}
           </p>
         </div>
+
         <div className="row">
           <p className="col-sm-12">
             Requested by :{" "}
-            {props.ticket.requestedBy.firstName +
+            {props?.ticket?.requestedBy?.firstName +
               " " +
-              props.ticket.requestedBy.lastName}
+              props?.ticket?.requestedBy?.lastName}
           </p>
         </div>
         <div className="row">
           <p className="col-sm-6">
-            Contact Number : {props.ticket.requestedBy.phoneNumber}
+            Contact Number : {props?.ticket?.requestedBy?.phoneNumber}
           </p>
           <p className="col-sm-6">
-            Email : {props.ticket.requestedBy.emailAddress}
+            Email : {props?.ticket?.requestedBy?.emailAddress}
           </p>
         </div>
         <div className="form-check form-switch my-2">
-          {props.ticket.status === "completed" ? (
+          {props?.ticket?.status === "completed" ? (
             <input
               className="form-check-input"
               type="checkbox"
@@ -60,7 +49,7 @@ const CompleteForm = (props) => {
               id="iscompleted"
               name="iscompleted"
               onChange={() => {
-                props.setTicketId(props.ticket._id);
+                props?.setTicketId(props?.ticket._id);
               }}
               required
             />
