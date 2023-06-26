@@ -69,8 +69,8 @@ const ProjScore = () => {
             </div>
           </div>
 
-          <div className="leaderboard-table-wrapper px-lg-3">
-            <table className="table table-responsive leaderboard-table">
+          <div className="leaderboard-table-wrapper table-responsive px-lg-3">
+            <table className="table leaderboard-table">
               <thead>
                 <tr>
                   <th className="leaderboard-th score-table-header">
