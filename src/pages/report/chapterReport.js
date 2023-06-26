@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+
 const ChapterReport = () => {
   const localhostEmpId = jwt_decode(
     JSON.parse(localStorage.getItem("user")).token
@@ -166,7 +167,7 @@ const ChapterReport = () => {
                                     : "F"}
                                 </td>
                                 <td className="leaderboard-td align-middle text-center chapter-row">
-                                  {unit?.score}%
+                                  {unit?.score.toFixed(2)}%
                                 </td>
                               </tr>
                             ))}

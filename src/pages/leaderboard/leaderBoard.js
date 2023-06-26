@@ -13,6 +13,7 @@ const LeaderBoard = () => {
   const [score, setScore] = useState([]);
   const [search, setSearch] = useState();
   const [showSearch, setShowSearch] = useState();
+  const [loading, setLoading] = useState(false);
   let filtering = 3;
 
   const currentUser = jwt_decode(
@@ -23,6 +24,7 @@ const LeaderBoard = () => {
   )?.userData?.department;
 
   useEffect(() => {
+    setLoading(true);
     Swal.fire(
       `Need to know!`,
       "The leaderboard is determined based on the average score of department chapters.",
@@ -32,7 +34,10 @@ const LeaderBoard = () => {
       .get(process.env.REACT_APP_API_BASE + "/getCurrentUserLeaderboardData", {
         params: { currentUser, currentUserDep },
       })
-      .then((res) => setScore(res.data))
+      .then((res) => {
+        setScore(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         // Handle errors
         swal({
@@ -51,7 +56,11 @@ const LeaderBoard = () => {
 
   return (
     <div>
-      {score?.lbData?.length > 1 ? (
+      {loading ? (
+        <center>
+          <div className="spinner-grow mt-3" role="status"></div>
+        </center>
+      ) : score?.lbData?.length > 1 ? (
         <div className="container-md bg-light my-lg-3 p-md-4">
           {/* Top gainers section */}
           <h2 className="top-gainers">Top Gainers</h2>
@@ -171,18 +180,16 @@ const LeaderBoard = () => {
           </div>
           {/* Only show the badge for the employees who are below the rank 4 */}
           <div className="d-flex justify-content-center mt-5">
-            {score?.currentUserRank < 4 && (
+            {score?.currentUserRank < 4 && score?.currentUserRank > 0 && (
               <img
                 src={
                   score?.currentUserRank === 1
                     ? rank1
                     : score?.currentUserRank === 2
                     ? rank2
-                    : score?.currentUserRank === 3
-                    ? rank3
-                    : ""
+                    : score?.currentUserRank === 3 && rank3
                 }
-                className=" rank-badge mt-6 ms-5"
+                className="rank-badge mt-6 ms-5"
                 alt="rank above 3"
                 draggable="false"
               />
@@ -215,7 +222,7 @@ const LeaderBoard = () => {
             <div className="leaderboard-table-wrapper">
               <div div className="d-flex justify-content-between my-5">
                 <h4 className="top-gainers">All Employees</h4>
-                <div id="" className="mt-2 float-end">
+                <div className="mt-2 float-end">
                   <Search
                     handleGetSearchValue={getSearchValue}
                     width={{ width: "w-auto" }}

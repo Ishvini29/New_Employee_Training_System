@@ -6,6 +6,7 @@ import swal from "sweetalert";
 
 const Review = () => {
   const [review, setReview] = useState({});
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const propsData = location.state;
   const currentUser = propsData?.userId;
@@ -13,9 +14,15 @@ const Review = () => {
   const userImage = propsData?.userImage;
 
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(process.env.REACT_APP_API_BASE+"/review/" + currentUser + "/" + unitId)
-      .then((res) => setReview(res.data))
+      .get(
+        process.env.REACT_APP_API_BASE + "/review/" + currentUser + "/" + unitId
+      )
+      .then((res) => {
+        setReview(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
           // Handle "User not found" error
@@ -37,7 +44,11 @@ const Review = () => {
       });
   }, []);
 
-  return (
+  return loading ? (
+    <center>
+      <div className="spinner-grow mt-3" role="status"></div>
+    </center>
+  ) : (
     <>
       {propsData?.userName !== undefined && (
         <div className=".emp-name-and-id d-flex py-4 ms-5 ps-lg-5">

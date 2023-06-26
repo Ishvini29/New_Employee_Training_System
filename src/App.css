@@ -57,8 +57,6 @@
   float: right;
 }
 
-
-
 .picside9 {
   width: 50px;
   height: 50px;
@@ -289,12 +287,12 @@
   background-size: contain;
 }
 
-.result-greater-than-50 {
+.result-greater-than-65 {
   background-image: url("../src/images/resultGT50.png");
   background-size: contain;
 }
 
-.result-greater-than-30 {
+.result-greater-than-40 {
   background-image: url("../src/images/resultGT30.png");
   background-size: contain;
 }
@@ -610,8 +608,8 @@
 }
 
 .supervisor-avatar {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 50px;
 }
 
 .feedback-title {
@@ -802,6 +800,9 @@
 
 .score-editlog-pointer-event {
   cursor: pointer;
+}
+.vertical-align {
+  vertical-align: middle;
 }
 
 /* End of score edit log */
