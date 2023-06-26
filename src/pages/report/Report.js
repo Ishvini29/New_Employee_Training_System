@@ -117,11 +117,11 @@ const Report = () => {
                             {"  "}
                             {emp?.empId}
                           </td>
-                          <td>
+                          <td className="vertical-align">
                             {emp?.firstName} {emp?.lastName}
                           </td>
-                          <td>{emp?.depName}</td>
-                          <td>{emp?.jobTitle}</td>
+                          <td className="vertical-align">{emp?.depName}</td>
+                          <td className="vertical-align">{emp?.jobTitle}</td>
                         </tr>
                       )
                     : emp?.userRoleValue.toLowerCase() ===
@@ -139,11 +139,11 @@ const Report = () => {
                             />{" "}
                             {emp?.empId}
                           </td>
-                          <td>
+                          <td className="vertical-align">
                             {emp?.firstName} {emp?.lastName}
                           </td>
-                          <td>{emp?.depName}</td>
-                          <td>{emp?.jobTitle}</td>
+                          <td className="vertical-align">{emp?.depName}</td>
+                          <td className="vertical-align">{emp?.jobTitle}</td>
                         </tr>
                       )
                 )}

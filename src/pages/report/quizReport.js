@@ -115,16 +115,18 @@ const QuizReport = () => {
                     />{" "}
                     {emp?.empId}
                   </td>
-                  <td>{emp?.name}</td>
-                  <td>{emp?.department}</td>
+                  <td className="vertical-align">{emp?.name}</td>
+                  <td className="vertical-align">{emp?.department}</td>
                   <td
+                    className="vertical-align"
                     dangerouslySetInnerHTML={{ __html: emp?.attemptedTime }}
                   ></td>
                   <td
+                    className="vertical-align"
                     dangerouslySetInnerHTML={{ __html: emp?.submittedTime }}
                   ></td>
-                  <td>{emp?.timeTaken}</td>
-                  <td>{emp?.score}</td>
+                  <td className="vertical-align">{emp?.timeTaken}</td>
+                  <td className="vertical-align">{emp?.score}</td>
                 </tr>
               ))}
           </tbody>
