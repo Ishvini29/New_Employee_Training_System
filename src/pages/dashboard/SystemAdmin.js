@@ -27,7 +27,24 @@ const SystemAdmin = () => {
                                 <img src={image5} className="card-img-top" style={{ "width": "150px" }} alt="card" ></img>
                             </center>
                             <div className="card-body">
-                                <h6>View Chapter</h6>
+                                <h6>View All Chapters</h6>
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+                <div className="col-md-4 mb-3">
+                    <div className="card shadow">
+                        <Link to="/chapter/department/all" className="btn btn-outline-dark">
+                            <center>
+                                <img
+                                    src={image2}
+                                    className="card-img-top"
+                                    style={{ width: "100px" }}
+                                    alt="card"
+                                ></img>
+                            </center>
+                            <div className="card-body">
+                                <h6>Manage Chapter Content</h6>
                             </div>
                         </Link>
                     </div>
@@ -36,7 +53,7 @@ const SystemAdmin = () => {
                     <div className="card shadow">
                         <Link to="/allocatechapter" className="btn btn-outline-dark">
                             <center>
-                                <img src={image1} className="card-img-top" style={{ "width": "100px" }} alt="card" ></img>
+                                <img src={image1} className="card-img-top" style={{ "width": "120px" }} alt="card" ></img>
                             </center>
                             <div className="card-body">
                                 <h6>Assign Default Chapters</h6>

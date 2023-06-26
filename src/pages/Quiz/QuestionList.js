@@ -14,14 +14,15 @@ const Quiz = (props) => {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE + `/units/${id}`)
       .then((response) => {
-        setquizs(response.data.quiz.questions);
+        setquizs((response.data.quiz.questions).reverse());
+        props.handleQuestionCount((response.data.quiz.questions).length)
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, [id]);
+  }, [id, props.refreshQuizList]);
 
   const handleQuestionSubmit = (questionId, submittedAnswer) => {
     const questionIndex = quizs.findIndex((todo) => todo._id === questionId);
@@ -59,7 +60,7 @@ const Quiz = (props) => {
           quiz={quiz}
           unitid={id}
           onQuestionSubmit={handleQuestionSubmit}
-          questionNumber={index + 1}
+          questionNumber={quizs.length - index}
         />
       ))}
       <br />

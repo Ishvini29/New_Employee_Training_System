@@ -13,14 +13,14 @@ const Questions = ({ quiz, unitid, onQuestionSubmit, questionNumber }) => {
 
   return (
     <div>
-      <div className="card">
-        <div className="container">
-          <br />
-          <p>Question {questionNumber}</p>
+      <div className="card mt-2">
+        <div className="card-header bg-dark text-white">
+          <h5>Question {questionNumber}</h5>
+        </div>
+        <div className="card-body">
           <p>{question}</p>
-
           {options.map((option, index) => (
-            <div className="input-group mb-3" key={index}>
+            <div className="input-group mb-3 " key={index}>
               <div className="input-group-text">
                 <input
                   className="form-check-input mt-0"
@@ -42,13 +42,12 @@ const Questions = ({ quiz, unitid, onQuestionSubmit, questionNumber }) => {
               </label>
             </div>
           ))}
-
-          <br />
+        </div>
+        <div className="card-footer bg-secondary">
           <div className="container-fluid d-grid gap-2 d-md-flex justify-content-md-end">
             <Edit key={_id} quiz={quiz} id={unitid} />
             <Delete key={_id} quiz={quiz} id={unitid} />
           </div>
-          <br />
         </div>
       </div>
     </div>

@@ -69,7 +69,7 @@ const GoogleLogin = () => {
                         // means user is new to the system, it will set 
                         // isThisNewUser as true, if this variable set as true, then 
                         // futher data form will be displayed, and infoSection will be hidden
-                        Swal.fire(`Hello ${res?.data.user.firstName + " " + res.data.user.lastName}`, "Welcome to New Employee Training System ! <br> Please fill this following form.", 'info')
+                        Swal.fire(`Hello ${res?.data.user.firstName + " " + res.data.user.lastName}`, "Welcome to New Employee Training System !", 'info')
                         setIsThisNewUser(true);
                         document.getElementById("infoSection").hidden = true;
                     }

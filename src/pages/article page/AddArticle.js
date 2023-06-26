@@ -8,8 +8,7 @@ import { v4 } from "uuid";
 import jwt_decode from "jwt-decode";
 import { useParams } from "react-router-dom";
 
-function AddArticle() {
-  const { chapterID } = useParams();
+function AddArticle(props) {
   const userDocument = jwt_decode(
     JSON.parse(localStorage.getItem("user")).token
   ).userData;
@@ -56,7 +55,6 @@ function AddArticle() {
       console.log(`Article Introduction: ${articleDesc}`);
 
       var newArticle = {
-        belongsToChapter: chapterID,
         createdBy: userDocument._id,
         articleName: articleName,
         articleDesc: articleDesc,
@@ -70,7 +68,7 @@ function AddArticle() {
       uploadBytes(articleRef, articleUpload).then((article) => {
         getDownloadURL(article.ref).then((url) => {
           console.log(url);
-          newArticle = { ...newArticle, articleUrl: url };
+          newArticle = { ...newArticle, articleUrl: url,  belongsToChapter: props.chapterId };
           axios
             .post(process.env.REACT_APP_API_BASE + "/arts/add", newArticle)
             .then((res) => {
