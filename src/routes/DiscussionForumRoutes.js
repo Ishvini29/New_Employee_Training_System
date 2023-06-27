@@ -10,7 +10,7 @@ export const discussion_forum_routes = [
   {
     path: "/forums/:chapterID/:chapterName",
     ele: <Forums />,
-    availability: [ur.hiredEmployee, ur.contentCreator, ur.supervisor],
+    availability: [ur.hiredEmployee, ur.contentCreator, ur.supervisor, ur.systemAdmin],
   },
   {
     path: "/view-forum/:forumId",
