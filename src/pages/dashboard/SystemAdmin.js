@@ -34,23 +34,6 @@ const SystemAdmin = () => {
                 </div>
                 <div className="col-md-4 mb-3">
                     <div className="card shadow">
-                        <Link to="/chapter/department/all" className="btn btn-outline-dark">
-                            <center>
-                                <img
-                                    src={image2}
-                                    className="card-img-top"
-                                    style={{ width: "100px" }}
-                                    alt="card"
-                                ></img>
-                            </center>
-                            <div className="card-body">
-                                <h6>Manage Chapter Content</h6>
-                            </div>
-                        </Link>
-                    </div>
-                </div>
-                <div className="col-md-4 mb-3">
-                    <div className="card shadow">
                         <Link to="/allocatechapter" className="btn btn-outline-dark">
                             <center>
                                 <img src={image1} className="card-img-top" style={{ "width": "120px" }} alt="card" ></img>
@@ -69,18 +52,6 @@ const SystemAdmin = () => {
                             </center>
                             <div className="card-body">
                                 <h6>Verify Users</h6>
-                            </div>
-                        </Link>
-                    </div>
-                </div>
-                <div className="col-md-4 mb-3">
-                    <div className="card shadow">
-                        <Link to="/scoreEditLog" className="btn btn-outline-dark">
-                            <center>
-                                <img src={image4} className="card-img-top" style={{ "width": "120px" }} alt="card" ></img>
-                            </center>
-                            <div className="card-body">
-                                <h6>View Assignment Score Edit Log</h6>
                             </div>
                         </Link>
                     </div>

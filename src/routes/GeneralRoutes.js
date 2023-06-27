@@ -4,6 +4,7 @@ import PendingUserApproval from "../pages/login/PendingUserApproval";
 import PendingUserApprovalDepartment from "../pages/login/PendingUserApprovalDepartment";
 import Notifications from "../pages/Notifications";
 import Logs from "../pages/Logs";
+import { userRoles as ur } from "../data/userRole";
 export const general_routes = [
     {
         path: "/home",
@@ -12,10 +13,12 @@ export const general_routes = [
     {
         path: "/pendingrequests",
         ele: <PendingUserApproval />,
+        availability: [ur.superAdmin]
     },
     {
         path: "/verifyusersfromdepartment",
-        ele: <PendingUserApprovalDepartment />
+        ele: <PendingUserApprovalDepartment />,
+        availability: [ur.systemAdmin]
     },
     {
         path: "/profile",
@@ -27,6 +30,7 @@ export const general_routes = [
     },
     {
         path: "/logs",
-        ele: <Logs />
+        ele: <Logs />,
+        availability: [ur.superAdmin, ur.systemAdmin]
     },
 ]

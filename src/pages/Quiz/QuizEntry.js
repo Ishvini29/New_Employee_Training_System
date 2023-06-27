@@ -96,10 +96,9 @@ const QuizEntry = (props) => {
                   </Link>
                 )}
 
-                {userData.userRole !== "Hired Employee" ? null : (
-                  <QuizPopup id={id} chapId={chapId} unitId={id}></QuizPopup>
-                )}
-                {/* <div>{quizContent}</div> */}
+                {userData.userRole !== "Hired Employee" ? null :
+                  <QuizPopup id={id} chapId={chapId}></QuizPopup>
+                }
                 {/* <QuizComponent id={id} /> */}
                 {submitted && (
                   <button
