@@ -55,14 +55,14 @@ const EditDepartment = () => {
   return (
     <div className="container">
       <div className="alert mt-3 heading">
-        <h5>Edit Department</h5>
-      </div>
-      <div className="alert alert-info mt-4">
         <Link
           to={"/department"}
           className="image">
           <img src={before} className="picside11" draggable={false} alt="this is image" />
         </Link>
+        <h5>Edit Department</h5>
+      </div>
+      <div className="alert alert-info mt-4">
         <b>Department Name must begin with uppercase and do not include numbers or symbols.</b> </div>
       <div className="columns mt-4">
         <div>

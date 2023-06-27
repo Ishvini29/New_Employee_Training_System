@@ -67,14 +67,14 @@ const AddJobtitle = () => {
   return (
     <div className="container">
       <div className="alert mt-3 heading">
-        <h5>Create Jobtitle</h5>
-      </div>
-      <div className="alert alert-info mt-4">
         <Link
           to={"/jobtitle"}
           className="image">
           <img src={before} className="picside11" draggable={false} alt="this is image" />
         </Link>
+        <h5>Create Jobtitle</h5>
+      </div>
+      <div className="alert alert-info mt-4">
         <b>Jobtitle Name must begin uppercase and do not include numbers or symbols.</b> </div>
       <div className="columns mt-4">
         <div>
