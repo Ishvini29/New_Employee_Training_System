@@ -176,6 +176,7 @@ const Edit = ({ KTsession, unitId }) => {
   };
 
   return (
+    (["Supervisor", "Content Creator", "System Admin"].includes(userDocument?.userRole))?
     <div>
       <p>
         <FaPencilAlt
@@ -291,6 +292,7 @@ const Edit = ({ KTsession, unitId }) => {
         </div>
       </div>
     </div>
+    :null
   );
 };
 

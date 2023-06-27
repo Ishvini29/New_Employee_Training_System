@@ -11,7 +11,7 @@ import jwt_decode from "jwt-decode";
 const CreateForum = () => {
   const navigate = useNavigate();
 
-  const { chapterID } = useParams();
+  const { chapterID, chapterName } = useParams();
   const userDocument = jwt_decode(
     JSON.parse(localStorage.getItem("user")).token
   ).userData;
@@ -36,7 +36,7 @@ const CreateForum = () => {
     console.log(data);
 
     axios
-      .post(process.env.REACT_APP_API_BASE+"/create-forum", data)
+      .post(process.env.REACT_APP_API_BASE + "/create-forum", data)
       .then((res) => {
         console.log(res.data);
         swal({
@@ -45,7 +45,7 @@ const CreateForum = () => {
           icon: "success",
           button: "Close",
         }).then(() => {
-          navigate("/forums"); // Refresh the page
+          navigate("/forums/" + chapterID + "/" + chapterName);
         });
         reset();
       })
@@ -162,7 +162,7 @@ const CreateForum = () => {
             >
               Create
             </button>
-            <Link to="/forums">
+            <Link to={"/forums/" + chapterID + "/" + chapterName}>
               <button
                 type="button"
                 className="btn btn-primary mt-5 mx-3"

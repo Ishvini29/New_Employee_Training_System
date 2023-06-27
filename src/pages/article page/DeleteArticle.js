@@ -30,7 +30,6 @@ const Delete = ({ article }) => {
             }).then(() => {
               window.location.reload(); // Refresh the page
             });
-            navigate("/article");
           })
           .catch((error) => {
             console.log(error);
@@ -70,6 +69,8 @@ const Delete = ({ article }) => {
   };
 
   return (
+    (["Supervisor", "Content Creator", "System Admin"].includes(userDocument?.userRole))
+    ?
     <div>
       <p>
         <FaTimes
@@ -124,6 +125,7 @@ const Delete = ({ article }) => {
         </div>
       </div>
     </div>
+    :null
   );
 };
 

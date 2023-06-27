@@ -5,19 +5,27 @@ import axios from "axios";
 import EditQuizEntry from "./EditQuizEntry";
 import QuizPopup from "./QuizPopup";
 import jwt_decode from "jwt-decode";
-
+import swal from "sweetalert";
 const QuizEntry = (props) => {
   const { id, chapName, unitName, chapId } = useParams();
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
+<<<<<<< HEAD
+  const [quizContent, setQuizContent] = useState("");
+  const userData = jwt_decode(
+    JSON?.parse(localStorage?.getItem("user"))?.token
+  )?.userData;
+=======
   const userData = jwt_decode(JSON?.parse(localStorage?.getItem("user"))?.token)
     ?.userData;
+>>>>>>> b21a7fa3904e18557b51d3094bf87366e1c60b5f
   const userId = userData?._id;
 
   const [updatedTodo, setUpdatedTodo] = useState({
     quizName: "",
     quizDesc: "",
   });
+
   useEffect(() => {
     axios
       .get(process.env.REACT_APP_API_BASE + `/units/${id}`)
@@ -32,12 +40,26 @@ const QuizEntry = (props) => {
       .get("http://localhost:1337/checkSubmitted/" + id + "/" + userId)
       .then((res) => setSubmitted(res.data))
       .catch((err) => console.log(err));
+
   }, [id]);
   const routeToResult = () => {
     navigate("/result", { state: { unitId: id } });
   };
+  // const openQuiz = (id, chapId) => {
+  //   swal({
+  //     title: "Are you sure you want to attempt the quiz?",
+  //     buttons: ["No", "Yes"],
+  //     dangerMode: true,
+  //   }).then((confirmed) => {
+  //     if (confirmed) {
+  //       setQuizContent(<QuizPopup id={id} chapId={chapId} ></QuizPopup>)
+  //     }
+  //   });
+  // }
+
   return (
     <React.Fragment>
+    
       <div style={{ backgroundColor: "#ffffff" }}>
         <div className="container my-5">
           <h4 className="heading rounded p-3">
@@ -57,17 +79,23 @@ const QuizEntry = (props) => {
               </button>
               <br></br>
               <br></br>
-              {userData.userRole === "Hired Employee" ? null : (
-                <div className="d-flex flex-wrap justify-content-between align-items-center">
-                  <h3 style={{ font: "25px", color: "#000000" }}>
-                    {updatedTodo.quizName}
-                  </h3>
-                  <div>
-                    <EditQuizEntry id={id} />
+              {
+                userData.userRole === "Hired Employee" ? null : (
+                  <div className="d-flex flex-wrap justify-content-between align-items-center">
+                    <div>
+                      <EditQuizEntry id={id} />
+                    </div>
                   </div>
-                </div>
-              )}
-              <p>{updatedTodo.quizDesc}</p>
+                )
+              }
+              <center>
+                <h3 style={{ font: "25px", color: "#000000" }}>
+                  {updatedTodo.quizName}
+                </h3>
+                <p>{updatedTodo.quizDesc}</p>
+              </center>
+
+
 
               <div class="d-grid gap-2 col-6 mx-auto">
                 {userData.userRole === "Hired Employee" ? null : (
@@ -81,7 +109,12 @@ const QuizEntry = (props) => {
                   </Link>
                 )}
 
-                <QuizPopup id={id} chapId={chapId} unitId={id}></QuizPopup>
+                {userData.userRole !== "Hired Employee" ? null :
+                  <QuizPopup id={id} chapId={chapId}></QuizPopup>
+                }
+                <div>
+                  {quizContent}
+                </div>
                 {/* <QuizComponent id={id} /> */}
                 {submitted && (
                   <button
@@ -99,14 +132,6 @@ const QuizEntry = (props) => {
             <div></div>
           </div>
         </div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
       </div>
     </React.Fragment>
   );

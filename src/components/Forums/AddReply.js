@@ -9,6 +9,7 @@ import axios from "axios";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase config/firebase";
 import { v4 } from "uuid";
+import jwt_decode from "jwt-decode";
 
 const AddReply = () => {
   const params = useParams();
@@ -18,10 +19,15 @@ const AddReply = () => {
   const [attachment, setAttachment] = useState(null);
   const [uploading, setUploading] = useState(false); // New state for tracking upload status
 
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
+
   useEffect(() => {
     axios
       .get(
-        process.env.REACT_APP_API_BASE + `/get-forum-details-by-forum-id/${params.forumId}`
+        process.env.REACT_APP_API_BASE +
+          `/get-forum-details-by-forum-id/${params?.forumId}`
       )
       .then((response) => {
         setAttachmentAllowwed(response.data[0].attachmentAllowed);
@@ -43,14 +49,15 @@ const AddReply = () => {
     try {
       var data = {
         description: formData.description,
-        createdBy: "641db06699bb728ad6649957",
+        createdBy: userDocument._id,
       };
       console.log(data);
 
       if (attachment === null) {
         axios
           .post(
-            process.env.REACT_APP_API_BASE + `/add-replies/${params.forumId}/${params.commentId}`,
+            process.env.REACT_APP_API_BASE +
+              `/add-replies/${params?.forumId}/${params?.commentId}`,
             data
           )
           .then((res) => {
@@ -61,7 +68,7 @@ const AddReply = () => {
               icon: "success",
               button: "Close",
             }).then(() => {
-              navigate(`/view-forum/${params.forumId}`);
+              navigate(`/view-forum/${params?.forumId}`);
             });
             reset();
           })
@@ -92,7 +99,8 @@ const AddReply = () => {
           data = { ...data, attachment: url };
           axios
             .post(
-              process.env.REACT_APP_API_BASE + `/add-replies/${params.forumId}/${params.commentId}`,
+              process.env.REACT_APP_API_BASE +
+                `/add-replies/${params?.forumId}/${params?.commentId}`,
               data
             )
             .then((res) => {
@@ -103,7 +111,7 @@ const AddReply = () => {
                 icon: "success",
                 button: "Close",
               }).then(() => {
-                navigate(`/view-forum/${params.forumId}`);
+                navigate(`/view-forum/${params?.forumId}`);
               });
               reset();
             })
@@ -194,7 +202,7 @@ const AddReply = () => {
             >
               {uploading ? "Uploading..." : "Add"}
             </button>
-            <Link to={`/view-forum/${params.forumId}`}>
+            <Link to={`/view-forum/${params?.forumId}`}>
               <button
                 type="button"
                 className="btn btn-primary mt-5 mx-3"

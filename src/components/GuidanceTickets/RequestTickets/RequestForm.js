@@ -22,7 +22,7 @@ const RequestForm = (props) => {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_BASE+"/departments/showAllDepartments")
+      .get(process.env.REACT_APP_API_BASE + "/departments/showAllDepartments")
       .then((response) => {
         setDepartments(response.data);
       })
@@ -52,8 +52,8 @@ const RequestForm = (props) => {
               <option value="">
                 Select the related department for the request
               </option>
-              {departments.map((d) => (
-                <option value={d._id}>{d.depName}</option>
+              {departments?.map((d) => (
+                <option value={d?._id}>{d?.depName}</option>
               ))}
             </select>
           </div>
@@ -84,6 +84,9 @@ const RequestForm = (props) => {
                 Assistance to solve an error
               </option>
               <option value="Additional training">Additional training</option>
+              <option value="Request for a clarification">
+                Request for a clarification
+              </option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -145,7 +148,7 @@ const RequestForm = (props) => {
               id="attachment"
               name="attachment"
               onChange={(event) => {
-                props.setAttachment(event.target.files[0]);
+                props?.setAttachment(event.target.files[0]);
               }}
             />
             <p className="font-italic">
@@ -160,9 +163,9 @@ const RequestForm = (props) => {
                 backgroundColor: "#1D9EEC",
                 borderColor: "#1D9EEC",
               }}
-              disabled={props.uploading}
+              disabled={props?.uploading}
             >
-              {props.uploading ? "Uploading..." : "Create"}
+              {props?.uploading ? "Uploading..." : "Create"}
             </button>
           </div>
         </div>

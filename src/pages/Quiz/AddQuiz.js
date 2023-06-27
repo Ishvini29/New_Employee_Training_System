@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import jwt_decode from "jwt-decode";
 import Swal from "sweetalert2";
 
-const AddQuestion = () => {
+const AddQuestion = ({ handleRefreshQuizList, refreshQuizList }) => {
   const userDocument = jwt_decode(
     JSON.parse(localStorage.getItem("user")).token
   ).userData;
@@ -16,7 +16,7 @@ const AddQuestion = () => {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_BASE+`/units/${id}`)
+      .get(process.env.REACT_APP_API_BASE + `/units/${id}`)
       .then((res) => setQuestionCount(res.data.quiz.questions.length))
       .catch((err) => console.log(err));
   }, [id]);
@@ -46,7 +46,7 @@ const AddQuestion = () => {
     };
 
     axios
-      .post(process.env.REACT_APP_API_BASE+`/units/${id}/quiz/${userid}`, newQuestion)
+      .post(process.env.REACT_APP_API_BASE + `/units/${id}/quiz/${userid}`, newQuestion)
       .then((res) => {
         console.log(res.data);
         Swal.fire({
@@ -58,7 +58,8 @@ const AddQuestion = () => {
           cancelButtonColor: "#d33",
           confirmButtonText: "OK",
         }).then((result) => {
-          window.location.reload(); // Refresh the page
+          // window.location.reload(); // Refresh the page
+          handleRefreshQuizList(refreshQuizList + 1)
         });
       })
       .catch((err) => console.log(err));
@@ -86,11 +87,10 @@ const AddQuestion = () => {
               <div className="input-group mb-3">
                 <input
                   type="text"
-                  className={`form-control ${
-                    formik.touched.question && formik.errors.question
-                      ? "is-invalid"
-                      : ""
-                  }`}
+                  className={`form-control ${formik.touched.question && formik.errors.question
+                    ? "is-invalid"
+                    : ""
+                    }`}
                   name="question"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -108,14 +108,13 @@ const AddQuestion = () => {
                 <div className="input-group mb-3" key={index}>
                   <input
                     type="text"
-                    className={`form-control ${
-                      formik.touched.options &&
+                    className={`form-control ${formik.touched.options &&
                       formik.touched.options[index] &&
                       formik.errors.options &&
                       formik.errors.options[index]
-                        ? "is-invalid"
-                        : ""
-                    }`}
+                      ? "is-invalid"
+                      : ""
+                      }`}
                     name={`options[${index}]`}
                     placeholder={`Option ${index + 1}`}
                     onChange={formik.handleChange}
@@ -135,11 +134,10 @@ const AddQuestion = () => {
 
               <label>Correct Answer:</label>
               <select
-                className={`form-select ${
-                  formik.touched.correctAnswer && formik.errors.correctAnswer
-                    ? "is-invalid"
-                    : ""
-                }`}
+                className={`form-select ${formik.touched.correctAnswer && formik.errors.correctAnswer
+                  ? "is-invalid"
+                  : ""
+                  }`}
                 name="correctAnswer"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}

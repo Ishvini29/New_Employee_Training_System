@@ -10,7 +10,7 @@ const PendingUserApproval = () => {
     const [pageLoading, setPageLoading] = useState(false);
     useEffect(() => {
         setPageLoading(true);
-        axios.get(process.env.REACT_APP_API_BASE+'/users/getAllUnverifiedUsers')
+        axios.get(process.env.REACT_APP_API_BASE + '/users/getAllUnverifiedUsers')
             .then(response => {
                 setUnverifiedUsers(response.data);
                 setPageLoading(false);
@@ -44,7 +44,7 @@ const PendingUserApproval = () => {
         }).then((willDelete) => {
             if (willDelete) {
                 setLoading(true);
-                axios.post(process.env.REACT_APP_API_BASE+'/users/verifyuser', bodyData)
+                axios.post(process.env.REACT_APP_API_BASE + '/users/verifyuser', bodyData)
                     .then((res) => {
                         setLoading(false);
                         console.log(res.data);
@@ -71,7 +71,7 @@ const PendingUserApproval = () => {
     return (
         <React.Fragment>
             <div className="container">
-                <div className="form-control mt-3 bg-dark text-white"><b>Hired Employee Requests</b></div>
+                <div className="form-control mt-3 bg-dark text-white"><b>Employee Requests</b></div>
                 {
                     (pageLoading)
                         ?
@@ -85,14 +85,11 @@ const PendingUserApproval = () => {
                                 <table className=" text-center mt-3 table table-striped">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Image</th>
+                                            <th scope="col">#</th>
                                             <th scope="col">Employee ID</th>
-                                            <th scope="col">First Name</th>
-                                            <th scope="col">Last Name</th>
-                                            <th scope="col">Job Title</th>
+                                            <th scope="col">Name</th>
                                             <th scope="col">Department</th>
-                                            <th scope="col">Requested On</th>
-                                            <th scope="col">Contact</th>
+                                            <th scope="col">More</th>
                                             <th scope="col">Allow</th>
                                             <th scope="col">Deny</th>
                                         </tr>
@@ -105,25 +102,32 @@ const PendingUserApproval = () => {
                                                         <th scope="row"><img referrerPolicy="no-referrer" draggable={false} className="rounded-circle" style={{ "width": "40px" }} alt="user" src={item?.image}></img></th>
                                                         <th>{item?.empId}</th>
                                                         <th>{item?.fname}</th>
-                                                        <th>{item?.lname}</th>
-                                                        <td>{item?.jobTitle?.jobTitle}</td>
                                                         <td>{item?.department?.departmentName}</td>
-                                                        <td>{new Date(item?.submittedOn).toLocaleString('en-US', { timeZone: 'Asia/Colombo' })}</td>
                                                         <td>
                                                             <button type="button" class="btn btn-outline-primary form-control" data-bs-toggle="modal" data-bs-target={"#exampleModal" + item?.userID}>
-                                                                Show Contact
+                                                                More
                                                             </button>
                                                             <div class="modal fade" id={"exampleModal" + item?.userID} tabindex="-1" aria-labelledby={"exampleModalLabel" + item?.userID} aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
-                                                                            <h1 class="modal-title fs-5" id={"exampleModalLabel" + item?.userID}>Contact Details</h1>
+                                                                            <h1 class="modal-title fs-5" id={"exampleModalLabel" + item?.userID}>More Details</h1>
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
+                                                                            <p>First Name: {item?.fname}</p>
+                                                                            <hr></hr>
+                                                                            <p>Last Name: {item?.lname}</p>
+                                                                            <hr></hr>
                                                                             <p>Phone: {item.phone}</p>
                                                                             <hr></hr>
                                                                             <p>Email: <a href={"mailto:" + item.email}> {item.email} </a></p>
+                                                                            <hr></hr>
+                                                                            <p>Department: {item?.department?.departmentName}</p>
+                                                                            <hr></hr>
+                                                                            <p>Job Title: {item?.jobTitle?.jobTitle}</p>
+                                                                            <hr></hr>
+                                                                            <p>Requested On: {new Date(item?.submittedOn).toLocaleString('en-US', { timeZone: 'Asia/Colombo' })}</p>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

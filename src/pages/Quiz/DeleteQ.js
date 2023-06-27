@@ -62,7 +62,6 @@ const Delete = ({ quiz, id }) => {
         console.log(err);
       });
 
-    navigate(`/quiz/${id}`);
   };
 
   return (
