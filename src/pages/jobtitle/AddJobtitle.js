@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import image4 from "../../images/jobtitle.svg";
+import before from "../../images/before.png";
+import { Link } from "react-router-dom";
 import "../../App.css";
 import swal from "sweetalert";
 import validator from "validator";
@@ -26,7 +28,7 @@ const AddJobtitle = () => {
       swal({
         icon: "warning",
         title: "Invalid",
-        text: "Jobtitle name must begin with a capital letter and do not include numbers or symbols.",
+        text: "Jobtitle name must begin with uppercase and do not include numbers or symbols.",
       });
       return;
     }
@@ -65,9 +67,15 @@ const AddJobtitle = () => {
   return (
     <div className="container">
       <div className="alert mt-3 heading">
+        <Link
+          to={"/jobtitle"}
+          className="image">
+          <img src={before} className="picside11" draggable={false} alt="this is image" />
+        </Link>
         <h5>Create Jobtitle</h5>
       </div>
-      <div className="alert alert-info mt-4"> <b>Jobtitle Name must begin with a capital letter and do not include numbers or symbols.</b> </div>
+      <div className="alert alert-info mt-4">
+        <b>Jobtitle Name must begin uppercase and do not include numbers or symbols.</b> </div>
       <div className="columns mt-4">
         <div>
           <img src={image4} className="picside6" draggable={false} alt="this is image" />

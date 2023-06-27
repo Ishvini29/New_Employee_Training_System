@@ -2,6 +2,8 @@
 
 import React from "react";
 import axios from "axios";
+import before from "../../images/before.png";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { useState, useEffect } from "react";
 const PermanentDeleteChapter = () => {
@@ -47,7 +49,7 @@ const PermanentDeleteChapter = () => {
   function recoverchapter(id) {
     swal({
       title: "Confirm",
-      text: "Are you absolutely sure, you want this Chapter and all the data it contains?",
+      text: "Are you absolutely sure, you want this Chapter?",
       icon: "info",
       buttons: true,
       successMode: true,
@@ -93,7 +95,13 @@ const PermanentDeleteChapter = () => {
   return (
     <React.Fragment>
       <div className="container">
-        <div className="alert mt-3 heading"><h5>Deleted Chapters</h5></div>
+        <div className="alert mt-3 heading">
+          <Link
+            to={"/chapter"}
+            className="image">
+            <img src={before} className="picside11" draggable={false} alt="this is image" />
+          </Link>
+          <h5>Deleted Chapters</h5></div>
         <hr className="mt-3"></hr>{
           (loading)
             ?
@@ -101,7 +109,8 @@ const PermanentDeleteChapter = () => {
             :
             (chapters.length === 0)
               ?
-              <div className="alert alert-info mt-4"> <b>No tempararily deleted chapters Found !</b> </div>
+              <div className="alert alert-info mt-4">
+                <b>No tempararily deleted chapters Found !</b> </div>
               :
               <table className="table">
 

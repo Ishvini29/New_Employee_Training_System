@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import image4 from "../../images/deptadd.svg";
+import before from "../../images/before.png";
+import { Link } from "react-router-dom";
 import "../../App.css";
 import swal from "sweetalert";
 import validator from "validator";
@@ -80,7 +82,13 @@ const DepartmentAddChapter = () => {
     return (
         <div className="container">
             <div className="alert mt-3 heading"><h5>Create Chapter</h5></div>
-            <div className="alert alert-info mt-4"> <b>Please start the ChapterID with  "{firstLetter} "  followed by numerical digits only.Chapter Name must start with upper case and it can consist numerical digits.</b> </div>
+            <div className="alert alert-info mt-4">
+                <Link
+                    to={"/depchapter"}
+                    className="image">
+                    <img src={before} className="picside11" draggable={false} alt="this is image" />
+                </Link>
+                <b>Please start the ChapterID with  "{firstLetter} "  followed by numerical digits only.Chapter Name must start with upper case and it can consist numerical digits.</b> </div>
             <div className="columns mt-5">
                 <div>
                     <img src={image4} className="picside7" draggable={false} alt="this is image" />

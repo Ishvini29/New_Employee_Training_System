@@ -1,4 +1,6 @@
 import image1 from "../../images/2.svg";
+import before from "../../images/before.png";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import "../../App.css";
 import axios from "axios";
@@ -20,7 +22,7 @@ const EditDepartment = () => {
       swal({
         icon: "warning",
         title: "Invalid",
-        text: "Department name must begin with a capital letter and do not include numbers or symbols.",
+        text: "Department name must begin with uppercase and do not include numbers or symbols.",
       });
       return;
     }
@@ -53,9 +55,15 @@ const EditDepartment = () => {
   return (
     <div className="container">
       <div className="alert mt-3 heading">
+        <Link
+          to={"/department"}
+          className="image">
+          <img src={before} className="picside11" draggable={false} alt="this is image" />
+        </Link>
         <h5>Edit Department</h5>
       </div>
-      <div className="alert alert-info mt-4"> <b>Department Name must begin with a capital letter and do not include numbers or symbols.</b> </div>
+      <div className="alert alert-info mt-4">
+        <b>Department Name must begin with uppercase and do not include numbers or symbols.</b> </div>
       <div className="columns mt-4">
         <div>
           <img src={image1} className="picside2" draggable={false} alt="this is image" />

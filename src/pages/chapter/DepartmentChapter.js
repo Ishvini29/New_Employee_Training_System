@@ -104,6 +104,7 @@ const DepartmentChapter = () => {
                                 <th scope="col">ChapterID</th>
                                 <th scope="col">Chapter name</th>
                                 <th>Created On</th>
+                                <th scope="col">View chapter</th>
                                 <th scope="col">Edit chapter</th>
                                 <th scope="col">Delete chapter</th>
                             </tr>
@@ -122,6 +123,14 @@ const DepartmentChapter = () => {
                                                 "en-US",
                                                 { timeZone: "Asia/Colombo" }
                                             )}
+                                        </td>
+                                        <td>
+                                            <Link
+                                                to={"/chapterPage/" + item._id + "/" + item.chapterName}
+                                                className="btn btn-outline-secondary form-control"
+                                            >
+                                                View
+                                            </Link>
                                         </td>
                                         <td>
                                             <Link

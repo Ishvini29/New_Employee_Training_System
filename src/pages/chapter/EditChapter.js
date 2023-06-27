@@ -1,6 +1,8 @@
 import image1 from "../../images/2.svg";
 import swal from "sweetalert";
 import "../../App.css";
+import before from "../../images/before.png";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import validator from "validator";
@@ -59,7 +61,13 @@ const EditChapter = () => {
   return (
     <div className="container">
       <div className="alert mt-3 heading"><h5>Edit Chapter</h5></div>
-      <div className="alert alert-info mt-4"> <b>Chapter Name must start with upper case and it can consist numerical digits.</b> </div>
+      <div className="alert alert-info mt-4">
+        <Link
+          to={"/depchapter"}
+          className="image">
+          <img src={before} className="picside11" draggable={false} alt="this is image" />
+        </Link>
+        <b>Chapter Name must start with upper case and it can consist numerical digits.</b> </div>
       <div className="columns mt-5">
         <div>
           <img src={image1} className="picside2" draggable={false} alt="this is image" />
