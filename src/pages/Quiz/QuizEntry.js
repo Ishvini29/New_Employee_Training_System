@@ -33,7 +33,6 @@ const QuizEntry = (props) => {
       .get("http://localhost:1337/checkSubmitted/" + id + "/" + userId)
       .then((res) => setSubmitted(res.data))
       .catch((err) => console.log(err));
-
   }, [id]);
   const routeToResult = () => {
     navigate("/result", { state: { unitId: id } });
@@ -52,7 +51,6 @@ const QuizEntry = (props) => {
 
   return (
     <React.Fragment>
-
       <div style={{ backgroundColor: "#ffffff" }}>
         <div className="container my-5">
           <h4 className="heading rounded p-3">
@@ -72,23 +70,19 @@ const QuizEntry = (props) => {
               </button>
               <br></br>
               <br></br>
-              {
-                userData.userRole === "Hired Employee" ? null : (
-                  <div className="d-flex flex-wrap justify-content-between align-items-center">
-                    <div>
-                      <EditQuizEntry id={id} />
-                    </div>
+              {userData.userRole === "Hired Employee" ? null : (
+                <div className="d-flex flex-wrap justify-content-between align-items-center">
+                  <div>
+                    <EditQuizEntry id={id} />
                   </div>
-                )
-              }
+                </div>
+              )}
               <center>
                 <h3 style={{ font: "25px", color: "#000000" }}>
                   {updatedTodo.quizName}
                 </h3>
                 <p>{updatedTodo.quizDesc}</p>
               </center>
-
-
 
               <div class="d-grid gap-2 col-6 mx-auto">
                 {userData.userRole === "Hired Employee" ? null : (

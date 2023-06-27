@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import image4 from "../../images/dept.svg";
+import before from "../../images/before.png";
 import "../../App.css";
 import swal from "sweetalert";
 import validator from "validator";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const AddDepartment = () => {
@@ -17,7 +19,7 @@ const AddDepartment = () => {
       swal({
         icon: "warning",
         title: "Invalid",
-        text: "Department name must begin with a capital letter and do not include numbers or symbols.",
+        text: "Department name must begin with uppercase and do not include numbers or symbols.",
       });
       return;
     }
@@ -48,9 +50,15 @@ const AddDepartment = () => {
   return (
     <div className="container">
       <div className="alert mt-3 heading">
+        <Link
+          to={"/department"}
+          className="image">
+          <img src={before} className="picside11" draggable={false} alt="this is image" />
+        </Link>
         <h5>Create Department</h5>
       </div>
-      <div className="alert alert-info mt-4"> <b>Department Name must begin with a capital letter and do not include numbers or symbols.</b> </div>
+      <div className="alert alert-info mt-4">
+        <b>Department Name must begin with uppercase and do not include numbers or symbols.</b> </div>
       <div className="columns mt-4">
         <div>
           <img src={image4} className="picside4" draggable={false} alt="this is image" />

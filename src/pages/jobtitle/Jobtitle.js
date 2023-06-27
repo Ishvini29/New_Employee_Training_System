@@ -108,7 +108,7 @@ const Jobtitle = () => {
           <thead>
             <tr style={{ backgroundColor: "#b9e1dc" }}>
               <th scope="col">Department name</th>
-              <th scope="col">Jobtitle_ID</th>
+              {/* <th scope="col">Jobtitle_ID</th> */}
               <th scope="col">Jobtitle name</th>
               <th scope="col">Edit jobtitle </th>
               <th scope="col">Delete jobtitle </th>
@@ -123,7 +123,7 @@ const Jobtitle = () => {
                 return department.Jobtitle.map((jobtitle) => (
                   <tr className="align-middle" key={jobtitle._id}>
                     <td>{department.depName}</td>
-                    <td>{jobtitle._id}</td>
+                    {/* <td>{jobtitle._id}</td> */}
                     <td>{jobtitle.jobTitlename}</td>
                     <td>
                       <Link

@@ -77,20 +77,22 @@ const Department = () => {     //Defining Department component as a functional c
               ?
               <div className="alert alert-info mt-4"> <b>No departments Found !</b> </div>
               :
-              <table className="table">
+              <table className="view-table">
                 <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Department name</th>
+                  <tr style={{ backgroundColor: "#b9e1dc" }}>
+                    {/* <th scope="col">ID</th> */}
+                    <th scope="col">No</th>
+                    <th scope="col">Department Name</th>
                     <th scope="col">Edit department</th>
                     <th scope="col">Delete department</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {departments.map((item) => {  // loop through all departments and display them in a table
+                <tbody style={{ backgroundColor: "MintCream" }}>
+                  {departments.map((item, index) => {  // loop through all departments and display them in a table
                     return (
                       <tr className="align-middle" key={item._id}>
-                        <th scope="row">{item._id}</th>
+                        {/* <th scope="row">{item._id}</th> */}
+                        <td>0{index + 1}</td>
                         <td>{item.depName}</td>
                         <td>
                           <Link

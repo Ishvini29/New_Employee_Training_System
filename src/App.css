@@ -70,6 +70,12 @@
   /* float: left; */
 }
 
+.picside11 {
+  width: 26px;
+  height: 26px;
+  float: left;
+}
+
 .inputdata {
   width: 58.5%;
   padding: 5px 16px;
