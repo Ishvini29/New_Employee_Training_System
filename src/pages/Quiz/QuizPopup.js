@@ -129,6 +129,7 @@ const QuizPopup = ({ id, chapId, unitId }) => {
           "Your quiz has been submitted.",
           "success"
         ).then(() => {
+          navigate("/result", { state: { unitId } });
           window.location.reload();
           setSubmitted(true);
         });
