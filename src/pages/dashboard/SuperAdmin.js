@@ -10,10 +10,15 @@ import manageJob from "../../images/superAdmin/manageJob.png";
 import editLogs from "../../images/superAdmin/editLogs.svg";
 const SuperAdmin = () => {
     const [depIsEmpty, setDepIsEmpty] = useState(false);
+    const [pendingData, setPending] = useState({});
     useEffect(() => {
         axios.get(process.env.REACT_APP_API_BASE + "/general/depisempty")
             .then(function (response) {
                 setDepIsEmpty(response.data.status)
+            });
+        axios.get(process.env.REACT_APP_API_BASE + "/general/dashboard-data/super-admin")
+            .then(function (response) {
+                setPending(response.data)
             });
     }, [])
     return (
@@ -80,7 +85,13 @@ const SuperAdmin = () => {
                 </div>
                 <div className="col-md-4 mb-3">
                     <div className="card shadow">
-                        <Link to="/pendingrequests" className="btn btn-outline-dark">
+                        <Link to="/pendingrequests" className="btn btn-outline-dark position-relative">
+                            {
+                                (pendingData?.isUserVerificationPending === 0) ? null :
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {pendingData?.isUserVerificationPending}
+                                    </span>
+                            }
                             <center>
                                 <img src={pending} className="card-img-top" style={{ "width": "100px" }} alt="card" ></img>
                             </center>

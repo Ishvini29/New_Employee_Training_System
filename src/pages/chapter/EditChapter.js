@@ -32,7 +32,7 @@ const EditChapter = () => {
     }
 
     axios
-      .post(process.env.REACT_APP_API_BASE+"/chapters/editChapter", {
+      .post(process.env.REACT_APP_API_BASE + "/chapters/editChapter", {
         fromName: name,
         newName: newChapterName,
         reason: reason,
@@ -59,6 +59,7 @@ const EditChapter = () => {
   return (
     <div className="container">
       <div className="alert mt-3 heading"><h5>Edit Chapter</h5></div>
+      <div className="alert alert-info mt-4"> <b>Chapter Name must start with upper case and it can consist numerical digits.</b> </div>
       <div className="columns mt-5">
         <div>
           <img src={image1} className="picside2" draggable={false} alt="this is image" />

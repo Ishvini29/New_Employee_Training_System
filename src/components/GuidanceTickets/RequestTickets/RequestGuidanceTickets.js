@@ -20,7 +20,8 @@ const RequestGuidanceTickets = () => {
   useEffect(() => {
     axios
       .get(
-        process.env.REACT_APP_API_BASE+`/get-tickets-by-requested-user-id/${userDocument._id}`
+        process.env.REACT_APP_API_BASE +
+          `/get-tickets-by-requested-user-id/${userDocument?._id}`
       )
       .then((response) => {
         setTickets(response.data);
@@ -40,7 +41,7 @@ const RequestGuidanceTickets = () => {
 
       if (attachment === null) {
         axios
-          .post(process.env.REACT_APP_API_BASE+"/save-ticket", data)
+          .post(process.env.REACT_APP_API_BASE + "/save-ticket", data)
           .then((res) => {
             console.log(res.data);
             swal({
@@ -77,7 +78,7 @@ const RequestGuidanceTickets = () => {
           console.log(url);
           data = { ...data, attachment: url };
           axios
-            .post(process.env.REACT_APP_API_BASE+"/save-ticket", data)
+            .post(process.env.REACT_APP_API_BASE + "/save-ticket", data)
             .then((res) => {
               console.log(res.data);
               swal({
@@ -150,7 +151,7 @@ const RequestGuidanceTickets = () => {
         />
       </div>
       <div className="mt-4">
-        {tickets.map((t) => (
+        {tickets?.map((t) => (
           <div
             className="card mt-4"
             style={{
@@ -159,34 +160,35 @@ const RequestGuidanceTickets = () => {
           >
             <div className="card-body">
               <div className="row">
-                <p className="col-sm-6">Request No. {t._id}</p>
+                <p className="col-sm-6">Request No. {t?._id}</p>
                 <p className="col-sm-6">
                   {" "}
-                  Directed Department : {t.directedDepartmentID.depName}
+                  Directed Department : {t?.directedDepartmentID?.depName}
                 </p>
               </div>
               <div className="row">
-                <p className="col-sm-6">Request Type : {t.requestType}</p>
-                <p className="col-sm-6"> Request Title : {t.requestTitle}</p>
+                <p className="col-sm-6">Request Type : {t?.requestType}</p>
+                <p className="col-sm-6"> Request Title : {t?.requestTitle}</p>
               </div>
               <div className="row">
                 <p className="col-sm-6">
-                  Requested on: {formatDate(t.createdTime)}
+                  Requested on: {formatDate(t?.createdTime)}
                 </p>
                 <p className="col-sm-6">
                   Assigned to :{" "}
-                  {t.assignedTo
-                    ? t.assignedTo.firstName + " " + t.assignedTo.lastName
+                  {t?.assignedTo
+                    ? t?.assignedTo?.firstName + " " + t?.assignedTo?.lastName
                     : "Pending"}{" "}
                 </p>
               </div>
               <div className="row">
                 <p className="col-sm-6">
                   Contact number :{" "}
-                  {t.assignedTo ? t.assignedTo.phoneNumber : "Pending"}
+                  {t?.assignedTo ? t?.assignedTo?.phoneNumber : "Pending"}
                 </p>
                 <p className="col-sm-6">
-                  Email : {t.assignedTo ? t.assignedTo.emailAddress : "Pending"}
+                  Email :{" "}
+                  {t?.assignedTo ? t?.assignedTo?.emailAddress : "Pending"}
                 </p>
               </div>
               <div className="row">
@@ -197,25 +199,25 @@ const RequestGuidanceTickets = () => {
                       role="progressbar"
                       style={{
                         width:
-                          t.status === "requested"
+                          t?.status === "requested"
                             ? "20%"
-                            : t.status === "directed"
+                            : t?.status === "directed"
                             ? "60%"
                             : "100%",
                       }}
                       aria-valuenow={
-                        t.status === "requested"
+                        t?.status === "requested"
                           ? "20"
-                          : t.status === "directed"
+                          : t?.status === "directed"
                           ? "60"
                           : "100"
                       }
                       aria-valuemin="0"
                       aria-valuemax="100"
                     >
-                      {t.status === "requested"
+                      {t?.status === "requested"
                         ? "Requested"
-                        : t.status === "directed"
+                        : t?.status === "directed"
                         ? "Directed"
                         : "Completed"}
                     </div>

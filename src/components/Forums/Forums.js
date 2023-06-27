@@ -6,13 +6,15 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 const Forums = () => {
-  const userDocument = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData;
+  const userDocument = jwt_decode(
+    JSON.parse(localStorage.getItem("user")).token
+  ).userData;
   const [forumTopics, setForumTopics] = useState([]);
   const { chapterID, chapterName } = useParams();
   useEffect(() => {
     axios
       .get(
-        process.env.REACT_APP_API_BASE+`/get-forums-by-chapter/${chapterID}`
+        process.env.REACT_APP_API_BASE + `/get-forums-by-chapter/${chapterID}`
       )
       .then((response) => {
         setForumTopics(response.data);
@@ -24,7 +26,9 @@ const Forums = () => {
 
   const LockForum = (id) => {
     axios
-      .put(process.env.REACT_APP_API_BASE+`/edit-forum/${id}`, { status: "Locked" })
+      .put(process.env.REACT_APP_API_BASE + `/edit-forum/${id}`, {
+        status: "Locked",
+      })
       .then((res) => {
         console.log(res.data);
         swal({
@@ -57,25 +61,33 @@ const Forums = () => {
 
   return (
     <div className="container my-5">
-      <h4 className="heading p-3 rounded">{chapterName + ": Discussion Forums"}</h4>
+      <h4 className="heading p-3 rounded">
+        {chapterName + ": Discussion Forums"}
+      </h4>
       <nav className="navbar navbar-expand-lg">
-        <div
-          className="collapse navbar-collapse"
-          id="navbarSupportedContent"
-        >
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-5 mb-lg-0">
             <li className="nav-item" style={{ fontWeight: "bold" }}>
-              <Link to={"/chapterPage/" + chapterID + "/" + chapterName} className="nav-link active">
+              <Link
+                to={"/chapterPage/" + chapterID + "/" + chapterName}
+                className="nav-link active"
+              >
                 Units
               </Link>
             </li>
             <li className="nav-item" style={{ fontWeight: "bold" }}>
-              <Link to={"/article/" + chapterID + "/" + chapterName} className="nav-link">
+              <Link
+                to={"/article/" + chapterID + "/" + chapterName}
+                className="nav-link"
+              >
                 Articles
               </Link>
             </li>
             <li className="nav-item" style={{ fontWeight: "bold" }}>
-              <Link to={"/forums/" + chapterID + "/" + chapterName} className="nav-link">
+              <Link
+                to={"/forums/" + chapterID + "/" + chapterName}
+                className="nav-link"
+              >
                 Discussion Forums
               </Link>
             </li>
@@ -83,17 +95,16 @@ const Forums = () => {
         </div>
       </nav>
       {/* <Header title="NETS: Discussion Forums" /> */}
-      {
-        (userDocument.userRole === "Content Creator" || userDocument.userRole === "Supervisor")
-        &&
+      {(userDocument.userRole === "Content Creator" ||
+        userDocument.userRole === "Supervisor") && (
         <div className="text-center mt-5">
-          <Link to={"/create-forum/" + chapterID}>
+          <Link to={"/create-forum/" + chapterID + "/" + chapterName}>
             <button type="button" className="btn btn-outline-success">
               Create New Discussion Forum Topic
             </button>
           </Link>
         </div>
-      }
+      )}
 
       <div className="mt-5">
         <div
@@ -103,11 +114,10 @@ const Forums = () => {
           <div className="col-sm-3">Forum Topic</div>
           <div className="col-sm-3">Created by</div>
           <div className="col-sm-2">Number of posts</div>
-          {
-            (userDocument.userRole === "Content Creator" || userDocument.userRole === "Supervisor")
-            &&
+          {(userDocument.userRole === "Content Creator" ||
+            userDocument.userRole === "Supervisor") && (
             <div className="col-sm-4">Actions</div>
-          }
+          )}
         </div>
         {forumTopics?.map((f) => (
           <div
@@ -133,33 +143,36 @@ const Forums = () => {
             </div>
             <div className="col-sm-2">{f.posts.length}</div>
 
-            {f?.status === "Active" ? (
-              (userDocument.userRole === "Content Creator" || userDocument.userRole === "Supervisor")
-              &&
-              <div
-                className="d-flex flex-row mx-auto col-sm-4"
-                style={{ display: "flex", justifyContent: "center" }}
-              >
-                <Link to={`/edit-forum/${f?._id}`}>
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary mx-2"
-                    style={{ borderColor: "#1D9EEC" }}
+            {f?.status === "Active"
+              ? (userDocument.userRole === "Content Creator" ||
+                  userDocument.userRole === "Supervisor") && (
+                  <div
+                    className="d-flex flex-row mx-auto col-sm-4"
+                    style={{ display: "flex", justifyContent: "center" }}
                   >
-                    Edit
-                  </button>
-                </Link>
-                <div>
-                  <button
-                    type="button"
-                    className="btn btn-outline-danger"
-                    onClick={() => LockForum(f?._id)}
-                  >
-                    Lock
-                  </button>
-                </div>
-              </div>
-            ) : null}
+                    <Link
+                      to={`/edit-forum/${f?._id}/${chapterID}/${chapterName}`}
+                    >
+                      <button
+                        type="button"
+                        className="btn btn-outline-primary mx-2"
+                        style={{ borderColor: "#1D9EEC" }}
+                      >
+                        Edit
+                      </button>
+                    </Link>
+                    <div>
+                      <button
+                        type="button"
+                        className="btn btn-outline-danger"
+                        onClick={() => LockForum(f?._id)}
+                      >
+                        Lock
+                      </button>
+                    </div>
+                  </div>
+                )
+              : null}
           </div>
         ))}
       </div>

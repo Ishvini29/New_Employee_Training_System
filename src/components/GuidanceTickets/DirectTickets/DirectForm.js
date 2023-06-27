@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 const DirectForm = (props) => {
   const formSchema = Yup.object().shape({
@@ -18,7 +17,7 @@ const DirectForm = (props) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/getContentCreators/${props.ticket.directedDepartmentID}`
+        `http://localhost:1337/getContentCreators/${props?.ticket?.directedDepartmentID}`
       )
       .then((response) => {
         setEmployees(response.data);
@@ -32,36 +31,23 @@ const DirectForm = (props) => {
     <div className="container bg-white">
       <form onSubmit={handleSubmit(props?.onFormSubmit)}>
         <div className="row">
-          <p className="col-sm-6">Request No. {props?.ticket._id}</p>
+          <p className="col-sm-6">Request No. {props?.ticket?._id}</p>
           <p className="col-sm-6">
             {" "}
-            Request Type : {props?.ticket.requestType}
+            Request Type : {props?.ticket?.requestType}
           </p>
         </div>
         <div className="row">
           <p className="col-sm-12">
-            Request Title : {props?.ticket.requestTitle}
+            Request Title : {props?.ticket?.requestTitle}
           </p>
         </div>
         <div className="row">
           <p className="col-sm-12">
-            Short Description : {props?.ticket.description}
+            Short Description : {props?.ticket?.description}
           </p>
         </div>
-        <div className="row">
-          <p className="col-sm-12">
-            {props?.ticket.attachment && (
-              <>
-                Attachment :{" "}
-                <Link
-                  to={`/guidance-ticket-view-attachment/${props?.ticket._id}`}
-                >
-                  View
-                </Link>
-              </>
-            )}
-          </p>
-        </div>
+
         <div className="row">
           <p className="col-sm-12">
             Requested by :{" "}
@@ -73,7 +59,7 @@ const DirectForm = (props) => {
         <div className="row">
           <p className="col-sm-12">Employees that can give guidance : </p>
         </div>
-        {employees.map((emp) => (
+        {employees?.map((emp) => (
           <div className="form-check">
             <input
               className="form-check-input"
@@ -82,12 +68,12 @@ const DirectForm = (props) => {
               }}
               type="radio"
               name="assignedTo"
-              id={emp._id}
-              value={emp._id}
+              id={emp?._id}
+              value={emp?._id}
               {...register("assignedTo")}
             />
             <label className="form-check-label" for="assignedTo">
-              {emp.firstName + " " + emp.lastName}
+              {emp?.firstName + " " + emp?.lastName}
             </label>
           </div>
         ))}
@@ -102,7 +88,7 @@ const DirectForm = (props) => {
               backgroundColor: "#1D9EEC",
               borderColor: "#1D9EEC",
             }}
-            onClick={() => props?.setTicketId(props?.ticket._id)}
+            onClick={() => props?.setTicketId(props?.ticket?._id)}
           >
             Direct
           </button>

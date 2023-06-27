@@ -99,7 +99,7 @@ const FurtherDetails = (props) => {
                     })
                     // if user trying to or, accidently access the page after submit the further details
                     // to prevent duplicate entry in database, email is set to unique in database schema
-                } else if (res.data.status === "duplicate") {
+                } else if (res.data.status !== "success" ) {
                     swal("Warning", res.data.message, "warning")
                 }
                 setSubmitLoading(false);

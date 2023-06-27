@@ -72,6 +72,7 @@ const AddChapter = () => {
   return (
     <div className="container">
       <div className="alert mt-3 heading"><h5>Create Common Chapter</h5></div>
+      <div className="alert alert-info mt-4"> <b>Please start the ChapterID with  'CO'  followed by numerical digits only. Common Chapter Name must start with upper case and it can consist numerical digits.</b> </div>
       <div className="columns mt-4">
         <div>
           <img src={common} className="picside7" draggable={false} alt="this is image" />

@@ -9,10 +9,12 @@ const LeaderboardSup = () => {
   const [search, setSearch] = useState();
   const [showSearch, setShowSearch] = useState();
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   let filtering = 3;
 
   useEffect(() => {
+    setLoading(true);
     Swal.fire(
       `Need to know!`,
       "The leaderboard is determined based on the average score of department chapters.",
@@ -20,7 +22,10 @@ const LeaderboardSup = () => {
     );
     axios
       .get(process.env.REACT_APP_API_BASE + "/getLeaderboardData")
-      .then((res) => setScore(res.data))
+      .then((res) => {
+        setScore(res.data);
+        setLoading(false);
+      })
       .catch((error) => {
         // Handle other errors
         swal({
@@ -167,7 +172,7 @@ const LeaderboardSup = () => {
                 <div className="d-flex justify-content-between my-5">
                   <h4 className="top-gainers mt-2">All Employees</h4>
                   <div className="d-flex justify-content-between ">
-                    <div id="" className="mt-2 float-end">
+                    <div className="mt-2 float-end">
                       <Search
                         handleGetSearchValue={getSearchValue}
                         width={{ width: "w-auto" }}
@@ -265,9 +270,13 @@ const LeaderboardSup = () => {
     );
   };
 
-  return (
+  return loading ? (
+    <center>
+      <div className="spinner-grow mt-3" role="status"></div>
+    </center>
+  ) : (
     <div>
-      {score.length > 1 ? (
+      {score?.length > 1 ? (
         <div className="container-md bg-light my-lg-3 p-md-4">
           {/* Top gainers section */}
           <div className="d-flex justify-content-between  flex-sm-row flex-column">

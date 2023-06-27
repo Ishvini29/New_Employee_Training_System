@@ -17,28 +17,28 @@ const ListAllChapters = () => {
     const [commonChapters, setCommonChapters] = useState([]);
     useEffect(() => {
         setLoading(true);
-        axios.get(process.env.REACT_APP_API_BASE+`/finalprojectassignment/isProjectAssigned/${userid}`)
+        axios.get(process.env.REACT_APP_API_BASE + `/finalprojectassignment/isProjectAssigned/${userid}`)
             .then(response => {
                 setisProjectAssigned(response.data.status);
             })
             .catch(function (error) {
                 console.log(error);
             });
-        axios.get(process.env.REACT_APP_API_BASE+`/chapters/loadAllocatedChapters/${depid}/${jobid}`)
+        axios.get(process.env.REACT_APP_API_BASE + `/chapters/loadAllocatedChapters/${depid}/${jobid}`)
             .then(response => {
                 setChapters(response.data)
             })
             .catch(function (error) {
                 console.log(error);
             });
-        axios.get(process.env.REACT_APP_API_BASE+`/chapters/loadAdditionalChapters/${userid}`)
+        axios.get(process.env.REACT_APP_API_BASE + `/chapters/loadAdditionalChapters/${userid}`)
             .then(response => {
                 setAdditionalChapters(response.data)
             })
             .catch(function (error) {
                 console.log(error);
             });
-        axios.get(process.env.REACT_APP_API_BASE+`/commonchapters/showAllChapters`)
+        axios.get(process.env.REACT_APP_API_BASE + `/commonchapters/showAllChapters`)
             .then(response => {
                 setCommonChapters(response.data)
                 setLoading(false);
@@ -59,7 +59,7 @@ const ListAllChapters = () => {
             confirmButtonText: 'Yes, Request'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.get(process.env.REACT_APP_API_BASE+`/finalprojectassignment/request/${userid}/${depid}`)
+                axios.get(process.env.REACT_APP_API_BASE + `/finalprojectassignment/request/${userid}/${depid}`)
                     .then((res) => {
                         console.log(res.data);
                         if (res.data.status === true) {
@@ -88,7 +88,7 @@ const ListAllChapters = () => {
                             ?
                             <>
                                 <div className="card">
-                                    <div className="card-header heading">
+                                    <div className="card-header">
                                         <h5> Department Chapters</h5>
                                     </div>
                                     <div className="card-body">
@@ -112,7 +112,7 @@ const ListAllChapters = () => {
                                     </div>
                                 </div>
                                 <div className="card mt-3">
-                                    <div className="card-header heading">
+                                    <div className="card-header">
                                         <h5>Common Chapters</h5>
                                     </div>
                                     <div className="card-body">
@@ -136,7 +136,7 @@ const ListAllChapters = () => {
                                     </div>
                                 </div>
                                 <div className="card mt-3">
-                                    <div className="card-header heading">
+                                    <div className="card-header">
                                         <h5>Enrolled Additional Chapters:  <Link to="/enrollrequestemployee">Request More</Link></h5>
                                     </div>
                                     <div className="card-body">

@@ -151,6 +151,8 @@ const Edit = ({ article }) => {
   };
 
   return (
+    (["Supervisor", "Content Creator", "System Admin"].includes(userDocument?.userRole))
+    ?
     <div>
       <p>
         <FaPencilAlt
@@ -257,6 +259,7 @@ const Edit = ({ article }) => {
         </div>
       </div>
     </div>
+    :null
   );
 };
 
