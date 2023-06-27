@@ -68,8 +68,10 @@ const QuizReportFront = () => {
               //get only the departments which has chapters
               quizReport?.chapters?.some((chap) => chap?.depName === dep) && (
                 <div key={index}>
-                  <h4 className="text-dark opacity-50 text-center mt-sm-4">
-                    Department: {dep}
+                  <h4 className="text-dark opacity-75 text-center mt-sm-4">
+                    {dep === "Common Chapters"
+                      ? "Common Chapters"
+                      : dep + " Department"}
                   </h4>
                   <div className="accordion container" id="quiz-report">
                     {/* display chapter name */}
