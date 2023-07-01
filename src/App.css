@@ -184,7 +184,7 @@
 }
 
 .showBut:hover {
-  color: rgb(79, 82, 84);
+  color: rgb(246, 246, 246);
 }
 
 .error {
@@ -199,12 +199,7 @@
   border-radius: 1rem;
   font-weight: bold;
   letter-spacing: 5px;
-  text-transform: uppercase;
-  transition: all 1000ms;
-  font-size: 12px;
-  position: relative;
-  overflow: hidden;
-  outline: 2px solid #1c87c9;
+
 }
 
 .button {
@@ -807,6 +802,7 @@
 .score-editlog-pointer-event {
   cursor: pointer;
 }
+
 .vertical-align {
   vertical-align: middle;
 }

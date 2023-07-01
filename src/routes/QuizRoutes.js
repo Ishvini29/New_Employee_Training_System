@@ -4,8 +4,8 @@ import Result from "../pages/quiz/result";
 import Review from "../pages/quiz/review";
 
 import { userRoles as ur } from "../data/userRole";
-import QuizPopup from "../pages/Quiz/QuizPopup";
-import QuizDisplay from "../pages/Quiz/QuizDisplay";
+import QuizPopup from "../pages/quiz/QuizPopup";
+import QuizDisplay from "../pages/quiz/QuizDisplay";
 
 export const quiz_routes = [
   {

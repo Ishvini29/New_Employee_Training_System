@@ -10,15 +10,8 @@ const QuizEntry = (props) => {
   const { id, chapName, unitName, chapId } = useParams();
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
-<<<<<<< HEAD
-  const [quizContent, setQuizContent] = useState("");
-  const userData = jwt_decode(
-    JSON?.parse(localStorage?.getItem("user"))?.token
-  )?.userData;
-=======
   const userData = jwt_decode(JSON?.parse(localStorage?.getItem("user"))?.token)
     ?.userData;
->>>>>>> b21a7fa3904e18557b51d3094bf87366e1c60b5f
   const userId = userData?._id;
 
   const [updatedTodo, setUpdatedTodo] = useState({
@@ -59,7 +52,7 @@ const QuizEntry = (props) => {
 
   return (
     <React.Fragment>
-    
+
       <div style={{ backgroundColor: "#ffffff" }}>
         <div className="container my-5">
           <h4 className="heading rounded p-3">
@@ -113,7 +106,7 @@ const QuizEntry = (props) => {
                   <QuizPopup id={id} chapId={chapId}></QuizPopup>
                 }
                 <div>
-                  {quizContent}
+                  {/* {quizContent} */}
                 </div>
                 {/* <QuizComponent id={id} /> */}
                 {submitted && (
