@@ -67,7 +67,8 @@ const AddComments = (props) => {
               icon: "success",
               button: "Close",
             }).then(() => {
-              window.location.reload(); // Refresh the page
+              props.setReDoUseEffect(props.reDoUseEffect + 1);
+              // window.location.reload(); // Refresh the page
             });
             reset();
           })

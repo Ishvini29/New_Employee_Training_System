@@ -16,6 +16,7 @@ const CommentSection = (props) => {
   const [selectedComment, setSelectedComment] = useState(0);
   const [comments, setComments] = useState([]);
   const [isRated, setIsRated] = useState(false);
+  const [reDoUseEffect, setReDoUseEffect] = useState(0);
 
   useEffect(() => {
     console.log("comment id " + props?.ID);
@@ -69,7 +70,7 @@ const CommentSection = (props) => {
           console.log(error);
         });
     }
-  }, []);
+  }, [reDoUseEffect]);
 
   function formatDate(dateString) {
     const date = new Date(Date.parse(dateString));
@@ -109,7 +110,13 @@ const CommentSection = (props) => {
             }}
           >
             <Ratings ID={props?.ID} source={props?.type} isRated={isRated} />
-            <AddComments type="comment" ID={props?.ID} source={props?.type} />
+            <AddComments 
+            type="comment" 
+            ID={props?.ID} 
+            source={props?.type} 
+            reDoUseEffect = {reDoUseEffect}
+            setReDoUseEffect = {setReDoUseEffect}
+            />
             <div className="d-flex justify-content-between p-3">
               <span style={{ color: "#7D7575" }}>
                 {comments?.length} comments
