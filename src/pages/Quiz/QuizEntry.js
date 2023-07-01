@@ -117,7 +117,7 @@ const QuizEntry = (props) => {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 export default QuizEntry;
