@@ -23,7 +23,7 @@ export const unit_article_routes = [
     {
         path: "/article/:chapterId/:chapterName",
         ele: <ArticleContent/>,
-        availability: [ur.hiredEmployee, ur.supervisor, ur.contentCreator, ur.systemAdmin]
+        availability: [ur.hiredEmployee, ur.supervisor, ur.contentCreator]
     },
     {
         path: "/article/View/:id/:articleName/:chapterID/:chapterName",
@@ -33,6 +33,6 @@ export const unit_article_routes = [
     {
         path: "/edit/:id",
         ele: <Edit/>,
-        availability: [ur.hiredEmployee, ur.supervisor, ur.contentCreator]
+        availability: [ ur.supervisor, ur.contentCreator]
     }
 ]

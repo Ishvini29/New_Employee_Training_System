@@ -5,7 +5,7 @@ import swal from "sweetalert";
 import moment from "moment";
 import jwt_decode from "jwt-decode";
 
-const QuizPopup = ({ id, chapId, unitId }) => {
+const QuizPopup = ({ id, chapId }) => {
   const userDocument = jwt_decode(
     JSON.parse(localStorage.getItem("user")).token
   ).userData;
@@ -129,6 +129,7 @@ const QuizPopup = ({ id, chapId, unitId }) => {
           "Your quiz has been submitted.",
           "success"
         ).then(() => {
+          navigate("/result", { state: { unitId: id } });
           window.location.reload();
           setSubmitted(true);
         });
