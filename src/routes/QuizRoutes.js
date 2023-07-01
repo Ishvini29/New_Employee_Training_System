@@ -1,11 +1,11 @@
-import QuizEntry from "../pages/quiz/QuizEntry";
-import Quizpage from "../pages/quiz/Quizpage";
-import Result from "../pages/quiz/result";
-import Review from "../pages/quiz/review";
+import QuizEntry from "../pages/Quiz/QuizEntry";
+import Quizpage from "../pages/Quiz/Quizpage";
+import Result from "../pages/Quiz/result";
+import Review from "../pages/Quiz/review";
 
 import { userRoles as ur } from "../data/userRole";
-import QuizPopup from "../pages/quiz/QuizPopup";
-import QuizDisplay from "../pages/quiz/QuizDisplay";
+import QuizPopup from "../pages/Quiz/QuizPopup";
+import QuizDisplay from "../pages/Quiz/QuizDisplay";
 
 export const quiz_routes = [
   {
