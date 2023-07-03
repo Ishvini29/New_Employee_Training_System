@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import Header from "../Shared/Header";
 import swal from "sweetalert";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -94,7 +93,6 @@ const Forums = () => {
           </ul>
         </div>
       </nav>
-      {/* <Header title="NETS: Discussion Forums" /> */}
       {(userDocument.userRole === "Content Creator" ||
         userDocument.userRole === "Supervisor") && (
         <div className="text-center mt-5">
@@ -130,7 +128,7 @@ const Forums = () => {
             <div className="col-sm-3">
               {" "}
               <Link
-                to={`/view-forum/${f?._id}`}
+                to={`/view-forum/${f?._id}/${chapterID}/${chapterName}`}
                 className="text-decoration-none"
                 style={{ color: "black" }}
               >

@@ -5,8 +5,6 @@ import Unit from "./Unit";
 
 const UnitContent = (props) => {
   const { id, chapterName, chapterID, unitName } = useParams();
-  // http://localhost:3000/Unit/648b44b4190f2b8c4fc0f693/Chapter%2012/648b5af7722aa42bfa1a1bc5/sadfg
-
   return (
     <React.Fragment>
       <div style={{ backgroundColor: "#fefefe" }}>

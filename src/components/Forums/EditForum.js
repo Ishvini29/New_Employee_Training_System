@@ -86,7 +86,7 @@ const EditForum = () => {
     console.log(editData);
 
     axios
-      .post("http://localhost:1337/editForums/add", editData)
+      .post(process.env.REACT_APP_API_BASE +"/editForums/add", editData)
       .then(() => {
         console.log("Edit history data saved successfully");
       })
@@ -98,10 +98,8 @@ const EditForum = () => {
   };
 
   return (
-    <div className="container bg-white mt-5">
-      <div className="pt-5 px-4">
-        <Header title="NETS: Edit Discussion Forums" />
-      </div>
+    <div className="container my-5">
+        <Header title="Edit Discussion Forums" />
       <div className="p-4">
         <form onSubmit={handleSubmit(onFormSubmit)}>
           {forum?.map((f) => (

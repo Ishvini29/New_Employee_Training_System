@@ -6,13 +6,13 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase config/firebase";
 import { v4 } from "uuid";
 import jwt_decode from "jwt-decode";
-import { useParams } from "react-router-dom";
 
 function AddArticle(props) {
   const userDocument = jwt_decode(
     JSON.parse(localStorage.getItem("user")).token
   ).userData;
   const [articleUpload, setArticleUpload] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const validationSchema = Yup.object().shape({
     articleName: Yup.string().required("Article name is required"),
@@ -40,6 +40,7 @@ function AddArticle(props) {
 
   async function onSubmit(e) {
     e.preventDefault();
+    setUploading(true);
     try {
       await validationSchema.validate(
         {
@@ -49,11 +50,6 @@ function AddArticle(props) {
         },
         { abortEarly: false }
       );
-
-      console.log(`Form submitted:`);
-      console.log(`Article Name: ${articleName}`);
-      console.log(`Article Introduction: ${articleDesc}`);
-
       var newArticle = {
         createdBy: userDocument._id,
         articleName: articleName,
@@ -72,13 +68,12 @@ function AddArticle(props) {
           axios
             .post(process.env.REACT_APP_API_BASE + "/arts/add", newArticle)
             .then((res) => {
-              console.log(res.data);
-              // setArticleUploadStatus(false);
+              setUploading(false);
               swal({
                 icon: "success",
                 text: "Successfully created",
               }).then(() => {
-                window.location.reload(); // Refresh the page
+                props.setRefreshArticleList(props.refreshArticleList+1)
               });
               setarticleName("");
               setarticleDesc("");
@@ -140,11 +135,18 @@ function AddArticle(props) {
           )}
           <p>Only pdf files are allowed.</p>
           <br></br>
-          <input
-            type="submit"
-            value="Save Article"
-            className="btn btn-primary"
-          />
+          <button type="submit" className="btn btn-primary">
+            {
+                (uploading)
+                    ?
+                    <>
+                        <span className='spinner-grow spinner-grow-sm me-3' role="status"></span>
+                        Uploading
+                    </>
+                    :
+                    "Save Article"
+            }
+          </button>
         </div>
       </form>
     </div>

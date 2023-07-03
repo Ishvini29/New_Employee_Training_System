@@ -27,7 +27,7 @@ const AddReply = () => {
     axios
       .get(
         process.env.REACT_APP_API_BASE +
-          `/get-forum-details-by-forum-id/${params?.forumId}`
+        `/get-forum-details-by-forum-id/${params?.forumId}`
       )
       .then((response) => {
         setAttachmentAllowwed(response.data[0].attachmentAllowed);
@@ -57,7 +57,7 @@ const AddReply = () => {
         axios
           .post(
             process.env.REACT_APP_API_BASE +
-              `/add-replies/${params?.forumId}/${params?.commentId}`,
+            `/add-replies/${params?.forumId}/${params?.commentId}`,
             data
           )
           .then((res) => {
@@ -68,7 +68,7 @@ const AddReply = () => {
               icon: "success",
               button: "Close",
             }).then(() => {
-              navigate(`/view-forum/${params?.forumId}`);
+              navigate(`/view-forum/${params?.forumId}/${params.chapterID}/${params.chapterName}`);
             });
             reset();
           })
@@ -100,7 +100,7 @@ const AddReply = () => {
           axios
             .post(
               process.env.REACT_APP_API_BASE +
-                `/add-replies/${params?.forumId}/${params?.commentId}`,
+              `/add-replies/${params?.forumId}/${params?.commentId}`,
               data
             )
             .then((res) => {
@@ -140,10 +140,8 @@ const AddReply = () => {
   }
 
   return (
-    <div className="container bg-white mt-5">
-      <div className="pt-5 px-4">
-        <Header title="NETS: Add Reply" />
-      </div>
+    <div className="container my-5">
+      <Header title="Add Reply" />
       <div className="p-4">
         <form onSubmit={handleSubmit(onFormSubmit)}>
           <div className="form-group mt-2">
@@ -202,7 +200,7 @@ const AddReply = () => {
             >
               {uploading ? "Uploading..." : "Add"}
             </button>
-            <Link to={`/view-forum/${params?.forumId}`}>
+            <Link to={`/view-forum/${params?.forumId}/${params.chapterID}/${params.chapterName}`}>
               <button
                 type="button"
                 className="btn btn-primary mt-5 mx-3"

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import NavBar from "../../components/NavBar";
 
 const Question = (props) => (
   <tr>
@@ -43,7 +42,6 @@ const UnitHistory = () => {
   return (
     <React.Fragment>
       <div>
-        <NavBar></NavBar>
         <div className="container p-4">
           <h3>Questions Edit History</h3>
           <table className="table table-striped" style={{ marginTop: 20 }}>

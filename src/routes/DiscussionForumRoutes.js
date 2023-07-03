@@ -13,7 +13,7 @@ export const discussion_forum_routes = [
     availability: [ur.hiredEmployee, ur.contentCreator, ur.supervisor, ur.systemAdmin],
   },
   {
-    path: "/view-forum/:forumId",
+    path: "/view-forum/:forumId/:chapterID/:chapterName",
     ele: <ViewForum />,
     availability: [ur.hiredEmployee, ur.contentCreator, ur.supervisor],
   },
@@ -28,12 +28,12 @@ export const discussion_forum_routes = [
     availability: [ur.contentCreator, ur.supervisor],
   },
   {
-    path: "/create-post/:forumId",
+    path: "/create-post/:forumId/:chapterID/:chapterName",
     ele: <CreatePost />,
     availability: [ur.hiredEmployee, ur.contentCreator, ur.supervisor],
   },
   {
-    path: "/add-reply/:forumId/:commentId",
+    path: "/add-reply/:forumId/:commentId/:chapterID/:chapterName",
     ele: <AddReply />,
     availability: [ur.hiredEmployee, ur.contentCreator, ur.supervisor],
   },

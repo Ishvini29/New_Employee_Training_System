@@ -63,10 +63,8 @@ const CreateForum = () => {
   };
 
   return (
-    <div className="container bg-white mt-5">
-      <div className="pt-5 px-4">
-        <Header title="NETS: Create Discussion Forums" />
-      </div>
+    <div className="container my-5">
+        <Header title="Create Discussion Forums" />
       <div className="p-4">
         <form onSubmit={handleSubmit(onFormSubmit)}>
           <div className="form-group mt-2">

@@ -85,10 +85,10 @@ const DepartmentAddChapter = () => {
             <div className="alert alert-info mt-4">
                 <Link
                     to={"/depchapter"}
-                    className="image">
+                    className="image me-2">
                     <img src={before} className="picside11" draggable={false} alt="this is image" />
                 </Link>
-                <b>Please start the ChapterID with  "{firstLetter} "  followed by numerical digits only.Chapter Name must start with upper case and it can consist numerical digits.</b> </div>
+                <b>Please start the ChapterID with  "{firstLetter}"  followed by numerical digits only.Chapter Name must start with upper case and it can consist numerical digits.</b> </div>
             <div className="columns mt-5">
                 <div>
                     <img src={image4} className="picside7" draggable={false} alt="this is image" />

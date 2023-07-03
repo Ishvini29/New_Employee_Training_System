@@ -66,7 +66,7 @@ const CreatePost = () => {
               icon: "success",
               button: "Close",
             }).then(() => {
-              navigate(`/view-forum/${params?.forumId}`);
+              navigate(`/view-forum/${params?.forumId}/${params.chapterID} / ${params.chapterName}`);
             });
             console.log("Submitted form data:", data);
             reset();
@@ -135,10 +135,8 @@ const CreatePost = () => {
   }
 
   return (
-    <div className="container bg-white mt-5">
-      <div className="pt-5 px-4">
-        <Header title="NETS: Create Post" />
-      </div>
+    <div className="container my-5">
+        <Header title="Create Post" />
       <div className="p-4">
         <form onSubmit={handleSubmit(onFormSubmit)}>
           <div className="form-group mt-2">

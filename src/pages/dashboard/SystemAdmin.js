@@ -27,7 +27,7 @@ const SystemAdmin = () => {
                                 <img src={image5} className="card-img-top" style={{ "width": "150px" }} alt="card" ></img>
                             </center>
                             <div className="card-body">
-                                <h6>View All Chapters</h6>
+                                <h6>All Department Chapter List</h6>
                             </div>
                         </Link>
                     </div>

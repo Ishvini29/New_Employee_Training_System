@@ -17,7 +17,7 @@ const DirectGuidanceTickets = () => {
     axios
       .get(
         process.env.REACT_APP_API_BASE +
-          `/get-tickets-by-directed-department-id/${userDocument?.department}`
+        `/get-tickets-by-directed-department-id/${userDocument?.department}`
       )
       .then((response) => {
         setTickets(response.data);
@@ -39,7 +39,7 @@ const DirectGuidanceTickets = () => {
     axios
       .put(
         process.env.REACT_APP_API_BASE +
-          `/assign-ticket-by-ticket-id/${ticketId}`,
+        `/assign-ticket-by-ticket-id/${ticketId}`,
         data
       )
       .then((res) => {
@@ -72,10 +72,8 @@ const DirectGuidanceTickets = () => {
   }
 
   return (
-    <div className="container">
-      <div className="pt-5 px-4">
-        <Header title="NETS: Guidance Ticket" />
-      </div>
+    <div className="container my-5">
+      <Header title="Guidance Ticket" />
       <div
         style={{
           display: "block",
@@ -152,15 +150,15 @@ const DirectGuidanceTickets = () => {
                           t?.status === "requested"
                             ? "20%"
                             : t?.status === "directed"
-                            ? "60%"
-                            : "100%",
+                              ? "60%"
+                              : "100%",
                       }}
                       aria-valuenow={
                         t?.status === "requested"
                           ? "20"
                           : t?.status === "directed"
-                          ? "60"
-                          : "100"
+                            ? "60"
+                            : "100"
                       }
                       aria-valuemin="0"
                       aria-valuemax="100"
@@ -168,8 +166,8 @@ const DirectGuidanceTickets = () => {
                       {t?.status === "requested"
                         ? "Requested"
                         : t?.status === "directed"
-                        ? "Directed"
-                        : "Completed"}
+                          ? "Directed"
+                          : "Completed"}
                     </div>
                   </div>
                 </div>
