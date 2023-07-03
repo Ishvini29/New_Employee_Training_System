@@ -59,7 +59,9 @@ const QuizReportFront = () => {
     </center>
   ) : (
     <div className="pb-5 mt-4">
-      <h2 className="text-secondary mb-4 ms-3">Quiz Report</h2>
+      <h2 className="alert quiz-report-heading mx-2 text-light mb-4 py-3">
+        Quiz Report
+      </h2>
       {quizReport?.departments?.length > 0 &&
       quizReport?.chapters?.length > 0 ? ( //check whether quizReport state has values
         <div className="quiz-report-grid">

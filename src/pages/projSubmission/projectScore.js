@@ -59,8 +59,8 @@ const ProjScore = () => {
         </center>
       ) : gradeData?.length > 0 ? (
         <>
-          <div className="d-flex justify-content-between m-4">
-            <h3 className="text-secondary ">Project Assignment Grades</h3>
+          <div className="d-flex justify-content-between  flex-md-row flex-sm-column m-4 alert heading">
+            <h3 className="text-light">Project Assignment Grades</h3>
             <div id="content-creator" className="mt-2">
               <Search
                 handleGetSearchValue={getSearchValue}
