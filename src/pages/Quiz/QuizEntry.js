@@ -102,7 +102,7 @@ const QuizEntry = (props) => {
                 {/* <QuizComponent id={id} /> */}
                 {submitted && (
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-success"
                     onClick={() => routeToResult()}
                   >
                     View Result
@@ -117,7 +117,7 @@ const QuizEntry = (props) => {
           </div>
         </div>
       </div>
-    </React.Fragment >
+    </React.Fragment>
   );
 };
 export default QuizEntry;

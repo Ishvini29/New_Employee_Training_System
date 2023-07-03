@@ -103,11 +103,9 @@ const Submission = () => {
         <>
           {errorHandling === "" ? (
             <>
-              <div className="d-flex justify-content-between m-4">
-                <h3 className="text-secondary ">
-                  Project Assignment Submission
-                </h3>
-                <div id="content-creator" className="mt-2">
+              <div className="d-flex justify-content-between flex-md-row flex-sm-column m-4 heading alert">
+                <h3 className="text-light">Project Assignment Submission</h3>
+                <div id="content-creator">
                   <Search
                     handleGetSearchValue={getSearchValue}
                     width={{ width: "w-auto" }}
@@ -163,7 +161,7 @@ const Submission = () => {
                             {downloadIcon === emp?.empId &&
                               emp?.isFileToDownload && (
                                 <UilFolderDownload
-                                  color="#0198E1"
+                                  color="#157347"
                                   className="download-icon"
                                   // click to download file and pass employeeId as argument
                                   onClick={() =>
@@ -189,7 +187,7 @@ const Submission = () => {
                                 }}
                                 className="text-decoration-none text-white"
                               >
-                                <button className="btn btn-submission btn-sm btn-primary">
+                                <button className="btn btn-submission btn-sm btn-success">
                                   Upgrade
                                 </button>
                               </Link>
