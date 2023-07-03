@@ -16,7 +16,7 @@ const ArticleList = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-  }, [chapterId]);
+  }, [chapterId, props.refreshArticleList]);
 
   return (
     <div>

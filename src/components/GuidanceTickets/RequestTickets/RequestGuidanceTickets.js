@@ -21,7 +21,7 @@ const RequestGuidanceTickets = () => {
     axios
       .get(
         process.env.REACT_APP_API_BASE +
-          `/get-tickets-by-requested-user-id/${userDocument?._id}`
+        `/get-tickets-by-requested-user-id/${userDocument?._id}`
       )
       .then((response) => {
         setTickets(response.data);
@@ -123,10 +123,8 @@ const RequestGuidanceTickets = () => {
   }
 
   return (
-    <div className="container">
-      <div className="pt-5 px-4">
-        <Header title="NETS: Guidance Tickets" />
-      </div>
+    <div className="container my-5">
+      <Header title="Guidance Tickets" />
       <div
         style={{
           borderRadius: "11px",
@@ -202,15 +200,15 @@ const RequestGuidanceTickets = () => {
                           t?.status === "requested"
                             ? "20%"
                             : t?.status === "directed"
-                            ? "60%"
-                            : "100%",
+                              ? "60%"
+                              : "100%",
                       }}
                       aria-valuenow={
                         t?.status === "requested"
                           ? "20"
                           : t?.status === "directed"
-                          ? "60"
-                          : "100"
+                            ? "60"
+                            : "100"
                       }
                       aria-valuemin="0"
                       aria-valuemax="100"
@@ -218,8 +216,8 @@ const RequestGuidanceTickets = () => {
                       {t?.status === "requested"
                         ? "Requested"
                         : t?.status === "directed"
-                        ? "Directed"
-                        : "Completed"}
+                          ? "Directed"
+                          : "Completed"}
                     </div>
                   </div>
                 </div>

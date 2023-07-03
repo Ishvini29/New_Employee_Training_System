@@ -30,7 +30,7 @@ const QuizEntry = (props) => {
         console.log(err);
       });
     axios
-      .get("http://localhost:1337/checkSubmitted/" + id + "/" + userId)
+      .get(process.env.REACT_APP_API_BASE +"/checkSubmitted/" + id + "/" + userId)
       .then((res) => setSubmitted(res.data))
       .catch((err) => console.log(err));
   }, [id]);

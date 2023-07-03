@@ -68,10 +68,8 @@ const CompleteGuidanceTickets = () => {
   }
 
   return (
-    <div className="container">
-      <div className="pt-5 px-4">
-        <Header title="NETS: Guidance Ticket" />
-      </div>
+    <div className="container my-5">
+        <Header title="Guidance Ticket" />
       <div
         style={{
           display: "block",

@@ -120,7 +120,7 @@ const SuperAdmin = () => {
                                 <img src={editLogs} className="card-img-top" style={{ "width": "100px" }} alt="card" ></img>
                             </center>
                             <div className="card-body">
-                                <h6>Edit Logs</h6>
+                                <h6>View Logs</h6>
                             </div>
                         </Link>
                     </div>

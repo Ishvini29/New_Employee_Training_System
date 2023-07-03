@@ -24,7 +24,7 @@ const ForumHistory = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/editForums/")
+      .get(process.env.REACT_APP_API_BASE +"/editForums/")
       .then((response) => {
         setEditForums(response.data);
       })

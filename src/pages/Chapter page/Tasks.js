@@ -17,7 +17,7 @@ const Tasks = ({ unit, chapterName, chapterID }) => {
               </Link>
             </h3>
             {
-              (userRole === "Content Creator")
+              (["Content Creator", "Supervisor"].includes(userRole))
               &&
               <div>
                 <Edit key={unit._id} unit={unit} />
@@ -25,7 +25,7 @@ const Tasks = ({ unit, chapterName, chapterID }) => {
             }
             <p>{unit.unitDesc} </p>
             {
-              (userRole === "Content Creator")
+              (["Content Creator", "Supervisor"].includes(userRole))
               &&
               <div>
                 <Delete key={unit._id} unit={unit} />

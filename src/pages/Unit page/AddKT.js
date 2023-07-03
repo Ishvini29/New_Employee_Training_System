@@ -85,8 +85,7 @@ const AddKT = (props) => {
                 icon: 'success',
                 text: 'Successfully created',
               }).then(() => {
-                // setSubmitStatus(false);
-                window.location.reload(); // Refresh the page
+                props.setRefreshKT(props.refreshKT+1)
               });
               setsessionName('');
               setsessionDesc('');

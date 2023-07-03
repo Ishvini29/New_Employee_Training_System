@@ -40,7 +40,7 @@ const AddComments = (props) => {
               icon: "success",
               button: "Close",
             }).then(() => {
-              window.location.reload(); // Refresh the page
+              props.setReDoUseEffect(props.reDoUseEffect + 1);
             });
             reset();
           })
@@ -68,7 +68,6 @@ const AddComments = (props) => {
               button: "Close",
             }).then(() => {
               props.setReDoUseEffect(props.reDoUseEffect + 1);
-              // window.location.reload(); // Refresh the page
             });
             reset();
           })
@@ -102,7 +101,7 @@ const AddComments = (props) => {
               icon: "success",
               button: "Close",
             }).then(() => {
-              window.location.reload(); // Refresh the page
+              props.setReDoUseEffect(props.reDoUseEffect + 1);
             });
             reset();
           })
@@ -129,7 +128,8 @@ const AddComments = (props) => {
               icon: "success",
               button: "Close",
             }).then(() => {
-              window.location.reload(); // Refresh the page
+              props.setReDoUseEffect(props.reDoUseEffect + 1);
+              // window.location.reload(); // Refresh the page
             });
             reset();
           })

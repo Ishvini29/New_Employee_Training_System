@@ -17,7 +17,7 @@ const ViewForum = () => {
     axios
       .get(
         process.env.REACT_APP_API_BASE +
-          `/get-forum-details-by-forum-id/${params?.forumId}`
+        `/get-forum-details-by-forum-id/${params?.forumId}`
       )
       .then((response) => {
         setForum(response.data);
@@ -51,13 +51,35 @@ const ViewForum = () => {
   }
 
   return (
-    <div className="container mt-3">
-      <div className="pt-5 px-4">
-        <Header title={"NETS: " + topic} />
-      </div>
+    <div className="container my-5">
+      <Header title={params.chapterName+": Discussion Forums: "+topic} />
+      <nav className="navbar navbar-expand-lg">
+        <div
+          className="collapse navbar-collapse"
+          id="navbarSupportedContent"
+        >
+          <ul className="navbar-nav me-auto mb-5 mb-lg-0">
+            <li className="nav-item" style={{ fontWeight: "bold" }}>
+              <Link to={"/chapterPage/" + params.chapterID + "/" + params.chapterName} className="nav-link">
+                Units
+              </Link>
+            </li>
+            <li className="nav-item" style={{ fontWeight: "bold" }}>
+              <Link to={"/article/" + params.chapterID + "/" + params.chapterName} className="nav-link">
+                Articles
+              </Link>
+            </li>
+            <li className="nav-item" style={{ fontWeight: "bold" }}>
+              <Link to={"/forums/" + params.chapterID + "/" + params.chapterName} className="nav-link">
+                Discussion Forums
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <div className="text-center mt-5">
         {status === "Active" ? (
-          <Link to={`/create-post/${params?.forumId}`}>
+          <Link to={`/create-post/${params?.forumId}/${params.chapterID}/${params.chapterName}`}>
             <button type="button" className="btn btn-outline-success">
               Add Post
             </button>
@@ -171,7 +193,7 @@ const ViewForum = () => {
                     <div className="d-flex align-items-center border-left px-3">
                       {status === "Active" ? (
                         <Link
-                          to={`/add-reply/${params?.forumId}/${p?._id}`}
+                          to={`/add-reply/${params?.forumId}/${p?._id}/${params.chapterID}/${params.chapterName}`}
                           className="text-decoration-none"
                         >
                           <i className="fa fa-comment"></i>
@@ -191,43 +213,43 @@ const ViewForum = () => {
                   {showReplies
                     ? selectedComment === p?._id
                       ? p?.replies.map((r) => (
-                          <div className="p-2" style={{ marginLeft: "20px" }}>
-                            <Comment
-                              id={r?._id}
-                              user={
-                                r?.createdBy?.firstName +
-                                " " +
-                                r?.createdBy?.lastName
-                              }
-                              img={r?.createdBy?.userImage}
-                              role={r?.createdBy?.userRole}
-                              time={formatDate(r?.createdOn)}
-                              message={r?.description}
-                            />
-                            {r?.attachment && (
-                              <Link
-                                to={`/view-forum/${params?.forumId}/${p?._id}/${r?._id}`}
-                                className="text-decoration-none text-secondary"
+                        <div className="p-2" style={{ marginLeft: "20px" }}>
+                          <Comment
+                            id={r?._id}
+                            user={
+                              r?.createdBy?.firstName +
+                              " " +
+                              r?.createdBy?.lastName
+                            }
+                            img={r?.createdBy?.userImage}
+                            role={r?.createdBy?.userRole}
+                            time={formatDate(r?.createdOn)}
+                            message={r?.description}
+                          />
+                          {r?.attachment && (
+                            <Link
+                              to={`/view-forum/${params?.forumId}/${p?._id}/${r?._id}`}
+                              className="text-decoration-none text-secondary"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                width={50}
+                                height={50}
                               >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke-width="1.5"
-                                  stroke="currentColor"
-                                  width={50}
-                                  height={50}
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                                  />
-                                </svg>
-                              </Link>
-                            )}
-                          </div>
-                        ))
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                                />
+                              </svg>
+                            </Link>
+                          )}
+                        </div>
+                      ))
                       : null
                     : null}
                 </>

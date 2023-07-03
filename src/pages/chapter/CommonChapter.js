@@ -60,7 +60,7 @@ const Chapter = () => {
                     <Link
                         to={"/chapter"}
                         className="image">
-                        <img src={before} className="picside11" draggable={false} alt="this is image" />
+                        <img src={before} className="picside11" draggable={false} alt="this is" />
                     </Link>
                     <h5>Common Chapters</h5></div>
                 <div className="row ">

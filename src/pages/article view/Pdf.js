@@ -6,7 +6,7 @@ function Pdf(props) {
       <embed
         title="myframe"
         style={{ height: "900px", width: "1200px" }}
-        src={article.articleUrl + "#toolbar=0"}
+        src={article.articleUrl}
         onContextMenu={(event) => event.preventDefault()}
         width="500"
         height="375"

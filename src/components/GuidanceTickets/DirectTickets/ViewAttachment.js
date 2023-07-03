@@ -8,7 +8,7 @@ const ViewAttachment = (props) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/get-ticket-details-by-ticket-id/${params.ticketId}`
+        process.env.REACT_APP_API_BASE +`/get-ticket-details-by-ticket-id/${params.ticketId}`
       )
       .then((response) => {
         setLink(response.data.attachment);

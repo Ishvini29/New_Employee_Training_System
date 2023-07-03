@@ -17,7 +17,7 @@ const DirectForm = (props) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:1337/getContentCreators/${props?.ticket?.directedDepartmentID}`
+        process.env.REACT_APP_API_BASE +`/getContentCreators/${props?.ticket?.directedDepartmentID}`
       )
       .then((response) => {
         setEmployees(response.data);

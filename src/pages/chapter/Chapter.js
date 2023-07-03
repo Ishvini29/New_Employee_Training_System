@@ -137,8 +137,8 @@ const Chapter = () => {
                 </thead>
                 <tbody>
                   {
-                    chapters.filter((value) =>
-                      value?.chapId.toLowerCase().includes(searchQuery.toLowerCase())
+                    chapters?.filter((value) =>
+                      value?.chapId?.toLowerCase()?.includes(searchQuery?.toLowerCase())
                     )
                       .map((item) => {
                         if (item.status === "notactive") {
