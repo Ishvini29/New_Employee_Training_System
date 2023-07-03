@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Search = ({ handleGetSearchValue, width }) => {
+const Search = ({ handleGetSearchValue, width, color = "light" }) => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(true);
 
@@ -13,6 +13,7 @@ const Search = ({ handleGetSearchValue, width }) => {
       <input
         className={`form-control me-2 ${width.width}`}
         type="text"
+        value={search}
         placeholder="Search Name"
         onChange={(e) => setSearch(e.target.value)}
         onClick={() => setShowSearch(true)}
@@ -22,7 +23,7 @@ const Search = ({ handleGetSearchValue, width }) => {
         }}
       />
       <button
-        className="btn btn-outline-primary"
+        className={`btn btn-outline-${color}`}
         type="button"
         onClick={() => setShowSearch(false)}
       >

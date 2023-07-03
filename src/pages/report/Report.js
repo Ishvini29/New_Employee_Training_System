@@ -70,12 +70,13 @@ const Report = () => {
           <div className="spinner-grow mt-3" role="status"></div>
         </center>
       ) : reportDetails?.length > 0 ? ( //checking whether system has data to show
-        <div className="mt-3">
+        <div className="container-md mt-3">
           <TabReport handleGetTabReport={getTabReport} />
           <div className="">
             <Search
               handleGetSearchValue={getSearchValue}
               width={{ width: "w-auto" }}
+              color="primary"
             />
           </div>
           <table className=" empTable table table-striped table-hover mt-sm-5 mt-lg-5 ">

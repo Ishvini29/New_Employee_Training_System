@@ -149,7 +149,6 @@
   border-spacing: 0 15px;
   width: 100%;
   border-collapse: collapse;
-
 }
 
 .view-table th {
@@ -166,7 +165,6 @@
 
 .editallocatelist {
   width: 100%;
-
 }
 
 .editallocatelist label {
@@ -184,7 +182,7 @@
 }
 
 .showBut:hover {
-  color: rgb(79, 82, 84);
+  color: rgb(246, 246, 246);
 }
 
 .error {
@@ -199,12 +197,6 @@
   border-radius: 1rem;
   font-weight: bold;
   letter-spacing: 5px;
-  text-transform: uppercase;
-  transition: all 1000ms;
-  font-size: 12px;
-  position: relative;
-  overflow: hidden;
-  outline: 2px solid #1c87c9;
 }
 
 .button {
@@ -284,7 +276,6 @@
   border-radius: 4px;
   border: 1.4px solid #ebeded !important;
   box-sizing: border-box;
-
 }
 
 /* Result page */
@@ -364,8 +355,8 @@
 }
 
 .quesno {
-  background-color: rgb(217, 218, 247);
-  color: rgb(51, 14, 116);
+  background-color: rgb(50, 50, 51);
+  color: rgb(244, 242, 248);
   border-radius: 0.3rem;
   padding: 0.5rem 1rem;
 }
@@ -421,7 +412,7 @@
 }
 
 .emp-id {
-  background-color: #452f94d3 !important;
+  background-color: #23786e !important;
   color: white !important;
   border-radius: 0.3rem;
   text-align: center;
@@ -430,7 +421,7 @@
 }
 
 .emp-name {
-  background-color: #170f8fba !important;
+  background-color: #368e84 !important;
   color: white !important;
   border-radius: 0.3rem;
   text-align: center;
@@ -439,7 +430,7 @@
 }
 
 .emp-sub {
-  background-color: #1616c7a6 !important;
+  background-color: #49a398 !important;
   color: white !important;
   border-radius: 0.3rem;
   text-align: center;
@@ -448,7 +439,7 @@
 }
 
 .emp-proName {
-  background-color: #2f22e9d4 !important;
+  background-color: #31a497 !important;
   color: white !important;
   border-radius: 0.3rem;
   text-align: center;
@@ -457,7 +448,7 @@
 }
 
 .emp-status {
-  background-color: #764bc5 !important;
+  background-color: #4bc4b6 !important;
   color: white !important;
   border-radius: 0.4rem;
   text-align: center;
@@ -549,8 +540,6 @@
   border-collapse: separate;
   border-spacing: 0 15px;
 }
-
-
 
 .leaderboard-tr {
   position: relative;
@@ -689,7 +678,9 @@
 #quiz-report {
   padding-inline: 4rem;
 }
-
+.quiz-report-heading {
+  background-color: #05429e !important;
+}
 /* End of quiz report front page */
 /* Ratings */
 .ratings-grid {
@@ -761,10 +752,10 @@
 /* End of Ratings report Page */
 /* project score page */
 .score-table-feedback-td {
-  border: 2px solid #5d5fa3;
+  border: 2px solid #5da372;
   border-top: 0;
   color: #3d414d !important;
-  background-color: #d9daff !important;
+  background-color: #d9ffe1 !important;
 }
 
 .score-table-header {
@@ -774,7 +765,7 @@
 }
 
 .score-table-body {
-  background-color: #f4eff9 !important;
+  background-color: #eff9f3 !important;
   cursor: pointer;
   color: rgb(7, 2, 15);
 }
@@ -782,14 +773,15 @@
 /* End of Project score page */
 /*score edit log */
 .score-edit-log-feedback-td {
-  border: 2px solid #024a7d;
-  background-color: #c8e4f9 !important;
+  border: 2px solid #86b794;
+  background-color: #def7e5 !important;
   border-top: 0;
 }
 
 .score-editlog-pointer-event {
   cursor: pointer;
 }
+
 .vertical-align {
   vertical-align: middle;
 }

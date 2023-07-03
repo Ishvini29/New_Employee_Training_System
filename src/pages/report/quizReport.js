@@ -59,17 +59,17 @@ const QuizReport = () => {
     </center>
   ) : (
     <>
-      <div className="d-flex justify-content-between m-4">
-        <h3 className="text-secondary ">{propsData?.unitName} Unit</h3>
-        <div id="content-creator" className="mt-2">
+      <div className=" alert quiz-report-heading mx-lg-5 mx-2 d-flex flex-md-row flex-sm-column justify-content-between m-4">
+        <h3 className="text-light">{propsData?.unitName} Unit</h3>
+        <div id="content-creator">
           <Search
             handleGetSearchValue={getSearchValue}
             width={{ width: "w-auto" }}
           />
         </div>
       </div>
-      <div className="">
-        <table className=" empTable table table-striped table-hover mt-sm-5 mt-lg-5 ">
+      <div className="container-lg table-responsive">
+        <table className="empTable table table-striped table-hover mt-sm-5 mt-lg-5 ">
           <thead>
             <tr className="table-head table-dark">
               <th className="text-center">ID</th>
