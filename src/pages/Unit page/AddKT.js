@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import swal from 'sweetalert';
 import * as Yup from 'yup';
-
+import jwt_decode from "jwt-decode";
 import {
   ref,
   uploadBytes,
@@ -13,9 +13,9 @@ import { storage } from "../../Firebase config/firebase";
 import { v4 } from 'uuid';
 
 const AddKT = (props) => {
+  const userid = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData?._id;
   const { id } = useParams();
-  const chapterId = '64848a1cd792d9e0909c70e0';
-  const userid = '648050d3b39dcbdf90027b5a';
+  const chapterId = props.chapterID;
   const [KTUpload, setKTUpload] = useState(null);
 
   const validationSchema = Yup.object().shape({
@@ -85,7 +85,7 @@ const AddKT = (props) => {
                 icon: 'success',
                 text: 'Successfully created',
               }).then(() => {
-                props.setRefreshKT(props.refreshKT+1)
+                window.location.reload();
               });
               setsessionName('');
               setsessionDesc('');

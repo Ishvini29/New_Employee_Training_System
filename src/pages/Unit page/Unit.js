@@ -9,7 +9,6 @@ function Unit(props) {
   const chapterID = props.chapterID;
   const unitName = props.unitName;
   const id = props.id;
-  const [refreshKT, setRefreshKT] = useState(0);
   const [showAddTask, setShowAddTask] = useState(false);
   return (
     <div>
@@ -19,14 +18,13 @@ function Unit(props) {
           showForm={() => setShowAddTask(!showAddTask)}
           changeTextAndColor={showAddTask}
         />
-        {showAddTask && <AddKT id={id} refreshKT={refreshKT} setRefreshKT={setRefreshKT}/>}
+        {showAddTask && <AddKT chapterID={chapterID} id={id}/>}
         <br></br>
         <UnitList
           id={id}
           chapterName={chapterName}
           chapterID={chapterID}
           unitName={unitName}
-          refreshKT={refreshKT}
         ></UnitList>
       </div>
     </div>

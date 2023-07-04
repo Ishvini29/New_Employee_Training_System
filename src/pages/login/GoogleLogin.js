@@ -14,6 +14,7 @@ import FurtherDetails from "./FurtherDetails";
 const google = window.google = window.google ? window.google : {}
 
 const GoogleLogin = () => {
+    const [loading, setLoading] = useState(false);
     // To get access to the current location object of the router. 
     // The location object contains information about the current URL 
     // and can be used to extract query parameters, route parameters, or 
@@ -36,15 +37,17 @@ const GoogleLogin = () => {
     // response in object format
     // object contains, image, token, fname, lname, email, iat, eat etc...
     const handleGoogle = async (response) => {
+        setLoading(true);
         // Response includes fname, lname, email, picture, credential(token), iat, eat and etc.
         // from that we assign decoded token into googleLoginDecodedValues to send to further data
         // if user is new
         setGoogleLoginDecodedValues(jwt_decode(response.credential));
         // we send post request to following endpoint, it gets token as a body 
-        axios.post(process.env.REACT_APP_API_BASE+'/authentication/login', { credential: response.credential })
+        axios.post(process.env.REACT_APP_API_BASE + '/authentication/login', { credential: response.credential })
             .then((res) => {
                 // if res.data.status is true, if there is no any un handled error in backend
                 if (res.data.status === true) {
+                    setLoading(false);
                     console.log(res.data)
                     // This is the logic if user is available and verified
                     if (res.data.verified === true && res.data.availability === true) {
@@ -105,6 +108,14 @@ const GoogleLogin = () => {
     return (
         <React.Fragment>
             <div id="infoSection" style={{ "userSelect": "none" }}>
+                {
+                    loading &&
+                    <div class="text-center mt-4">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                }
                 {/* info section contains loginDiv element to render the google login button */}
                 <InfoSection />
                 <AboutNETS />

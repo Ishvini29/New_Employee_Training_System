@@ -2,8 +2,9 @@ import Edit from "./EditKT";
 import Delete from "./DeleteKT";
 import { Link } from "react-router-dom";
 import video from "../../images/video.png";
-
+import jwt_decode from "jwt-decode";
 const KTs = ({ KTsession, chapterName, chapterID, unitName, unitId }) => {
+  const userRole = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData?.userRole;
   return (
     <div>
       <div className="card mt-3">
@@ -13,11 +14,19 @@ const KTs = ({ KTsession, chapterName, chapterID, unitName, unitId }) => {
               {KTsession.sessionName}
             </h3>
             <div>
-              <Edit key={KTsession._id} KTsession={KTsession} unitId={unitId} />
+              {
+                ["Content Creator", "Supervisor"].includes(userRole)
+                &&
+                <Edit key={KTsession._id} KTsession={KTsession} unitId={unitId} />
+              }
             </div>
             <p>{KTsession.sessionDesc} </p>
             <div>
-              <Delete key={KTsession._id} KTsession={KTsession} />
+              {
+                ["Content Creator", "Supervisor"].includes(userRole)
+                &&
+                <Delete key={KTsession._id} KTsession={KTsession} />
+              }
             </div>
           </div>
           <p>
