@@ -9,7 +9,7 @@ const Report = () => {
   const [reportDetails, setReportDetails] = useState([]);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState();
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState("hired-employee");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -102,7 +102,7 @@ const Report = () => {
                   }
                 })
                 ?.map((emp, index) =>
-                  show //allow only hired employees
+                  show === "hired-employee" //allow only hired employees
                     ? emp?.userRoleValue.toLowerCase() === "hired employee" && (
                         <tr
                           key={index}
@@ -125,8 +125,31 @@ const Report = () => {
                           <td className="vertical-align">{emp?.jobTitle}</td>
                         </tr>
                       )
-                    : emp?.userRoleValue.toLowerCase() ===
+                    : show === "content-creator"
+                    ? emp?.userRoleValue.toLowerCase() ===
                         "content creator" && ( //allow only content creators
+                        <tr
+                          key={index}
+                          onClick={() => routeToRatingsReport(emp?.empId)}
+                        >
+                          <td>
+                            <img
+                              className="img-fluid rounded-circle "
+                              style={{ width: "50px", height: "50px" }}
+                              src={emp?.userImage}
+                              alt={emp?.firstName}
+                            />{" "}
+                            {emp?.empId}
+                          </td>
+                          <td className="vertical-align">
+                            {emp?.firstName} {emp?.lastName}
+                          </td>
+                          <td className="vertical-align">{emp?.depName}</td>
+                          <td className="vertical-align">{emp?.jobTitle}</td>
+                        </tr>
+                      )
+                    : show === "supervisor" &&
+                      emp?.userRoleValue.toLowerCase() === "supervisor" && ( //allow only content creators
                         <tr
                           key={index}
                           onClick={() => routeToRatingsReport(emp?.empId)}
