@@ -17,7 +17,7 @@ const UnitList = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-  }, [id, props.refreshKT]);
+  }, [id]);
 
   return (
     <div>

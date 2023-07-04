@@ -2,8 +2,10 @@ import Edit from "./EditArticle";
 import Delete from "./DeleteArticle";
 import { Link } from "react-router-dom";
 import pdf from '../../images/pdf.png';
+import jwt_decode from "jwt-decode";
 
 const Articles = ({ article, chapterId, chapterName }) => {
+  const userRole = jwt_decode(JSON.parse(localStorage.getItem("user")).token).userData?.userRole;
   return (
     <div>
       <div className='card mt-3'>
@@ -14,11 +16,19 @@ const Articles = ({ article, chapterId, chapterName }) => {
               {article.articleName}
             </h3>
             <div>
-              <Edit key={article._id} article={article} />
+              {
+                ["Content Creator", "Supervisor"].includes(userRole)
+                &&
+                <Edit key={article._id} article={article} />
+              }
             </div>
             <p>{article.articleDesc} </p>
             <div>
-              <Delete key={article._id} article={article} />
+              {
+                ["Content Creator", "Supervisor"].includes(userRole)
+                &&
+                <Delete key={article._id} article={article} />
+              }
             </div>
           </div>
           <p>

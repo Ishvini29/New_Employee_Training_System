@@ -6,6 +6,7 @@ import manageGuidance from "../../images/Supervisor/manageGuidance.svg";
 import report from "../../images/Supervisor/report.svg";
 import viewChapter from "../../images/Supervisor/viewChapter.svg";
 import image2 from "../../images/contentCr/learningChap.svg"
+import image4 from "../../images/contentCr/rating1.svg";
 const Supervisor = () => {
     return (
         <>
@@ -78,6 +79,23 @@ const Supervisor = () => {
                             </center>
                             <div className="card-body">
                                 <h6>Chapters</h6>
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+                <div className="col-md-4 mb-3">
+                    <div className="card shadow">
+                        <Link to="/ratingsreport" className="btn btn-outline-dark">
+                            <center>
+                                <img
+                                    src={image4}
+                                    className="card-img-top"
+                                    style={{ width: "100px" }}
+                                    alt="card"
+                                ></img>
+                            </center>
+                            <div className="card-body">
+                                <h6>View My Ratings</h6>
                             </div>
                         </Link>
                     </div>
