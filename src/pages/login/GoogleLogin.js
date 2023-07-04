@@ -110,7 +110,7 @@ const GoogleLogin = () => {
             <div id="infoSection" style={{ "userSelect": "none" }}>
                 {
                     loading &&
-                    <div class="text-center">
+                    <div class="text-center mt-4">
                         <div class="spinner-border" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
