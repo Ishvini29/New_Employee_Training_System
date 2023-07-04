@@ -226,6 +226,7 @@ const LeaderBoard = () => {
                   <Search
                     handleGetSearchValue={getSearchValue}
                     width={{ width: "w-auto" }}
+                    color="primary"
                   />
                 </div>
               </div>

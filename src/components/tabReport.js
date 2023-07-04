@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 // It takes an object destructuring argument "handleGetTabReport" prop.
 const TabReport = ({ handleGetTabReport }) => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState("hired-employee");
 
   // The function is run initially when the component mounts
   // and again whenever the value of show changes.
@@ -17,11 +17,11 @@ const TabReport = ({ handleGetTabReport }) => {
         and set show to true when Hired Employee tab is clicked*/}
         <a
           className={`nav-link btn btn-outline-primary  ${
-            show ? "active" : ""
+            show === "hired-employee" ? "active" : ""
           }`}
           aria-current="page"
           href="#hired-employee"
-          onClick={() => setShow(true)}
+          onClick={() => setShow("hired-employee")}
         >
           Hired Employees
         </a>
@@ -31,12 +31,25 @@ const TabReport = ({ handleGetTabReport }) => {
         and set show to false when Content Creators tab is clicked*/}
         <a
           className={`btn btn-outline-primary nav-link  ${
-            show ? "" : "active"
+            show === "content-creator" ? "active" : ""
           }`}
           href="#content-creator"
-          onClick={() => setShow(false)}
+          onClick={() => setShow("content-creator")}
         >
           Content Creators
+        </a>
+      </li>
+      <li className="nav-item report-tab">
+        {/* Apply "active" class if show is false 
+        and set show to false when Supervisor tab is clicked*/}
+        <a
+          className={`btn btn-outline-primary nav-link  ${
+            show === "supervisor" ? "active" : ""
+          }`}
+          href="#supervisor"
+          onClick={() => setShow("supervisor")}
+        >
+          Supervisors
         </a>
       </li>
     </ul>
