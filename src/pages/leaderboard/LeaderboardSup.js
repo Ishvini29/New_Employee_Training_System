@@ -277,7 +277,7 @@ const LeaderboardSup = () => {
     </center>
   ) : (
     <div>
-      {score?.length > 1 ? (
+      {score?.length > 0 ? (
         <div className="container-md bg-light my-lg-3 p-md-4">
           {/* Top gainers section */}
           <div className="d-flex justify-content-between  flex-sm-row flex-column">
